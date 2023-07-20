@@ -1,5 +1,6 @@
 <?php
     require_once "../dbconnect.php";
+    require_once "../support_functions.php";
 
     $method = $_SERVER['REQUEST_METHOD'];
     $input = json_decode(file_get_contents('php://input'),true);
@@ -96,5 +97,23 @@
     $st->bind_param('sssss',$fname,$lname,$email,$pass_hash,$fname);
     $st->execute();
 
-    //should now create an email verification token.
+    $query = 'select id from users where email=?';
+    $st = $mysqli->prepare($query);
+    $st->bind_param('s',$email);
+    $st->execute();
+    $res = $st->get_result();
+    $id = $res->fetch_assoc()['id'];
+
+    $verif_key = md5(random_bytes(16));
+    $query = 'insert into verify_account(id,verif_key) values(?,?)';
+    $st = $mysqli->prepare($query);
+    $st->bind_param('is',$id,$verif_key);
+    $st->execute();
+
+    $subject = 'Email verification - Web Decision Trees App';
+    $domain2 = getdomain();
+    $email_body = "Account verification, please click <a href='$domain2/pages/verification.html?verif_key=$verif_key'>here</a> or paste the following to your browser $domain2/pages/verification.html?verif_key=$verif_key";
+    $alt_body = "Account verification, please paste the following to your browser $domain2/pages/verification.html?verif_key=$verif_key";
+    // should now add php mail
+	print json_encode(['message'=>"Verification mail sent"]);
 ?>
