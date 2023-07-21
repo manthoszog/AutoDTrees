@@ -1,6 +1,7 @@
 <?php
     require_once "../dbconnect.php";
-    require_once "../support_functions.php";
+    require_once "../global_functions.php";
+    require_once "../phpmailer.php";
 
     $method = $_SERVER['REQUEST_METHOD'];
     $input = json_decode(file_get_contents('php://input'),true);
@@ -114,6 +115,8 @@
     $domain2 = getdomain();
     $email_body = "Account verification, please click <a href='$domain2/pages/verification.html?verif_key=$verif_key'>here</a> or paste the following to your browser $domain2/pages/verification.html?verif_key=$verif_key";
     $alt_body = "Account verification, please paste the following to your browser $domain2/pages/verification.html?verif_key=$verif_key";
-    // should now add php mail
+    
+    send_mail($email,$fname,$subject,$email_body,$alt_body);
+
 	print json_encode(['message'=>"Verification mail sent"]);
 ?>
