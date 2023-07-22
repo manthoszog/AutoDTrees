@@ -2,3 +2,4 @@
 vendor
 composer.lock
 /server/php/mailer_config.php
+/server/py/users/*
