@@ -25,9 +25,14 @@
         exit;
     }
 
-    if(verif_key_expired($verif_key)){
+    $id = verif_key_expired($verif_key);
+    if($id != null){
+        $data = array(
+            'errormesg' => "Verification key expired.",
+            'id' => $id
+          );
         header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg'=>"Verification key expired. Request email resend."]);
+        print json_encode($data);
         exit;
     }
 
