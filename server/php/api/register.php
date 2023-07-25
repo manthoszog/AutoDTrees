@@ -113,8 +113,8 @@
 
     $subject = 'Email verification - Web Decision Trees App';
     $domain2 = getdomain();
-    $email_body = "Account verification, please click <a href='$domain2/pages/verification.html?verif_key=$verif_key'>here</a> or paste the following to your browser $domain2/pages/verification.html?verif_key=$verif_key";
-    $alt_body = "Account verification, please paste the following to your browser $domain2/pages/verification.html?verif_key=$verif_key";
+    $email_body = "Account verification, please click <a href='$domain2/pages/verification.html?verif_key=$verif_key'>here</a> or paste the following to your browser: $domain2/pages/verification.html?verif_key=$verif_key";
+    $alt_body = "Account verification, please paste the following to your browser: $domain2/pages/verification.html?verif_key=$verif_key";
     
     send_mail($email,$fname,$subject,$email_body,$alt_body);
 

@@ -1,6 +1,7 @@
 $(function(){
     
     $('#btn').hide();
+    $('#btn2').hide();
 
     const urlParams = new URLSearchParams(window.location.search);
     const verif_key = urlParams.get('verif_key');
@@ -36,20 +37,27 @@ $(function(){
                         data: JSON.stringify({id: id}),
                         dataType: "json",
                         contentType: 'application/json',
-                        success: function(data){
+                        success: function(data2){
                             var showSuccess2 = '<div>Email successfully sent</div>';
-                            $('#mes').append(showSuccess2);
-                            $('#btn').hide();
+                            $('#mes').html(showSuccess2);
                         },
                         error: function(xhr2,status2,error2){
                             var response2 = JSON.parse(xhr2.responseText);
                             var errormesg2 = response2.errormesg;
                             var showError2 = '<div>${errormesg2}</div>';
-                            $('#mes').append(showError2);
-                            $('#btn').hide();
+                            $('#mes').html(showError2);
+                            if(errormesg2 == 'Maximum limit of verification resending has exceeded. Please register again.'){
+                                $('#btn2').show();
+                                $('#btn2').text("Register");
+                                $("#btn2").click(function(){
+                                    window.location.href='register.html';
+                                });
+                            }
                         }
                     });
                 });
+                $('#btn').hide();
+                $('#btn2').hide();
             }
         }
     });

@@ -30,8 +30,9 @@ CREATE TABLE `users` (
   `pass` varchar(100) NOT NULL,
   `token` varchar(100) NOT NULL,
   `email_verif` tinyint(1) NOT NULL DEFAULT 0,
+  `resend_count` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,4 +82,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-20 19:33:35
+-- Dump completed on 2023-07-25 19:05:28
