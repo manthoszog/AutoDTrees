@@ -1,5 +1,4 @@
 <?php
-    require_once "dbconnect.php";
 
     function getdomain(){
         if(gethostname() == 'users.iee.ihu.gr'){
@@ -12,6 +11,7 @@
     }
 
     function verif_key_exists($verif_key){
+        global $mysqli;
         $query = 'select count(*) as c from verify_account where verif_key=?';
         $st = $mysqli->prepare($query);
         $st->bind_param('s',$verif_key);
@@ -28,6 +28,7 @@
     }
 
     function verif_key_expired($verif_key){
+        global $mysqli;
         $query = 'select count(*) as c from verify_account where verif_key=? and creation_time < (NOW() - INTERVAL 5 MINUTE)';
         $st = $mysqli->prepare($query);
         $st->bind_param('s',$verif_key);

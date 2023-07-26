@@ -26,12 +26,8 @@
 
     $id = verif_key_expired($verif_key);
     if($id != null){
-        $data = array(
-            'errormesg' => "Verification key expired.",
-            'id' => $id
-          );
         header("HTTP/1.1 400 Bad Request");
-        print json_encode($data);
+        print json_encode(['errormesg'=>"Verification key expired.", 'id' => $id]);
         exit;
     }
 
@@ -53,7 +49,8 @@
     $st2->execute();   
     
     $hash_user = md5($email);
-	mkdir("../py/users/$hash_user/datasets");
+	mkdir("../py/users/$hash_user");
+    mkdir("../py/users/$hash_user/datasets");
     mkdir("../py/users/$hash_user/models");
 
     print json_encode(['message'=>"Successfully registered."]);
