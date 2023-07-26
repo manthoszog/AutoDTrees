@@ -3,16 +3,18 @@ $(function(){
     $('#btn').hide();
     $('#btn2').hide();
 
-    const urlParams = new URLSearchParams(window.location.search);
-    const verif_key = urlParams.get('verif_key');
+    function getUrlParams(k){
+        var p={};
+        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v});
+        return k?p[k]:p;
+    }
+    var verif_key = getUrlParams('verif_key');
+    var link = '../server/php/verification.php?verif_key=' + verif_key;
 
     $.ajax({
-        url: '../server/php/verification.php',
+        url: link,
         method: 'GET',
-        data: JSON.stringify({verif_key: verif_key}),
-        dataType: "json",
-        contentType: 'application/json',
-        success: function(data){
+        success: function(){
             var showSuccess = '<div>Successfully registered</div>';
             $('#mes').append(showSuccess);
             $('#btn').show();
@@ -24,7 +26,7 @@ $(function(){
         error: function(xhr,status,error){
             var response = JSON.parse(xhr.responseText);
             var errormesg = response.errormesg;
-            var showError = '<div>${errormesg}</div>';
+            var showError = '<div>' + errormesg + '</div>';
             $('#mes').append(showError);
             if(errormesg == 'Verification key expired'){
                 var id = response.id;
@@ -37,14 +39,14 @@ $(function(){
                         data: JSON.stringify({id: id}),
                         dataType: "json",
                         contentType: 'application/json',
-                        success: function(data2){
+                        success: function(){
                             var showSuccess2 = '<div>Email successfully sent</div>';
                             $('#mes').html(showSuccess2);
                         },
                         error: function(xhr2,status2,error2){
                             var response2 = JSON.parse(xhr2.responseText);
                             var errormesg2 = response2.errormesg;
-                            var showError2 = '<div>${errormesg2}</div>';
+                            var showError2 = '<div>' + errormesg2 + '</div>';
                             $('#mes').html(showError2);
                             if(errormesg2 == 'Maximum limit of verification resending has exceeded. Please register again.'){
                                 $('#btn2').show();

@@ -3,7 +3,6 @@
     require_once "global_functions.php";
 
     $method = $_SERVER['REQUEST_METHOD'];
-    $input = json_decode(file_get_contents('php://input'),true);
 
     if($method != "GET") {
         header("HTTP/1.1 405 Method Not Allowed");
@@ -11,13 +10,13 @@
         exit;
     }
     
-    if(!isset($input['verif_key'])){
+    if(!isset($_GET['verif_key'])){
         header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"Verification key is not set."]);
         exit;
     }
 
-    $verif_key = $input['verif_key'];
+    $verif_key = $_GET['verif_key'];
 
     if(!verif_key_exists($verif_key)){
         header("HTTP/1.1 400 Bad Request");
