@@ -1,6 +1,7 @@
 <?php
     require_once "dbconnect.php";
     require_once "global_functions.php";
+    require_once "phpmailer.php";
 
     $method = $_SERVER['REQUEST_METHOD'];
     $input = json_decode(file_get_contents('php://input'),true);
@@ -26,7 +27,7 @@
     $res = $st->get_result();
     $count = $res->fetch_assoc()['resend_count'];
 
-    if($count > 3){
+    if($count >= 3){
         $query2 = 'delete from verify_account where id=?';
         $st2 = $mysqli->prepare($query2);
         $st2->bind_param('i',$id);
