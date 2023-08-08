@@ -6,8 +6,6 @@ $(function(){
     $('#loginbtn').click(function(){
         var email = $('#email').val().trim();
         var pass = $('#pass').val().trim();
-        console.log(email);
-        console.log(pass);
         if(email.length == 0){
             $('#mes').html("Enter your email");
             return;

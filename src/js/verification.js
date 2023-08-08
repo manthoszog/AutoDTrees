@@ -16,7 +16,7 @@ $(function(){
         url: link,
         method: 'GET',
         success: function(){
-            var showSuccess = '<div>Successfully registered</div>';
+            var showSuccess = '<div>Successfully verified</div>';
             $('#mes').append(showSuccess);
             $('#btn').show();
             $('#btn').text("Log in");

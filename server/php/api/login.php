@@ -4,6 +4,12 @@
     $method = $_SERVER['REQUEST_METHOD'];
     $input = json_decode(file_get_contents('php://input'),true);
     
+    if($method != "POST") {
+        header("HTTP/1.1 405 Method Not Allowed");
+        print json_encode(['errormesg'=>"Method not allowed."]);
+        exit;
+    }
+    
     if(!isset($input['email'])){
         header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"Email is not set."]);
@@ -28,7 +34,7 @@
 
     if(empty($res)){
         header("HTTP/1.1 400 Bad Request");
-		print json_encode(['errormesg'=>"Account does not exists."]);
+		print json_encode(['errormesg'=>"Account does not exist."]);
         exit;
     }
 
