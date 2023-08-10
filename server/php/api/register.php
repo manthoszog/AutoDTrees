@@ -112,9 +112,9 @@
     $st->execute();
 
     $hash_user = md5($email);
-	mkdir("../py/users/$hash_user");
-    mkdir("../py/users/$hash_user/datasets");
-    mkdir("../py/users/$hash_user/models");
+	mkdir("../../py/users/$hash_user");
+    mkdir("../../py/users/$hash_user/datasets");
+    mkdir("../../py/users/$hash_user/models");
     
     $subject = 'Email verification - Web Decision Trees App';
     $domain2 = getdomain();

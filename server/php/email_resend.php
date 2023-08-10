@@ -4,64 +4,78 @@
     require_once "phpmailer.php";
 
     $method = $_SERVER['REQUEST_METHOD'];
-    $input = json_decode(file_get_contents('php://input'),true);
 
-    if($method != "POST"){
+    if($method != "GET"){
         header("HTTP/1.1 405 Method Not Allowed");
         print json_encode(['errormesg'=>"Method not allowed."]);
         exit;
     }
     
-    if(!isset($input['id'])){
+    if(!isset($_GET['email'])){
         header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg'=>"User verification error."]);
+        print json_encode(['errormesg'=>"Email is not set."]);
         exit;
     }
 
-    $id = $input['id'];
+    $email = $_GET['email'];
 
-    $query = 'select resend_count from users where id=?';
+    $query = 'select count(*) as c from users where email=?';
     $st = $mysqli->prepare($query);
-    $st->bind_param('i',$id);
+    $st->bind_param('s',$email);
     $st->execute();
     $res = $st->get_result();
-    $count = $res->fetch_assoc()['resend_count'];
+    $count = $res->fetch_assoc()['c'];
 
-    if($count >= 3){
-        $query2 = 'delete from verify_account where id=?';
-        $st2 = $mysqli->prepare($query2);
-        $st2->bind_param('i',$id);
-        $st2->execute();
-
-        $query3 = 'delete from users where id=?';
-        $st3 = $mysqli->prepare($query3);
-        $st3->bind_param('i',$id);
-        $st3->execute();
-        
+    if($count == 0){
         header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg'=>"Maximum limit of verification resending has exceeded. Please register again."]);
+        print json_encode(['errormesg'=>"Account does not exist."]);
         exit;
     }
 
-    $query = 'select email,fname from users where id=?';
+    $query = 'select count(*) as c from users where email=? and email_verif=1';
     $st = $mysqli->prepare($query);
-    $st->bind_param('i',$id);
+    $st->bind_param('s',$email);
+    $st->execute();
+    $res = $st->get_result();
+    $count2 = $res->fetch_assoc()['c'];
+
+    if($count2 > 0){
+        header("HTTP/1.1 400 Bad Request");
+        print json_encode(['errormesg'=>"Account already verified."]);
+        exit;
+    }
+
+    $query = 'select id,fname from users where email=?';
+    $st = $mysqli->prepare($query);
+    $st->bind_param('s',$email);
     $st->execute();
     $res = $st->get_result();
     $res = $res->fetch_assoc();
-    $email = $res['email'];
+    $id = $res['id'];
     $fname = $res['fname'];
 
+    $query = 'select count(*) as c from verify_account where id=? and creation_time < (NOW() - INTERVAL 2 MINUTE)';
+    $st = $mysqli->prepare($query);
+    $st->bind_param('i',$id);
+    $st->execute();
+    $res = $st->get_result();
+    $count3 = $res->fetch_assoc()['c'];
+
+    if($count3 == 0){
+        header("HTTP/1.1 400 Bad Request");
+        print json_encode(['errormesg'=>"Email can be resent every 2 minutes."]);
+        exit;
+    }
+
+    $query = 'delete from verify_account where id=?';
+    $st = $mysqli->prepare($query);
+    $st->bind_param('i',$id);
+    $st->execute();
+    
     $verif_key = md5(random_bytes(16));
     $query = 'insert into verify_account(id,verif_key) values(?,?)';
     $st = $mysqli->prepare($query);
     $st->bind_param('is',$id,$verif_key);
-    $st->execute();
-
-    $count2 = $count + 1;
-    $query = 'update users set resend_count=? where id=?';
-    $st = $mysqli->prepare($query);
-    $st->bind_param('ii',$count2,$id);
     $st->execute();
 
     $subject = 'Email verification - Web Decision Trees App';

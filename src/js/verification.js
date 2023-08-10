@@ -2,7 +2,6 @@ $(function(){
     
     $('#btn').hide();
     $('#btn2').hide();
-    $('#btn3').hide();
 
     function getUrlParams(k){
         var p={};
@@ -11,55 +10,44 @@ $(function(){
     }
     var verif_key = getUrlParams('verif_key');
     var link = '../server/php/verification.php?verif_key=' + verif_key;
-    var id;
+    var email;
     $.ajax({
         url: link,
         method: 'GET',
         success: function(){
-            var showSuccess = '<div>Successfully verified</div>';
-            $('#mes').append(showSuccess);
+            $('#mes').html("Successfully verified");
             $('#btn').show();
             $('#btn').text("Log in");
-            $("#btn").click(function(){
-                window.location.href='login.html';
-            });
         },
         error: function(xhr,status,error){
             var response = JSON.parse(xhr.responseText);
             var errormes = response.errormesg;
             $('#mes').html(errormes);
             if(errormes == "Verification key expired."){
-                id = response.id;
+                email = response.email;
                 $('#btn2').show();
                 $('#btn2').text("Resend email");
             }
         }
     });
 
+    $("#btn").click(function(){
+        window.location.href='login.html';
+    });
+    
     $("#btn2").click(function(){
+        var link = '../server/php/email_resend.php?email=' + email;
         $.ajax({
-            url: '../server/php/email_resend.php',
-            method: 'POST',
-            data: JSON.stringify({id: id}),
-            dataType: "json",
-            contentType: 'application/json',
+            url: link,
+            method: 'GET',
             success: function(){
                 $('#mes').html("Email successfully sent");
-                $("#btn2").prop("disabled",true);
             },
             error: function(xhr,status,error){
                 var response2 = JSON.parse(xhr.responseText);
-                var errormesg2 = response2.errormesg;
-                $('#mes').html(errormesg2);
-                if(errormesg2 == "Maximum limit of verification resending has exceeded. Please register again."){
-                    $("#btn2").prop("disabled",true);
-                    $('#btn3').show();
-                    $('#btn3').text("Register");
-                }
+                var errormes2 = response2.errormesg;
+                $('#mes').html(errormes2);
             }
         });
-    });
-    $("#btn3").click(function(){
-        window.location.href='register.html';
     });
 });

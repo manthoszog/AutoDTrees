@@ -24,14 +24,14 @@
         exit;
     }
 
-    $id = verif_key_expired($verif_key);
-    if($id != null){
+    $email = verif_key_expired($verif_key);
+    if($email != null){
         header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg'=>"Verification key expired.", 'id' => $id]);
+        print json_encode(['errormesg'=>"Verification key expired.", 'email' => $email]);
         exit;
     }
 
-    $query = 'update users u join verify_account va on u.id=va.id set u.email_verif=1, u.resend_count=0 where va.verif_key=?';
+    $query = 'update users u join verify_account va on u.id=va.id set u.email_verif=1 where va.verif_key=?';
     $st = $mysqli->prepare($query);
     $st->bind_param('s',$verif_key);
     $st->execute();

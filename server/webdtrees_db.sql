@@ -30,19 +30,9 @@ CREATE TABLE `users` (
   `pass` varchar(100) NOT NULL,
   `token` varchar(100) NOT NULL,
   `email_verif` tinyint(1) NOT NULL DEFAULT 0,
-  `resend_count` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `users`
---
-
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
-UNLOCK TABLES;
 
 --
 -- Table structure for table `verify_account`
@@ -59,19 +49,6 @@ CREATE TABLE `verify_account` (
   CONSTRAINT `verify_account_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `verify_account`
---
-
-LOCK TABLES `verify_account` WRITE;
-/*!40000 ALTER TABLE `verify_account` DISABLE KEYS */;
-/*!40000 ALTER TABLE `verify_account` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Dumping routines for database 'webdtrees_db'
---
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -82,4 +59,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-07-25 19:05:28
+-- Dump completed on 2023-08-10 13:18:31

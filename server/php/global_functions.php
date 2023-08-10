@@ -37,19 +37,14 @@
         $count = $res->fetch_assoc()['c'];
     
         if($count > 0){
-            $query3 = 'select id from verify_account where verif_key=? and creation_time < (NOW() - INTERVAL 5 MINUTE)';
+            $query3 = 'select u.email as address from users u join verify_account va on u.id=va.id where va.verif_key=? and va.creation_time < (NOW() - INTERVAL 5 MINUTE)';
             $st3 = $mysqli->prepare($query3);
             $st3->bind_param('s',$verif_key);
             $st3->execute();
             $res3 = $st3->get_result();
-            $id = $res3->fetch_assoc()['id'];
+            $address = $res3->fetch_assoc()['address'];
             
-            $query2 = 'delete from verify_account where verif_key=?';
-            $st2 = $mysqli->prepare($query2);
-            $st2->bind_param('s',$verif_key);
-            $st2->execute();
-            
-            return $id;
+            return $address;
         }
         else{
             return null;
