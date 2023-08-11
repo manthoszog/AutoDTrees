@@ -33,20 +33,41 @@
         exit;
     }
 
-    $query = 'select email_verif,fname,id from users where email=?';
+    $query = 'select id,fname from users where email=?';
     $st = $mysqli->prepare($query);
     $st->bind_param('s',$email);
     $st->execute();
     $res = $st->get_result();
     $res = $res->fetch_assoc();
-
-    $fname = $res['fname'];
+    
     $id = $res['id'];
+    $fname = $res['fname'];
 
-    if(!$res['email_verif']){
-        header("HTTP/1.1 400 Bad Request");
-		print json_encode(['errormesg'=>"Account did not verified."]);
-        exit;
+    $query = 'select * from verify_account where id=?';
+    $st = $mysqli->prepare($query);
+    $st->bind_param('i',$id);
+    $st->execute();
+    $res = $st->get_result();
+    $res = $res->fetch_assoc();
+
+    if(!empty($res)){
+        $query = 'select count(*) as c from verify_account where id=? and creation_time < (NOW() - INTERVAL 2 MINUTE)';
+        $st = $mysqli->prepare($query);
+        $st->bind_param('i',$id);
+        $st->execute();
+        $res = $st->get_result();
+        $count2 = $res->fetch_assoc()['c'];
+
+        if($count2 == 0){
+            header("HTTP/1.1 400 Bad Request");
+            print json_encode(['errormesg'=>"Email can be resent every 2 minutes."]);
+            exit;
+        }
+        
+        $query = 'delete from verify_account where id=?';
+        $st = $mysqli->prepare($query);
+        $st->bind_param('i',$id);
+        $st->execute();
     }
     
     $verif_key = md5(random_bytes(16));
@@ -55,15 +76,10 @@
     $st->bind_param('is',$id,$verif_key);
     $st->execute();
 
-    $query = 'update users set email_verif=0 where id=?';
-    $st = $mysqli->prepare($query);
-    $st->bind_param('i',$id);
-    $st->execute();
-
     $subject = 'Reset Password - Web Decision Trees App';
     $domain2 = getdomain();
-    $email_body = "Password reset, please click <a href='$domain2/pages/pass-reset.html?verif_key=$verif_key'>here</a> or paste the following to your browser: $domain2/pages/pass-reset.html?verif_key=$verif_key";
-    $alt_body = "Account verification, please paste the following to your browser: $domain2/pages/pass-reset.html?verif_key=$verif_key";
+    $email_body = "Request for password reset, please click <a href='$domain2/pages/pass-reset.html?verif_key=$verif_key'>here</a> or paste the following to your browser: $domain2/pages/pass-reset.html?verif_key=$verif_key";
+    $alt_body = "Request for password reset, please paste the following to your browser: $domain2/pages/pass-reset.html?verif_key=$verif_key";
     
     send_mail($email,$fname,$subject,$email_body,$alt_body);
 
