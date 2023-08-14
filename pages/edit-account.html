@@ -25,6 +25,9 @@
                     <li class="nav-item" role="presentation">
                       <button class="nav-link" id="editProf2-tab" data-bs-toggle="tab" data-bs-target="#editProf2" type="button" role="tab" aria-controls="editProf2" aria-selected="false">Edit Email</button>
                     </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="editProf3-tab" data-bs-toggle="tab" data-bs-target="#editProf3" type="button" role="tab" aria-controls="editProf3" aria-selected="false">Delete Account</button>
+                    </li>
                 </ul>
                 <div class="tab-content" id="editProfTabContent">
                     <div class="tab-pane fade show active" id="editProf1" role="tabpanel" aria-labelledby="editProf1-tab" tabindex="0">
@@ -53,6 +56,22 @@
                         <button type="button" id="email_resend">Resend verification mail</button>
                         <div id="mes3">
                         </div>
+                    </div>
+                    <div class="tab-pane fade" id="editProf3" role="tabpanel" aria-labelledby="editProf3-tab" tabindex="0">
+                        <form action="#">
+                            <label>Re-enter your password:</label>
+                            <input type="password" id="pass_del"><br><br>
+                            <label>Confirm your password:</label>
+                            <input type="password" id="pass_del_confirm"><br><br>
+                            <input type="button" value="Delete Account" id="delbtn">
+                            <a href="../" id="homeref">Go to Home Page</a>
+                        </form>
+                        <div id="mes4">
+                        </div>
+                        <button type="button" id="confbtn3">Confirm</button>
+                        <button type="button" id="cancelbtn">Cancel</button>
+                        <!--<button type="button" id="homebtn">Home Page</button>-->
+
                     </div>
                 </div>
                 <div id="mes2">

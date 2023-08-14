@@ -18,6 +18,12 @@
         exit;
     }
 
+    if(!token_exists($input['token'])){
+        header("HTTP/1.1 400 Bad Request");
+        print json_encode(['errormesg'=>"Token doesn't exist."]);
+        exit;
+    }
+
     if(isset($input['email'])){
         $email = $input['email'];
         
@@ -73,6 +79,8 @@
         $st->bind_param('is',$id,$verif_key);
         $st->execute();
 
+        //should rename folder in user's directory
+        
         $subject = 'New email address verification - Web Decision Trees App';
         $domain2 = getdomain();
         $email_body = "New email address verification, please click <a href='$domain2/pages/verification.html?verif_key=$verif_key'>here</a> or paste the following to your browser: $domain2/pages/verification.html?verif_key=$verif_key";

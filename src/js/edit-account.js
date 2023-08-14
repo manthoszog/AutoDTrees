@@ -2,6 +2,9 @@ $(function(){
     $("#logoutb").hide();
     $("#email_resend").hide();
     $("#loginb").hide();
+    $("#confbtn3").hide();
+    $("#cancelbtn").hide();
+    $("#homeref").hide();
 
     if(sessionStorage.getItem("token") !== null){
         $("#mes2").html(sessionStorage.getItem("fname") + " " + sessionStorage.getItem("lname"));
@@ -133,6 +136,8 @@ $(function(){
                 $("#email").prop("disabled",true);
                 $("#confbtn1").prop("disabled",true);
                 $("#email_resend").show();
+                $("#logoutb").prop("disabled",true);
+                $("#delbtn").prop("disabled",true);
             },
             error: function(xhr,status,error){
                 var response = JSON.parse(xhr.responseText);
@@ -169,5 +174,70 @@ $(function(){
 
     $('#loginb').click(function(){
         window.location.href = 'login.html';
+    });
+
+    var pass_del;
+    var pass_del_confirm;
+    $('#delbtn').click(function(){
+        pass_del = $('#pass_del').val().trim();
+        pass_del_confirm = $('#pass_del_confirm').val().trim();
+
+        if(pass_del.length == 0){
+            $('#mes4').html("Enter your password.");
+            return;
+        }
+
+        if(pass_del_confirm.length == 0){
+            $('#mes4').html("Confirm your password.");
+            return;
+        }
+
+        $('#mes4').html("Are you sure you want to delete your account? All your data and files will be lost.");
+        $("#delbtn").prop("disabled",true);
+        $("#pass_del").prop("disabled",true);
+        $("#pass_del_confirm").prop("disabled",true);
+        $("#confbtn3").show();
+        $("#cancelbtn").show();
+    });
+
+    $('#cancelbtn').click(function(){
+        $("#cancelbtn").hide();
+        $("#confbtn3").hide();
+        $('#mes4').html("");
+        $("#delbtn").prop("disabled",false);
+        $("#pass_del").prop("disabled",false);
+        $("#pass_del_confirm").prop("disabled",false);
+        $('#pass_del').val("");
+        $('#pass_del_confirm').val("");
+    });
+
+    $('#confbtn3').click(function(){
+        $.ajax({
+            url: '../server/php/api/delete-account.php',
+            method: 'DELETE',
+            data: JSON.stringify({pass_del: pass_del, pass_del_confirm: pass_del_confirm, token: token}),
+            dataType: "json",
+            contentType: 'application/json',
+            success: function(){
+                $('#mes4').html("Account successfully deleted.");
+                sessionStorage.clear();
+                $("#logoutb").hide();
+                $("#homeref").show();
+                $("#confbtn3").hide();
+                $("#cancelbtn").hide();
+            },
+            error: function(xhr,status,error){
+                var response = JSON.parse(xhr.responseText);
+                var errormes = response.errormesg;
+                $('#mes4').html(errormes);
+                if((errormes == "Wrong password.") || (errormes == "Passwords doesn't match.")){
+                    $("#pass_del").prop("disabled",false);
+                    $("#pass_del_confirm").prop("disabled",false);
+                    $("#delbtn").prop("disabled",false);
+                    $("#cancelbtn").hide();
+                    $("#confbtn3").hide();
+                }
+            }
+        });
     });
 });

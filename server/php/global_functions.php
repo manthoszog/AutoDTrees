@@ -50,4 +50,26 @@
             return null;
         }
     }
+
+    function token_exists($token){
+        global $mysqli;
+        $query = 'select count(*) as c from users where token=?';
+        $st = $mysqli->prepare($query);
+        $st->bind_param('s',$token);
+        $st->execute();
+        $res = $st->get_result();
+        $count = $res->fetch_assoc()['c'];
+        
+        if($count > 0){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    function deleteDir($pathName){
+        array_map(fn (string $file) => is_dir($file) ? deleteDir($file) : unlink($file), glob($pathName . '/' . '*'));
+        rmdir($pathName);
+    }
 ?>
