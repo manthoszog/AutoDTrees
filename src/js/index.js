@@ -1,6 +1,7 @@
 $(function(){
     $("#loginb").hide();
     $("#logoutb").hide();
+    $("#editprof").css('visibility', 'hidden');
 
     if(sessionStorage.getItem("token") !== null){
         $("#loginb").hide();
@@ -8,6 +9,7 @@ $(function(){
         $("#mes2").html(sessionStorage.getItem("fname") + " " + sessionStorage.getItem("lname"));
         $("#logoutb").show();
         $("#logoutb").text("Logout");
+        $("#editprof").css('visibility', 'visible');
     }
     else{
         $("#mes").html("Please Log in");

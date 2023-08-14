@@ -16,6 +16,7 @@ $(function(){
         method: 'GET',
         success: function(){
             $('#mes').html("Successfully verified");
+            sessionStorage.clear();
             $('#btn').show();
             $('#btn').text("Log in");
         },

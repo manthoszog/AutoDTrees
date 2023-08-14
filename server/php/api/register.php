@@ -121,7 +121,13 @@
     $email_body = "Account verification, please click <a href='$domain2/pages/verification.html?verif_key=$verif_key'>here</a> or paste the following to your browser: $domain2/pages/verification.html?verif_key=$verif_key";
     $alt_body = "Account verification, please paste the following to your browser: $domain2/pages/verification.html?verif_key=$verif_key";
     
-    send_mail($email,$fname,$subject,$email_body,$alt_body);
+    try{
+        send_mail($email,$fname,$subject,$email_body,$alt_body);
+    }
+    catch(Exception $e){
+        print json_encode(['errormesg'=>"Mailer Error. Message could not be sent."]);
+        exit;
+    }
 
 	print json_encode(['message'=>"User registered, verification mail sent"]);
 ?>

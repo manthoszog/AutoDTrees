@@ -81,7 +81,13 @@
     $email_body = "Request for password reset, please click <a href='$domain2/pages/pass-reset.html?verif_key=$verif_key'>here</a> or paste the following to your browser: $domain2/pages/pass-reset.html?verif_key=$verif_key";
     $alt_body = "Request for password reset, please paste the following to your browser: $domain2/pages/pass-reset.html?verif_key=$verif_key";
     
-    send_mail($email,$fname,$subject,$email_body,$alt_body);
+    try{
+        send_mail($email,$fname,$subject,$email_body,$alt_body);
+    }
+    catch(Exception $e){
+        print json_encode(['errormesg'=>"Mailer Error. Message could not be sent."]);
+        exit;
+    }
 
 	print json_encode(['message'=>"Verification mail sent"]);
 ?>
