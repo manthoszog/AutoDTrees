@@ -14,7 +14,7 @@
 
     if(!isset($input['token'])){
         header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg'=>"Please login first."]);
+        print json_encode(['errormesg'=>"Token is not set."]);
         exit;
     }
 
@@ -54,6 +54,13 @@
             exit;
         }
 
+        $query = 'select email from users where token=?';
+        $st = $mysqli->prepare($query);
+        $st->bind_param('s',$input['token']);
+        $st->execute();
+        $res = $st->get_result();
+        $old_email = $res->fetch_assoc()['email'];
+        
         $query = 'update users set email=?, email_verif=0 where token=?';
         $st = $mysqli->prepare($query);
         $st->bind_param('ss',$email,$input['token']);
@@ -79,7 +86,13 @@
         $st->bind_param('is',$id,$verif_key);
         $st->execute();
 
-        //should rename folder in user's directory
+        $hash_old_user = md5($old_email);
+        $hash_user = md5($email);
+        $dir1 = rename("../../py/users/$hash_old_user","../../py/users/$hash_user");
+        if(!$dir1){
+            print json_encode(['errormesg'=>"An error has occured while trying to rename user's directory."]);
+            exit;
+        }
         
         $subject = 'New email address verification - Web Decision Trees App';
         $domain2 = getdomain();

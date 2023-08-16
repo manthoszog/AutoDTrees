@@ -70,6 +70,12 @@
 
     function deleteDir($pathName){
         array_map(fn (string $file) => is_dir($file) ? deleteDir($file) : unlink($file), glob($pathName . '/' . '*'));
-        rmdir($pathName);
+        $dir4 = rmdir($pathName);
+        if($dir4){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 ?>

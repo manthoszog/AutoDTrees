@@ -13,7 +13,7 @@
 
     if(!isset($input['token'])){
         header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg'=>"Please login first."]);
+        print json_encode(['errormesg'=>"Token is not set."]);
         exit;
     }
 
@@ -59,13 +59,11 @@
     }
 
     $hash_user = md5($email);
-    try{
-        deleteDir("../../py/users/$hash_user/datasets");
-        deleteDir("../../py/users/$hash_user/models");
-        rmdir("../../py/users/$hash_user");
-    }
-    catch(Exception $e){
-        print json_encode(['errormesg'=>"An error has occured while trying to delete user's files."]);
+    $dir2 = deleteDir("../../py/users/$hash_user/datasets");
+    $dir3 = deleteDir("../../py/users/$hash_user/models");
+    $dir1 = rmdir("../../py/users/$hash_user");
+    if(!$dir1 || !$dir2 || !$dir3){
+        print json_encode(['errormesg'=>"An error has occured while trying to delete user's directory."]);
         exit;
     }
 

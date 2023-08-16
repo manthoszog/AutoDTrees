@@ -112,9 +112,13 @@
     $st->execute();
 
     $hash_user = md5($email);
-	mkdir("../../py/users/$hash_user");
-    mkdir("../../py/users/$hash_user/datasets");
-    mkdir("../../py/users/$hash_user/models");
+	$dir1 = mkdir("../../py/users/$hash_user");
+    $dir2 = mkdir("../../py/users/$hash_user/datasets");
+    $dir3 = mkdir("../../py/users/$hash_user/models");
+    if(!$dir1 || !$dir2 || !$dir3){
+        print json_encode(['errormesg'=>"An error has occured while trying to create user's directory."]);
+        exit;
+    }
     
     $subject = 'Email verification - Web Decision Trees App';
     $domain2 = getdomain();
