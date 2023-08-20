@@ -112,8 +112,9 @@ $(function(){
         });
     });
 
+    var email;
     $('#confbtn2').click(function(){ 
-        var email = $('#email').val().trim();
+        email = $('#email').val().trim();
         if(email.length == 0){
             $('#mes3').html("Enter your new email address");
             return;
@@ -143,13 +144,18 @@ $(function(){
                 var response = JSON.parse(xhr.responseText);
                 var errormes = response.errormesg;
                 $('#mes3').html(errormes);
+                if(errormes == "Mailer Error. Message could not be sent."){
+                    $("#email_resend").show();
+                }
+                else{
+                    $("#confbtn2").prop("disabled",false);
+                }
             }
         });        
     });
 
     $('#email_resend').click(function(){
-        var email2 = $('#email').val().trim();
-        var link = '../server/php/email_resend.php?email=' + email2;
+        var link = '../server/php/email_resend.php?email=' + email;
 
         $.ajax({
             url: link,

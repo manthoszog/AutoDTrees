@@ -81,7 +81,7 @@
 
     if(!$uppercase || !$lowercase || !$number || strlen($pass) < 8) {
         header("HTTP/1.1 400 Bad Request");
-		print json_encode(['errormesg'=>"Password should contain at least 8 characters, including one upper case letter and one number."]);
+		print json_encode(['errormesg'=>"Required 8 characters, 1 upper &amp; 1 digit."]);
         exit;
     }
 

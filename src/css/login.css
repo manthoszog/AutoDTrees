@@ -1,0 +1,93 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #e9e9e9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container{
+    position: relative;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 450px;
+    background-color: #ffffff;
+    box-shadow: 0 0 25px #ccc;
+}
+
+.container-inner{
+    padding: 30px;
+}
+
+.page-title{
+    text-align: center;
+    font-size: 42px;
+    font-weight: 650;
+    padding-bottom: 30px;
+}
+
+.login-button{
+    padding-top: 30px;
+}
+
+.login-button button{
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.forgot-password-register{
+    padding-top: 30px;
+    font-size: 17px;
+}
+
+.forgot-password-register a{
+    text-decoration: none;
+}
+
+.forgot-password-register a:hover{
+    text-decoration: underline;
+}
+
+.login-icon{
+    width: 35px;
+    height: 35px;
+    fill: #6b6b6b;
+    padding-right: 10px;
+}
+
+.field-text{
+    font-size: 17px;
+    color: #898989;
+}
+
+.login-alert-icon{
+    width: 25px;
+    height: 25px;
+    padding-right: 10px;
+}
+
+.alert-text{
+    font-size: 17px;
+    overflow: auto;
+}
+
+.alert-danger-color{
+    fill: #842029;
+}
+
+.loading-text{
+    padding-left: 3px;
+}
+
+.loading-spinner{
+    width: 1.5rem;
+    height: 1.5rem;
+}
