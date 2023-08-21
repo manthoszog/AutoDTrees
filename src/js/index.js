@@ -1,26 +1,14 @@
 $(function(){
-    $("#loginb").hide();
-    $("#logoutb").hide();
-    $("#editprof").css('visibility', 'hidden');
 
     if(sessionStorage.getItem("token") !== null){
         $("#loginb").hide();
-        $("#mes").html("Logged in");        
-        $("#mes2").html(sessionStorage.getItem("fname") + " " + sessionStorage.getItem("lname"));
-        $("#logoutb").show();
-        $("#logoutb").text("Logout");
-        $("#editprof").css('visibility', 'visible');
+        $("#regbtn").hide();
+        $("#acc_dropdown").show();
+        $("#username").text(sessionStorage.getItem("fname") + " " + sessionStorage.getItem("lname"));
     }
     else{
-        $("#mes").html("Please Log in");
-        $("#loginb").show();
-        $("#loginb").text("Login");
-
+        $("#acc_dropdown").hide();
     }
-
-    $("#loginb").click(function(){
-        window.location.href = './pages/login.html';
-    });
 
     $("#logoutb").click(function(){
         sessionStorage.clear();
