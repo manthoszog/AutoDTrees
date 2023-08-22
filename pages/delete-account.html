@@ -5,13 +5,13 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-        <link rel="stylesheet" href="../src/css/edit-account.css">
+        <link rel="stylesheet" href="../src/css/edit-email-del-account.css">
         <!-- add favicon here <link rel="icon" type="image/x-icon" href="">-->
         <script src="../src/js/jquery-3.7.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>   
-        <script src="../src/js/edit-account.js"></script>
-        <title>Edit Account - WebDTrees</title>
+        <script src="../src/js/delete-account.js"></script>
+        <title>Delete Account - WebDTrees</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-light">
@@ -41,13 +41,13 @@
                                     <a class="dropdown-item" href="#"><i class="bi bi-pencil-square"></i><span>Edit Account &raquo;</span></a>
                                     <ul class="dropdown-menu dropdown-submenu-left">
                                         <li>
-                                          <a class="dropdown-item" href="#">Edit Name or Password</a>
+                                          <a class="dropdown-item" href="edit-account.html">Edit Name or Password</a>
                                         </li>
                                         <li>
                                           <a class="dropdown-item" href="edit-email.html">Edit Email</a>
                                         </li>
                                         <li>
-                                            <a class="dropdown-item" href="delete-account.html">Delete Account</a>
+                                            <a class="dropdown-item" href="#">Delete Account</a>
                                         </li>
                                     </ul>
                                 </li>
@@ -65,47 +65,29 @@
         <div class="container">
             <div class="container-inner2">
                 <div class="page-title">
-                    Edit Name or Password
+                    Delete Account
                 </div>
                 <div id="alertPlaceholder"></div>
                 <form action="#">
                     <div class="form-floating mb-3">
-                        <input type="text" id="fname" class="form-control" placeholder="First Name">
-                        <label for="fname">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-person-vcard-fill edit-icon" viewBox="0 0 16 16">
-                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm9 1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5ZM9 8a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 9 8Zm1 2.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5Zm-1 2C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 0 2 13h6.96c.026-.163.04-.33.04-.5ZM7 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z"/>
-                            </svg> <span class="field-text">First Name</span></label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="text" id="lname" class="form-control" placeholder="Last Name">
-                        <label for="lname">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-person-vcard-fill edit-icon" viewBox="0 0 16 16">
-                                <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm9 1.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4a.5.5 0 0 0-.5.5ZM9 8a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 0-1h-4A.5.5 0 0 0 9 8Zm1 2.5a.5.5 0 0 0 .5.5h3a.5.5 0 0 0 0-1h-3a.5.5 0 0 0-.5.5Zm-1 2C9 10.567 7.21 9 5 9c-2.086 0-3.8 1.398-3.984 3.181A1 1 0 0 0 2 13h6.96c.026-.163.04-.33.04-.5ZM7 6a2 2 0 1 0-4 0 2 2 0 0 0 4 0Z"/>
-                            </svg> <span class="field-text">Last Name</span></label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="pass" placeholder="Current password">
-                        <label for="pass">
+                        <input type="password" class="form-control" id="pass_del" placeholder="Re-enter your password">
+                        <label for="pass_del">
                             <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-key-fill edit-icon" viewBox="0 0 16 16">
                                 <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                            </svg> <span class="field-text">Current password</span></label>
-                    </div>
-                    <div class="form-floating mb-3">
-                        <input type="password" class="form-control" id="new_pass" placeholder="New password">
-                        <label for="new_pass">
-                            <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-key-fill edit-icon" viewBox="0 0 16 16">
-                                <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                            </svg> <span class="field-text">New password</span></label>
+                            </svg> <span class="field-text">Re-enter your password</span></label>
                     </div>
                     <div class="form-floating">
-                        <input type="password" class="form-control" id="new_pass_confirm" placeholder="Confirm new password">
-                        <label for="new_pass_confirm">
+                        <input type="password" class="form-control" id="pass_del_confirm" placeholder="Confirm your password">
+                        <label for="pass_del_confirm">
                             <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-key-fill edit-icon" viewBox="0 0 16 16">
                                 <path d="M3.5 11.5a3.5 3.5 0 1 1 3.163-5H14L15.5 8 14 9.5l-1-1-1 1-1-1-1 1-1-1-1 1H6.663a3.5 3.5 0 0 1-3.163 2zM2.5 9a1 1 0 1 0 0-2 1 1 0 0 0 0 2z"/>
-                            </svg> <span class="field-text">Confirm new password</span></label>
+                            </svg> <span class="field-text">Confirm your password</span></label>
                     </div>
                     <div class="d-grid gap-2 col-12 mx-auto edit-button">
-                        <button class="btn btn-primary" type="button" id="confbtn1">Confirm</button>
+                        <button class="btn btn-danger" type="button" id="delbtn">Delete Account</button>
+                        <!--<button class="btn btn-primary" type="button" id="confbtn3">Confirm</button>
+                        <button class="btn btn-primary" type="button" id="cancelbtn">Cancel</button>-->
+                        <button class="btn btn-primary" type="button" id="homeref">Go to Home Page</button>
                         <button class="btn btn-primary" type="button" id="loadingbtn" disabled="">
                             <span class="spinner-border spinner-border-sm loading-spinner" role="status" aria-hidden="true"></span>
                             <span class="loading-text">Loading...</span>
@@ -114,6 +96,24 @@
                 </form>
             </div>
         </div>
+        </div>
+
+        <div class="modal fade" id="del_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title fs-5" id="staticBackdropLabel">Delete Account</h5>
+                  <!--<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>-->
+                </div>
+                <div class="modal-body">
+                  <p>Are you sure you want to delete your account? All your data and files will be lost.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-danger" id="confbtn3">Confirm</button>
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="cancelbtn">Cancel</button>
+                </div>
+              </div>
+            </div>
         </div>
     </body>
 </html>

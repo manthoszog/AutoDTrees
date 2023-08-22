@@ -39,7 +39,20 @@
                             <ul class="dropdown-menu dropdown-menu-end drop-ul item-font-size">
                                 <li><p class="dropdown-header uname-font-size" id="username">Username</p></li>
                                 <li><hr class="dropdown-divider"></li>
-                                <li><a class="dropdown-item" href="./pages/edit-account.html"><i class="bi bi-pencil-square"></i><span>Edit Account</span></a></li>
+                                <li>
+                                  <a class="dropdown-item" href="#"><i class="bi bi-pencil-square"></i><span>Edit Account &raquo;</span></a>
+                                  <ul class="dropdown-menu dropdown-submenu-left">
+                                    <li>
+                                      <a class="dropdown-item" href="./pages/edit-account.html">Edit Name or Password</a>
+                                    </li>
+                                    <li>
+                                      <a class="dropdown-item" href="./pages/edit-email.html">Edit Email</a>
+                                    </li>
+                                    <li>
+                                        <a class="dropdown-item" href="./pages/delete-account.html">Delete Account</a>
+                                    </li>
+                                  </ul>
+                                </li>
                                 <li><a class="dropdown-item" href="./pages/api-docs.html"><i class="bi bi-code-slash"></i><span>API Docs</span></a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#" id="logoutb"><i class="bi bi-box-arrow-right"></i><span>Logout</span></a></li>

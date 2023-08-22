@@ -192,7 +192,7 @@
 
             if($input['pass'] == $input['new_pass']){
                 header("HTTP/1.1 400 Bad Request");
-                print json_encode(['errormesg'=>"Please enter a different password from the existing."]);
+                print json_encode(['errormesg'=>"Enter a different password from the existing."]);
                 exit;
             }
 
