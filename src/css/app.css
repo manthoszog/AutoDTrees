@@ -1,0 +1,211 @@
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css");
+
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: #e9e9e9;
+    height: 100vh;
+}
+
+.font-size{
+    font-size: 19px;
+    font-weight: 400;
+}
+
+.brand-font-size{
+    font-size: 30px;
+    font-weight: 500;
+    margin-right: 3%;
+}
+
+#container-inner{
+    margin-left: 10%;
+    margin-right: 10%;
+}
+
+nav{
+    box-shadow: 0 0 20px #ccc;
+}
+
+
+nav a{
+    margin: 5px;
+    text-decoration: none;
+    text-align: center;
+}
+
+nav a:hover{
+    background-color: #eae8e8;
+    border-radius: 5px;
+}
+
+nav a.active{
+    background-color: #ece7e7;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
+}
+
+.field-icon{
+    width: 30px;
+    height: 30px;
+}
+
+.drop-ul li a span{
+    margin-left: 10px;
+}
+
+.btn-dropdown{
+    background-color: #ece7e7;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
+}
+
+.drop-ul li a{
+    margin:auto;
+}
+
+.drop-ul li a{
+    --bs-dropdown-link-active-bg: #fff;
+    --bs-dropdown-link-active-color: #212529;
+}
+
+.uname-font-size{
+    font-size: 19px;
+    font-weight: 500;
+    color: #212529;
+}
+
+.item-font-size{
+    font-size: 17px;
+    font-weight: 400;
+}
+
+.dropdown-menu li {
+    position: relative;
+}
+
+.dropdown-menu .dropdown-submenu-left {
+    display: none;
+    position: absolute;
+    right: 100%;
+    left: auto;
+    top: -7px;
+}
+
+.dropdown-menu > li:hover > .dropdown-submenu-left {
+    display: block;
+}
+
+.form-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+}
+
+.container{
+    position: relative;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 830px;
+    background-color: #ffffff;
+    box-shadow: 0 0 25px #ccc;
+}
+
+.container-inner2{
+    padding: 30px;
+}
+
+.page-title{
+    text-align: center;
+    font-size: 38px;
+    font-weight: 600;
+    padding-bottom: 30px;
+}
+
+.edit-button{
+    padding-top: 15px;
+}
+
+.edit-button button{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.edit-button2 button{
+    margin-top: 15px;
+    font-size: 25px;
+    font-weight: 500;
+}
+
+.edit-icon{
+    width: 35px;
+    height: 35px;
+    fill: #6b6b6b;
+    padding-right: 10px;
+}
+
+.field-text{
+    font-size: 17px;
+    color: #898989;
+}
+
+.alert-icon{
+    width: 25px;
+    height: 25px;
+    padding-right: 10px;
+}
+
+.alert-text{
+    font-size: 17px;
+    overflow: auto;
+}
+
+.alert-danger-color{
+    fill: #842029;
+}
+
+.loading-text{
+    padding-left: 3px;
+}
+
+.btn-text{
+    padding-left: 20px;
+}
+
+.btn-text2{
+    padding-left: 10px;
+}
+
+.loading-spinner{
+    width: 1.5rem;
+    height: 1.5rem;
+}
+
+.edit-select{
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.edit-select2{
+    margin-top: 5px;
+    font-size: 18px;
+}
+
+.dnload-del-btn{
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+#delbtn{
+    margin-bottom: 10px;
+}
+
+#dnload-btn{
+    margin-right: 10px;
+    margin-bottom: 10px;
+}

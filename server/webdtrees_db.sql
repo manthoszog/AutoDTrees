@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `webdtrees_db` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `webdtrees_db`;
 -- MariaDB dump 10.19  Distrib 10.4.25-MariaDB, for Win64 (AMD64)
 --
 -- Host: 127.0.0.1    Database: webdtrees_db
@@ -30,8 +32,9 @@ CREATE TABLE `users` (
   `pass` varchar(100) NOT NULL,
   `token` varchar(100) NOT NULL,
   `email_verif` tinyint(1) NOT NULL DEFAULT 0,
+  `allowPublic` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=49 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -59,4 +62,4 @@ CREATE TABLE `verify_account` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-08-10 13:18:31
+-- Dump completed on 2023-09-25 17:17:49
