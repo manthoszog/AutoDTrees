@@ -43,10 +43,34 @@ $(function(){
         window.location.href = '../';
     });
 
+    var link = '../server/php/api/get_datasets.php?token=' + token;
+
+    $.ajax({
+        url: link,
+        method: 'GET',
+        success: function(data){
+            var data2 = JSON.parse(data);
+            var publicDatasets = data2.public_data;
+            var privateDatasets = data2.private_data;
+            for(var i = 0; i < publicDatasets.length; i++){
+                $("#select_dataset").append($(`<option value='public'>(public)${publicDatasets[i]}</option>`));
+            }
+            for(var i = 0; i < privateDatasets.length; i++){
+                $("#select_dataset").append($(`<option value='private'>(private)${privateDatasets[i]}</option>`));
+            }
+        },
+        error: function(xhr,status,error){
+            var response = JSON.parse(xhr.responseText);
+            var errormes = response.errormesg;
+            $("#select_dataset").append($(`<option>${errormes}</option>`));
+        }
+    });
+
     $("#upload_btn").click(function(){
         $('#upl_modal').modal('show');
         $('#alertPlaceholder').html("");
         $("#select_folder").val('0');
+        $("#formFile").val("");
     });
 
     $('#cancelbtn').click(function(){
@@ -62,6 +86,13 @@ $(function(){
         }
 
         var file = $("#formFile").prop('files')[0];
+
+        var checkFile = /(\.csv|\.xls|\.xlsx)$/i;
+        if(!checkFile.test(file.name)){
+            alert_danger("Only csv, xls or xlsx files are supported.");
+            return;
+        }
+
         var folder = $("#select_folder :selected").val();
 
         if(folder == "Select folder to save"){
@@ -97,7 +128,6 @@ $(function(){
                 alert_success("File uploaded successfully.");
                 $("#formFile").val("");
                 $("#select_folder").val('0');
-                //$("#select_folder option[value=0]").attr('selected', 'selected');
                 $("#loadingbtn").hide();
                 $("#conf_upl").show();
             },
@@ -107,7 +137,6 @@ $(function(){
                 alert_danger(errormes);
                 $("#formFile").val("");
                 $("#select_folder").val('0');
-                //$("#select_folder option[value=0]").attr('selected', 'selected');
                 $("#loadingbtn").hide();
                 $("#conf_upl").show();
             }

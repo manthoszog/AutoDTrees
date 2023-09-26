@@ -78,4 +78,15 @@
             return false;
         }
     }
+
+    function user_mail($token){
+        global $mysqli;
+        $query = 'select email from users where token=?';
+        $st = $mysqli->prepare($query);
+        $st->bind_param('s',$token);
+        $st->execute();
+        $res = $st->get_result();
+        $email = $res->fetch_assoc()['email'];
+        return $email;
+    }
 ?>

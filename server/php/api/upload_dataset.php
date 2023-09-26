@@ -1,4 +1,7 @@
 <?php
+    header("Access-Control-Allow-Origin: *");
+    ini_set('upload_max_filesize', '1M');
+    
     require_once "../dbconnect.php";
     require_once "../global_functions.php";
 
@@ -85,12 +88,7 @@
 
     }
     else{
-        $query = 'select email from users where token=?';
-        $st = $mysqli->prepare($query);
-        $st->bind_param('s',$_POST['token']);
-        $st->execute();
-        $res = $st->get_result();
-        $email = $res->fetch_assoc()['email'];
+        $email = user_mail($_POST['token']);
 
         $hash_user = md5($email);
         $file_path = "../../py/users/$hash_user/datasets/" . basename($_FILES['file']['name']);
