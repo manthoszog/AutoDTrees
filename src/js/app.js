@@ -1,5 +1,6 @@
 $(function(){
     $('#loadingbtn').hide();
+    $('#loadingbtn2').hide();
 
     const alertPlaceholder = $('#alertPlaceholder');
 
@@ -43,28 +44,37 @@ $(function(){
         window.location.href = '../';
     });
 
-    var link = '../server/php/api/get_datasets.php?token=' + token;
+    function getDatasets(){
+    
+        var link = '../server/php/api/get_datasets.php?token=' + token;
 
-    $.ajax({
-        url: link,
-        method: 'GET',
-        success: function(data){
-            var data2 = JSON.parse(data);
-            var publicDatasets = data2.public_data;
-            var privateDatasets = data2.private_data;
-            for(var i = 0; i < publicDatasets.length; i++){
-                $("#select_dataset").append($(`<option value='public'>(public)${publicDatasets[i]}</option>`));
+        $.ajax({
+            url: link,
+            method: 'GET',
+            success: function(data){
+                var data2 = JSON.parse(data);
+                var publicDatasets = data2.public_data;
+                var privateDatasets = data2.private_data;
+                $("#select_dataset").html("");
+                $("#select_dataset").append($("<option value='default' selected>Select from existing Datasets</option>"));
+                for(var i = 0; i < publicDatasets.length; i++){
+                    $("#select_dataset").append($(`<option class='public' value='${publicDatasets[i]}'>[PUBLIC]  ${publicDatasets[i]}</option>`));
+                }
+                for(var i = 0; i < privateDatasets.length; i++){
+                    $("#select_dataset").append($(`<option class='private' value='${privateDatasets[i]}'>[PRIVATE]  ${privateDatasets[i]}</option>`));
+                }
+            },
+            error: function(xhr,status,error){
+                var response = JSON.parse(xhr.responseText);
+                var errormes = response.errormesg;
+                console.log(errormes);
+                $("#select_dataset").html("");
+                $("#select_dataset").append($("<option value='default' selected>Select from existing Datasets</option>"));
             }
-            for(var i = 0; i < privateDatasets.length; i++){
-                $("#select_dataset").append($(`<option value='private'>(private)${privateDatasets[i]}</option>`));
-            }
-        },
-        error: function(xhr,status,error){
-            var response = JSON.parse(xhr.responseText);
-            var errormes = response.errormesg;
-            $("#select_dataset").append($(`<option>${errormes}</option>`));
-        }
-    });
+        });
+    }
+
+    getDatasets();
 
     $("#upload_btn").click(function(){
         $('#upl_modal').modal('show');
@@ -130,6 +140,7 @@ $(function(){
                 $("#select_folder").val('0');
                 $("#loadingbtn").hide();
                 $("#conf_upl").show();
+                getDatasets();
             },
             error: function(xhr,status,error){
                 var response = JSON.parse(xhr.responseText);
@@ -139,6 +150,57 @@ $(function(){
                 $("#select_folder").val('0');
                 $("#loadingbtn").hide();
                 $("#conf_upl").show();
+            }
+        });
+    });
+
+    $("#select_dataset").on("change",function(){
+        var selected = $("#select_dataset :selected").val();
+
+        if(selected == "default"){
+            $('#delbtn').prop("disabled",true);
+            $('#dnload-btn').prop("disabled",true);
+            return;
+        }
+
+        $('#delbtn').prop("disabled",false);
+        $('#dnload-btn').prop("disabled",false);
+    });
+
+    $('#delbtn').click(function(){
+        var file = $("#select_dataset :selected").val();
+        var folder = $("#select_dataset :selected").attr("class");
+
+        $('#dnload-btn').prop("disabled",true);
+        $('#delbtn').hide();
+        $('#loadingbtn2').show();
+
+        $.ajax({
+            url: '../server/php/api/delete_dataset.php',
+            method: 'DELETE',
+            data: JSON.stringify({file: file, folder: folder, token: token}),
+            dataType: "json",
+            contentType: 'application/json',
+            success: function(){
+                $("#loadingbtn2").hide();
+                $("#delbtn").show();
+                $('#delbtn').prop("disabled",true);
+                $("#select_dataset :selected").remove();
+                $("#select_dataset").val("default");
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html("Selected Dataset deleted successfully.");
+            },
+            error: function(xhr,status,error){
+                var response = JSON.parse(xhr.responseText);
+                var errormes = response.errormesg;
+                $("#loadingbtn2").hide();
+                $("#delbtn").show();
+                $('#delbtn').prop("disabled",true);
+                $("#select_dataset").val("default");
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html(errormes);
             }
         });
     });
