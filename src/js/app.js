@@ -204,4 +204,12 @@ $(function(){
             }
         });
     });
+
+    $('#dnload-btn').click(function(event){
+        var file = $("#select_dataset :selected").val();
+        var folder = $("#select_dataset :selected").attr("class");
+        var link = '../server/php/api/download_dataset.php?token=' + token + '&folder=' + folder + '&file=' + file;
+        event.preventDefault();
+        window.location.href = link;
+    });
 });
