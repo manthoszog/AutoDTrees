@@ -5,32 +5,30 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
-        <link rel="stylesheet" href="./src/css/index.css">
+        <link rel="stylesheet" href="../src/css/api-docs.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Sofia&effect=neon|outline|emboss|shadow-multiple">
-        <link rel="icon" type="image/x-icon" href="./src/img/favicon.ico">
-        <script src="./src/js/jquery-3.7.0.min.js"></script>
+        <link rel="icon" type="image/x-icon" href="../src/img/favicon.ico">
+        <script src="../src/js/jquery-3.7.0.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js" integrity="sha384-fbbOQedDUMZZ5KreZpsbe1LCZPVmfTnH7ois6mU1QK+m14rQ1l2bGBq41eYeM/fS" crossorigin="anonymous"></script>   
-        <script src="./src/js/index.js"></script>
-        <title>Home - WebDTrees</title>
+        <script src="../src/js/api-docs.js"></script>
+        <title>API Docs - WebDTrees</title>
     </head>
     <body>
         <nav class="navbar navbar-expand-lg bg-light">
             <div class="container-fluid" id="container-inner">
-              <a class="navbar-brand brand-font-size font-effect-shadow-multiple" href="#">WebDTrees</a>
+              <a class="navbar-brand brand-font-size font-effect-shadow-multiple" href="../">WebDTrees</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
               </button>
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="navbar-nav me-auto">
-                        <a class="nav-link active font-size" aria-current="page" href="#">Home</a>
-                        <a class="nav-link font-size" href="./pages/app.html">App</a>
-                        <a class="nav-link font-size" href="./pages/about.html">About</a>
+                        <a class="nav-link font-size" aria-current="page" href="../">Home</a>
+                        <a class="nav-link font-size" href="../pages/app.html">App</a>
+                        <a class="nav-link font-size" href="../pages/about.html">About</a>
                         <a class="nav-link font-size" href="#">Rate app</a>
                     </div>
                     <div class="navbar-nav">
-                        <a class="nav-link font-size" id="loginb" href="./pages/login.html">Login</a>
-                        <a class="nav-link font-size" id="regbtn" href="./pages/register.html">Register</a>
                         <div class="nav-item dropdown" id="acc_dropdown">
                             <a class="nav-link dropdown-toggle btn-dropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                               <svg xmlns="http://www.w3.org/2000/svg" class="bi bi-person-fill field-icon" viewBox="0 0 16 16">
@@ -44,17 +42,17 @@
                                   <a class="dropdown-item" href="#"><i class="bi bi-pencil-square"></i><span>Edit Account &raquo;</span></a>
                                   <ul class="dropdown-menu dropdown-submenu-left">
                                     <li>
-                                      <a class="dropdown-item" href="./pages/edit-account.html">Edit Name or Password</a>
+                                      <a class="dropdown-item" href="../pages/edit-account.html">Edit Name or Password</a>
                                     </li>
                                     <li>
-                                      <a class="dropdown-item" href="./pages/edit-email.html">Edit Email</a>
+                                      <a class="dropdown-item" href="../pages/edit-email.html">Edit Email</a>
                                     </li>
                                     <li>
-                                        <a class="dropdown-item" href="./pages/delete-account.html">Delete Account</a>
+                                        <a class="dropdown-item" href="../pages/delete-account.html">Delete Account</a>
                                     </li>
                                   </ul>
                                 </li>
-                                <li><a class="dropdown-item" href="./pages/api-docs.html"><i class="bi bi-code-slash"></i><span>API Docs</span></a></li>
+                                <li><a class="dropdown-item active" href="#"><i class="bi bi-code-slash"></i><span>API Docs</span></a></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li><a class="dropdown-item" href="#" id="logoutb"><i class="bi bi-box-arrow-right"></i><span>Logout</span></a></li>
                             </ul>
