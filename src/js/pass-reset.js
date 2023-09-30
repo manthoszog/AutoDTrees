@@ -39,10 +39,17 @@ $(function(){
         }
     });
 
-    function getUrlParams(k){
-        var p={};
-        location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(s,k,v){p[k]=v});
-        return k?p[k]:p;
+    function getUrlParams(param){
+        var par = {};
+        window.location.search.replace(/[?&]+([^=&]+)=([^&]*)/gi,function(symbol,param,value){
+            par[param] = value;
+        });
+        if(param){
+            return par[param];
+        }
+        else{
+            return par;
+        }
     }
     var verif_key = getUrlParams('verif_key');
 

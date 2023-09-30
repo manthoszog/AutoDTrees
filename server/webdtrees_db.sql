@@ -34,7 +34,7 @@ CREATE TABLE `users` (
   `email_verif` tinyint(1) NOT NULL DEFAULT 0,
   `allowPublic` tinyint(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=74 DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
