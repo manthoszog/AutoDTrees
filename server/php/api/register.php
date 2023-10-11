@@ -112,9 +112,14 @@
     $st->execute();
 
     $hash_user = md5($email);
-	$dir1 = mkdir("../../py/users/$hash_user");
-    $dir2 = mkdir("../../py/users/$hash_user/datasets");
-    $dir3 = mkdir("../../py/users/$hash_user/models");
+	try{
+        $dir1 = mkdir("../../py/users/$hash_user");
+        $dir2 = mkdir("../../py/users/$hash_user/datasets");
+        $dir3 = mkdir("../../py/users/$hash_user/models");
+    }catch(Exception $e){
+        print json_encode(['errormesg'=>"An error has occured while trying to create user's directory."]);
+        exit;
+    }
     if(!$dir1 || !$dir2 || !$dir3){
         print json_encode(['errormesg'=>"An error has occured while trying to create user's directory."]);
         exit;

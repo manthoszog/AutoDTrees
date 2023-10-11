@@ -88,7 +88,12 @@
 
         $hash_old_user = md5($old_email);
         $hash_user = md5($email);
-        $dir1 = rename("../../py/users/$hash_old_user","../../py/users/$hash_user");
+        try{
+            $dir1 = rename("../../py/users/$hash_old_user","../../py/users/$hash_user");
+        }catch(Exception $e){
+            print json_encode(['errormesg'=>"An error has occured while trying to rename user's directory."]);
+            exit;
+        }
         if(!$dir1){
             print json_encode(['errormesg'=>"An error has occured while trying to rename user's directory."]);
             exit;

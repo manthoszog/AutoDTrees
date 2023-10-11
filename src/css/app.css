@@ -124,9 +124,31 @@ nav a.active{
 
 .page-title{
     text-align: center;
-    font-size: 38px;
+    font-size: 30px;
     font-weight: 600;
     padding-bottom: 30px;
+}
+
+.page-subtitle{
+    text-align: left;
+    font-size: 15px;
+    margin-top: 10px;
+}
+
+.page-subtitle span{
+    padding-left: 3px;
+
+}
+
+.page-subtitle2{
+    text-align: left;
+    font-size: 17px;
+    padding-bottom: 13px;
+}
+
+.page-subtitle2 span{
+    padding-left: 3px;
+
 }
 
 .edit-button{
@@ -152,7 +174,7 @@ nav a.active{
 }
 
 .field-text{
-    font-size: 17px;
+    font-size: 15px;
     color: #898989;
 }
 
@@ -198,6 +220,11 @@ nav a.active{
     font-size: 18px;
 }
 
+.edit-select3{
+    font-size: 15px;
+    margin-bottom: 30px;
+}
+
 .dnload-del-btn{
     display: inline-block;
     margin-bottom: 10px;
@@ -210,4 +237,41 @@ nav a.active{
 #dnload-btn{
     margin-right: 10px;
     margin-bottom: 10px;
+}
+
+.table-style{
+    height: 100%;
+    overflow: auto;
+}
+
+.table-style td{
+    text-align: center;
+    font-weight: lighter;
+}
+
+.table-style th{
+    text-align: center;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+#checkBoxes{
+    padding-bottom: 30px;
+}
+
+.inline_form{
+    float: left;
+    width: 49%;
+}
+
+.inline_form:first-child{
+    margin-right: 2%;
+}
+
+#margin_div{
+    padding-top: 3%;
+}
+
+.edit_checkbox{
+    border: 1px solid black;
 }

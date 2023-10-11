@@ -8,7 +8,7 @@
     $user_server = $DB_USER_SERVER;     //username for server
     $pass = $DB_PASS;                   
 
-
+    mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
     if(gethostname()=='users.iee.ihu.gr') {
         $mysqli = new mysqli($host, $user_server, $pass, $db,null,'/home/student/it/2018/it185179/mysql/run/mysql.sock');
     } 

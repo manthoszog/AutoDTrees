@@ -59,9 +59,14 @@
     }
 
     $hash_user = md5($email);
-    $dir2 = deleteDir("../../py/users/$hash_user/datasets");
-    $dir3 = deleteDir("../../py/users/$hash_user/models");
-    $dir1 = rmdir("../../py/users/$hash_user");
+    try{
+        $dir2 = deleteDir("../../py/users/$hash_user/datasets");
+        $dir3 = deleteDir("../../py/users/$hash_user/models");
+        $dir1 = rmdir("../../py/users/$hash_user");
+    }catch(Exception $e){
+        print json_encode(['errormesg'=>"An error has occured while trying to delete user's directory."]);
+        exit;
+    }
     if(!$dir1 || !$dir2 || !$dir3){
         print json_encode(['errormesg'=>"An error has occured while trying to delete user's directory."]);
         exit;

@@ -1,7 +1,14 @@
 $(function(){
     $('#loadingbtn').hide();
     $('#loadingbtn2').hide();
+    $('#loadingbtn3').hide();
+    $('#table_div').hide();
+    $('#params_div').hide();
+    $('#results_div').hide();
 
+    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
+    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    
     const alertPlaceholder = $('#alertPlaceholder');
 
     const alert_danger = (message) => {
@@ -63,6 +70,11 @@ $(function(){
                 for(var i = 0; i < privateDatasets.length; i++){
                     $("#select_dataset").append($(`<option class='private' value='${privateDatasets[i]}'>[PRIVATE]  ${privateDatasets[i]}</option>`));
                 }
+                $('#delbtn').prop("disabled",true);
+                $('#dnload-btn').prop("disabled",true);
+                $('#table_div').hide();
+                $('#params_div').hide();
+                $('#results_div').hide();
             },
             error: function(xhr,status,error){
                 var response = JSON.parse(xhr.responseText);
@@ -70,6 +82,11 @@ $(function(){
                 console.log(errormes);
                 $("#select_dataset").html("");
                 $("#select_dataset").append($("<option value='default' selected>Select from existing Datasets</option>"));
+                $('#delbtn').prop("disabled",true);
+                $('#dnload-btn').prop("disabled",true);
+                $('#table_div').hide();
+                $('#params_div').hide();
+                $('#results_div').hide();
             }
         });
     }
@@ -97,9 +114,9 @@ $(function(){
 
         var file = $("#formFile").prop('files')[0];
 
-        var checkFile = /(\.csv|\.xls|\.xlsx)$/i;
+        var checkFile = /(\.csv)$/i;
         if(!checkFile.test(file.name)){
-            alert_danger("Only csv, xls or xlsx files are supported.");
+            alert_danger("Only .csv files are supported.");
             return;
         }
 
@@ -154,17 +171,97 @@ $(function(){
         });
     });
 
+    let fields2;
+    $("#checkBoxes").on("change",function(){
+        const fields22 = {};
+        for(var i = 0; i < fields2.length; i++){
+            fields22[i] = fields2[i];
+        }
+        let fields3 = fields22;
+        var check = $("input[name=num_field]:checked");
+        $.each(check,function(index4){
+            var checkVal = $(this).val();
+            $.each(fields3,function(index5,val5){
+                if(checkVal == fields3[index5]){
+                    fields3[index5] = '';
+                }
+            });
+        });
+        $("#select_class").html("");
+        $("#select_class").append($("<option value='default' selected>Select Class column</option>"));
+        $.each(fields3,function(index6,val6){
+            if(fields3[index6] !== ''){
+                $("#select_class").append($(`<option value='${fields3[index6]}'>${fields3[index6]}</option>`));
+            }
+        });
+    });
+    
     $("#select_dataset").on("change",function(){
         var selected = $("#select_dataset :selected").val();
+        var folder = $("#select_dataset :selected").attr("class");
 
         if(selected == "default"){
             $('#delbtn').prop("disabled",true);
             $('#dnload-btn').prop("disabled",true);
+            $('#table_div').hide();
+            $('#params_div').hide();
+            $('#results_div').hide();
             return;
         }
 
         $('#delbtn').prop("disabled",false);
         $('#dnload-btn').prop("disabled",false);
+        
+        $.ajax({
+            url: `../server/php/api/get_dataset_content.php?token=${token}&file=${selected}&folder=${folder}`,
+            method: 'GET',
+            success: function(data){
+                var data2 = JSON.parse(data);
+                var csv_array = data2.csv_array;
+                var num_fields = data2.numerical_fields;
+                var fields1 = data2.fields;
+                fields2 = data2.fields;
+                $("#data_table_head_tr").html("");
+                $("#data_table_tbody").html("");
+                $.each(csv_array[0], function(index,val){
+                    $("#data_table_head_tr").append($(`<th scope="col">${val}</th>`));
+                });
+                $.each(csv_array, function(index2,val2){
+                    if(index2 > 0){
+                        var tr_id = 'tr' + index2;
+                        $("#data_table_tbody").append($(`<tr id="${tr_id}"></tr>`));
+                        $.each(csv_array[index2], function(index3,val3){
+                            $(`#${tr_id}`).append($(`<td>${val3}</td>`)); 
+                        });
+                    }
+                });
+                $('#table_div').show();
+                $('#checkBoxes').html("");
+                for(var i = 0; i < num_fields.length; i++){
+                    $('#checkBoxes').append($(`
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input edit_checkbox" type="checkbox" name="num_field" value="${num_fields[i]}" id="flexCheckDefault">
+                            <label class="form-check-label" for="flexCheckDefault">
+                                ${num_fields[i]}
+                            </label>
+                        </div>
+                    `));
+                }
+                $("#select_class").html("");
+                $("#select_class").append($("<option value='default' selected>Select Class column</option>"));
+                for(var i = 0; i < fields1.length; i++){
+                    $("#select_class").append($(`<option value='${fields1[i]}'>${fields1[i]}</option>`));
+                }
+                $('#params_div').show();
+            },
+            error: function(xhr,status,error){
+                var response = JSON.parse(xhr.responseText);
+                var errormes = response.errormesg;
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html(errormes);
+            }
+        });
     });
 
     $('#delbtn').click(function(){
@@ -187,6 +284,9 @@ $(function(){
                 $('#delbtn').prop("disabled",true);
                 $("#select_dataset :selected").remove();
                 $("#select_dataset").val("default");
+                $('#table_div').hide();
+                $('#params_div').hide();
+                $('#results_div').hide();
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
                 $('#modal2_text').html("Selected Dataset deleted successfully.");
@@ -198,6 +298,9 @@ $(function(){
                 $("#delbtn").show();
                 $('#delbtn').prop("disabled",true);
                 $("#select_dataset").val("default");
+                $('#table_div').hide();
+                $('#params_div').hide();
+                $('#results_div').hide();
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
                 $('#modal2_text').html(errormes);

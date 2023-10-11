@@ -47,9 +47,9 @@
     
     $fileType = pathinfo($_FILES['file']['name'],PATHINFO_EXTENSION);
 
-    if($fileType != "csv" && $fileType != "xls" && $fileType != "xlsx"){
+    if($fileType != "csv"){
         header("HTTP/1.1 415 Unsupported Media Type");
-        print json_encode(['errormesg'=>"Only csv, xls or xlsx files are supported."]);
+        print json_encode(['errormesg'=>"Only .csv files are supported."]);
         exit;
     }
     

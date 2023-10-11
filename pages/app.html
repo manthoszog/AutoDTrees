@@ -88,6 +88,114 @@
             </div>
         </div>
 
+        <div class="form-body" id="table_div">
+            <div class="container">
+                <div class="container-inner2">
+                    <div class="page-title">
+                        Selected Dataset
+                    </div>
+                    <div style="overflow-x:auto;">
+                        <table id="data_table" class="table table-bordered table-striped table-style">
+                            <thead>
+                                <tr id="data_table_head_tr">
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider" id="data_table_tbody">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="page-subtitle">
+                        <i class="bi bi-info-circle-fill"></i>
+                        <span>The above is a sample containing only the first ten records of the selected Dataset.</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-body" id="params_div">
+            <div class="container">
+                <div class="container-inner2">
+                    <div class="page-title">
+                        Insert Parameters
+                    </div>
+                    <div class="page-subtitle2">
+                        <i class="bi bi-info-circle-fill"></i>
+                        <span>Select <u><b>numerical columns</b></u> to Classify:</span>
+                    </div>
+                    <form id="checkBoxes">
+                    </form>
+                    <div class="page-subtitle2">
+                        <i class="bi bi-info-circle-fill"></i>
+                        <span>Select <u><b>Class column</b></u>:</span>
+                    </div>
+                    <select class="form-select edit-select3" id="select_class" aria-label="Default select example">
+                    </select>
+                    <div class="page-subtitle2">
+                        <i class="bi bi-info-circle-fill"></i>
+                        <span>Insert the Classifier's parameters:</span>
+                    </div>
+                    <form action="#">
+                        <div>
+                            <div class="form-floating inline_form">
+                                <input type="text" id="max_depth" class="form-control" placeholder="Max Depth (&ge;1)" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Insert Max Depth (give a value &ge; 1)">
+                                <label for="max_depth">
+                                    <span class="field-text">Max Depth (&ge;1)</span></label>
+                            </div>
+                            <div class="form-floating inline_form">
+                                <input type="text" id="min_samples_leaf" class="form-control" placeholder="Min samples/leaf (&ge;1)" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Insert Min samples/leaf (give a value &ge; 1)">
+                                <label for="min_samples_leaf">
+                                    <span class="field-text">Min samples/leaf (&ge;1)</span></label>
+                            </div>
+                        </div>
+                        <div class="d-grid gap-2 col-12 mx-auto edit-button2">
+                            <button class="btn btn-primary" type="button" id="class_btn">Create Model</button>
+                            <button class="btn btn-primary" type="button" id="loadingbtn3" disabled="">
+                                <span class="spinner-border spinner-border-sm loading-spinner" role="status" aria-hidden="true"></span>
+                                <span class="loading-text">Loading...</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-body" id="results_div">
+            <div class="container">
+                <div class="container-inner2">
+                    <div class="page-title">
+                        Cross-Validation Results
+                    </div>
+                    <table id="results_table" class="table table-bordered table-striped table-style">
+                        <thead>
+                            <tr>
+                                <th scope="col" colspan="5">Accuracy of each Fold (k = 5)</th>
+                                <th scope="col" rowspan="2">Average<br>Accuracy</th>
+                            </tr>
+                            <tr>
+                              <th scope="col">Fold 1</th>
+                              <th scope="col">Fold 2</th>
+                              <th scope="col">Fold 3</th>
+                              <th scope="col">Fold 4</th>
+                              <th scope="col">Fold 5</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-group-divider">
+                            <tr>
+                              <td>Val1</td>
+                              <td>Val2</td>
+                              <td>Val3</td>
+                              <td>Val4</td>
+                              <td>Val5</td>
+                              <td>AvgVal</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div id="margin_div"></div>
+
         <div class="modal fade" id="upl_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
@@ -98,7 +206,7 @@
                     <div class="modal-body">
                         <div id="alertPlaceholder"></div>
                         <div class="mb-3">
-                            <label for="formFile" class="form-label edit-select2">Please select only .csv, .xls or .xlsx files.</label>
+                            <label for="formFile" class="form-label edit-select2">Please select only .csv files.</label>
                             <input class="form-control" type="file" id="formFile">
                         </div>
                         <select class="form-select edit-select" id="select_folder" aria-label="Default select example">
