@@ -87,6 +87,7 @@
         send_mail($email,$fname,$subject,$email_body,$alt_body);
     }
     catch(Exception $e){
+        header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"Mailer Error. Message could not be sent."]);
         exit;
     }

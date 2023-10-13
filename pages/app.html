@@ -148,7 +148,9 @@
                             </div>
                         </div>
                         <div class="d-grid gap-2 col-12 mx-auto edit-button2">
-                            <button class="btn btn-primary" type="button" id="class_btn">Create Model</button>
+                            <button class="btn btn-primary" type="button" id="class_btn">
+                                <i class="bi bi-gear-fill"></i><span class="btn-text">Build Model</span>
+                            </button>
                             <button class="btn btn-primary" type="button" id="loadingbtn3" disabled="">
                                 <span class="spinner-border spinner-border-sm loading-spinner" role="status" aria-hidden="true"></span>
                                 <span class="loading-text">Loading...</span>
@@ -165,31 +167,33 @@
                     <div class="page-title">
                         Cross-Validation Results
                     </div>
-                    <table id="results_table" class="table table-bordered table-striped table-style">
-                        <thead>
-                            <tr>
-                                <th scope="col" colspan="5">Accuracy of each Fold (k = 5)</th>
-                                <th scope="col" rowspan="2">Average<br>Accuracy</th>
-                            </tr>
-                            <tr>
-                              <th scope="col">Fold 1</th>
-                              <th scope="col">Fold 2</th>
-                              <th scope="col">Fold 3</th>
-                              <th scope="col">Fold 4</th>
-                              <th scope="col">Fold 5</th>
-                            </tr>
-                        </thead>
-                        <tbody class="table-group-divider">
-                            <tr>
-                              <td>Val1</td>
-                              <td>Val2</td>
-                              <td>Val3</td>
-                              <td>Val4</td>
-                              <td>Val5</td>
-                              <td>AvgVal</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    <div style="overflow-x:auto;">
+                        <table id="results_table" class="table table-bordered table-striped table-style">
+                            <thead>
+                                <tr>
+                                    <th scope="col" colspan="5">Accuracy of each Fold (k = 5)</th>
+                                    <th scope="col" rowspan="2">Average<br>Accuracy</th>
+                                </tr>
+                                <tr>
+                                <th scope="col">Fold 1</th>
+                                <th scope="col">Fold 2</th>
+                                <th scope="col">Fold 3</th>
+                                <th scope="col">Fold 4</th>
+                                <th scope="col">Fold 5</th>
+                                </tr>
+                            </thead>
+                            <tbody class="table-group-divider">
+                                <tr id="results_tr">
+                                <td>Val1</td>
+                                <td>Val2</td>
+                                <td>Val3</td>
+                                <td>Val4</td>
+                                <td>Val5</td>
+                                <td>AvgVal</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -238,7 +242,7 @@
                         <div id="modal2_text" class="edit-select2"></div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                        <button id="modal_btn" type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
                     </div>
                 </div>
             </div>

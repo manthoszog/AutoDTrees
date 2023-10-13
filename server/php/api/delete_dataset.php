@@ -89,6 +89,7 @@
     }
     
     if(!$delete){
+        header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"Unable to delete file."]);
         exit;
     }

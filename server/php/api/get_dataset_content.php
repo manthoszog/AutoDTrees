@@ -85,6 +85,11 @@
             $row++;
         }
         fclose($open_file);
+        if((count($csv_array)) < 3){
+            header("HTTP/1.1 400 Bad Request");
+            print json_encode(['errormesg'=>"Please select a larger dataset."]);
+            exit;
+        }
         $countFields = max($count2);
         for($j = 0; $j < $countFields; $j++){
             $columns = array();
@@ -106,6 +111,7 @@
         print json_encode(['csv_array'=>$csv_array2,'numerical_fields'=>$num_fields,'fields'=>$fields]);
     }
     else{
+        header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"An error has occured while trying to read file."]);
         exit;
     }

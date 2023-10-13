@@ -39,6 +39,7 @@
             $mail->send();
 
         } catch (Exception $e) {
+            header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"Message could not be sent. Mailer Error: {$mail->ErrorInfo}"]);
             exit;
         }

@@ -51,6 +51,26 @@ $(function(){
         window.location.href = '../';
     });
 
+    var modal_key = $("#modal2");
+    modal_key.on("keypress", function(event){
+        if(event.key === "Enter"){
+            event.preventDefault();
+            if($("#modal2").css("display") !== "none"){
+                $("#modal_btn").click();
+            }
+        }
+    });
+
+    var input_key = $("input");
+    input_key.on("keypress", function(event){
+        if(event.key === "Enter"){
+            event.preventDefault();
+            if($("#class_btn").css("display") !== "none"){
+                $("#class_btn").click();
+            }
+        }
+    });
+
     function getDatasets(){
     
         var link = '../server/php/api/get_datasets.php?token=' + token;
@@ -197,15 +217,16 @@ $(function(){
     });
     
     $("#select_dataset").on("change",function(){
+        $('#table_div').hide();
+        $('#params_div').hide();
+        $('#results_div').hide();
+
         var selected = $("#select_dataset :selected").val();
         var folder = $("#select_dataset :selected").attr("class");
 
         if(selected == "default"){
             $('#delbtn').prop("disabled",true);
             $('#dnload-btn').prop("disabled",true);
-            $('#table_div').hide();
-            $('#params_div').hide();
-            $('#results_div').hide();
             return;
         }
 
@@ -252,6 +273,8 @@ $(function(){
                 for(var i = 0; i < fields1.length; i++){
                     $("#select_class").append($(`<option value='${fields1[i]}'>${fields1[i]}</option>`));
                 }
+                $("#max_depth").val("");
+                $("#min_samples_leaf").val("");
                 $('#params_div').show();
             },
             error: function(xhr,status,error){
@@ -314,5 +337,112 @@ $(function(){
         var link = '../server/php/api/download_dataset.php?token=' + token + '&folder=' + folder + '&file=' + file;
         event.preventDefault();
         window.location.href = link;
+    });
+
+    $("#class_btn").click(function(){
+        $('#results_div').hide();
+        
+        var check = $("input[name=num_field]:checked");
+        if(check.length == 0){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("You didn't select any numerical columns.");
+            return;
+        }
+
+        var selected = $("#select_class :selected").val();
+        if(selected == 'default'){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("You have to select a Class column.");
+            return;
+        }
+
+        var checkVal = {};
+        $.each(check,function(i){
+            checkVal[i] = $(this).val();
+        });
+
+        var max_depth = $("#max_depth").val().trim();
+        if(max_depth.length == 0){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("Please give the Max Depth.");
+            return;
+        }
+
+        var min_samples_leaf = $("#min_samples_leaf").val().trim();
+        if(min_samples_leaf.length == 0){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("Please give the Min samples/leaf.");
+            return;
+        }
+
+        var max_depthInt = Number.parseInt(max_depth);
+        if(Number.isNaN(max_depthInt)){
+	        $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("Please give a valid value for the Max Depth.");
+            return;
+        }
+
+        var min_samples_leafInt = Number.parseInt(min_samples_leaf);
+        if(Number.isNaN(min_samples_leafInt)){
+	        $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("Please give a valid value for the Min samples/leaf.");
+            return;
+        }
+
+        if(max_depthInt < 1){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("You should give a Max Depth&ge;1.");
+            return;
+        }
+
+        if(min_samples_leafInt < 1){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("You should give a Min samples/leaf&ge;1.");
+            return;
+        }
+
+        var file = $("#select_dataset :selected").val();
+        var folder = $("#select_dataset :selected").attr("class");
+
+        $("#class_btn").hide();
+        $("#loadingbtn3").show();
+
+        $.ajax({
+            url: '../server/php/api/cross_validation.php',
+            method: 'POST',
+            data: JSON.stringify({token: token, checkVal: checkVal, selected: selected, max_depthInt: max_depthInt, min_samples_leafInt: min_samples_leafInt, folder: folder, file: file}),
+            dataType: "json",
+            contentType: 'application/json',
+            success: function(data){
+                var kfold_acc = data.kfold_acc_score;
+                var avg_acc = data.avg_acc_score;
+                $("#results_tr").html("");
+                for(var i = 0; i < kfold_acc.length; i++){
+                    $("#results_tr").append($(`<td>${kfold_acc[i]}</td>`));
+                }
+                $("#results_tr").append($(`<td>${avg_acc}</td>`));
+                $("#loadingbtn3").hide();
+                $("#class_btn").show();
+                $('#results_div').show();
+                window.location.href = '#results_div';
+            },
+            error: function(xhr,status,error){
+                var response = JSON.parse(xhr.responseText);
+                var errormes = response.errormesg;
+                $("#loadingbtn3").hide();
+                $("#class_btn").show();
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html(errormes);
+            }
+        });
     });
 });

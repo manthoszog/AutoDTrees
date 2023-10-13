@@ -64,10 +64,12 @@
         $dir3 = deleteDir("../../py/users/$hash_user/models");
         $dir1 = rmdir("../../py/users/$hash_user");
     }catch(Exception $e){
+        header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"An error has occured while trying to delete user's directory."]);
         exit;
     }
     if(!$dir1 || !$dir2 || !$dir3){
+        header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"An error has occured while trying to delete user's directory."]);
         exit;
     }

@@ -91,10 +91,12 @@
         try{
             $dir1 = rename("../../py/users/$hash_old_user","../../py/users/$hash_user");
         }catch(Exception $e){
+            header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"An error has occured while trying to rename user's directory."]);
             exit;
         }
         if(!$dir1){
+            header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"An error has occured while trying to rename user's directory."]);
             exit;
         }
@@ -108,6 +110,7 @@
             send_mail($email,$fname,$subject,$email_body,$alt_body);
         }
         catch(Exception $e){
+            header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"Mailer Error. Message could not be sent."]);
             exit;
         }
