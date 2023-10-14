@@ -59,7 +59,7 @@ $(function(){
     });
 
     if(sessionStorage.getItem("token") !== null){
-        $("#username").text(sessionStorage.getItem("fname") + " " + sessionStorage.getItem("lname"));
+        $("#username").html($(`<i class="bi bi-person-circle"></i><span style="margin-left: 10px;">${sessionStorage.getItem("fname")} ${sessionStorage.getItem("lname")}</span>`));
     }
     else{
         window.location.href = 'login.html';

@@ -100,9 +100,12 @@ nav a.active{
 .dropdown-menu .dropdown-submenu-left {
     display: none;
     position: absolute;
-    right: 100%;
+    right: auto;
     left: auto;
-    top: -7px;
+}
+
+#drop_width{
+    min-width: 225px;
 }
 
 .dropdown-menu > li:hover > .dropdown-submenu-left {

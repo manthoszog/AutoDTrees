@@ -157,9 +157,21 @@
                 array_push($num_fields,$csv_array[0][$j]);
             }
         }
-        
+
         for($j4 = 0; $j4 < $countFields; $j4++){
-            array_push($fields,$csv_array[0][$j4]);
+            $columns = array();
+            $found = 0;
+            for($i = 1; $i < count($csv_array); $i++){
+                array_push($columns,$csv_array[$i][$j4]);
+            }
+            foreach($columns as $val){
+                if(is_numeric($val) && (strpos($val,'.') !== false)){
+                    $found++;
+                }
+            }
+            if($found == 0){
+                array_push($fields,$csv_array[0][$j4]);
+            }
         }
 
         for($i = 0; $i < count($checkVal); $i++){
@@ -191,7 +203,7 @@
         for($i = 0; $i < count($checkVal); $i++){
             if($selected == $checkVal[$i]){
                 header("HTTP/1.1 400 Bad Request");
-                print json_encode(['errormesg'=>"Incorrect input for Class column."]);
+                print json_encode(['errormesg'=>"You set $selected as both a Numerical and a Class column."]);
                 exit;
             }
         }

@@ -105,9 +105,23 @@
                 $csv_array2[$i3][$j3] = $csv_array[$i3][$j3];
             }
         }
+
         for($j4 = 0; $j4 < $countFields; $j4++){
-            array_push($fields,$csv_array[0][$j4]);
+            $columns = array();
+            $found = 0;
+            for($i = 1; $i < count($csv_array); $i++){
+                array_push($columns,$csv_array[$i][$j4]);
+            }
+            foreach($columns as $val){
+                if(is_numeric($val) && (strpos($val,'.') !== false)){
+                    $found++;
+                }
+            }
+            if($found == 0){
+                array_push($fields,$csv_array[0][$j4]);
+            }
         }
+
         print json_encode(['csv_array'=>$csv_array2,'numerical_fields'=>$num_fields,'fields'=>$fields]);
     }
     else{
