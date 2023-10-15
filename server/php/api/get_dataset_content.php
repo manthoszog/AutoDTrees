@@ -76,7 +76,7 @@
     $csv_array2 = array();
     $row = 0;
     if(($open_file = fopen($file_path, "r")) !== FALSE){
-        while(($row_data = fgetcsv($open_file, 1024, ",")) !== FALSE){
+        while(($row_data = fgetcsv($open_file, 2048, ",")) !== FALSE){
             $countFields = count($row_data);
             array_push($count2,$countFields);
             for($i = 0; $i < $countFields; $i++){

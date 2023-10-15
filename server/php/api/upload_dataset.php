@@ -1,6 +1,6 @@
 <?php
     header("Access-Control-Allow-Origin: *");
-    ini_set('upload_max_filesize', '1M');
+    ini_set('upload_max_filesize', '40M');
     
     require_once "../dbconnect.php";
     require_once "../global_functions.php";
@@ -53,9 +53,9 @@
         exit;
     }
     
-    if($_FILES["file"]["size"] > 1048576){
+    if($_FILES["file"]["size"] > 41943040){ 
         header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg'=>"Max file size is 1 MB."]);
+        print json_encode(['errormesg'=>"Max file size is 40 MB."]);
         exit;
     }
     

@@ -5,6 +5,7 @@ $(function(){
     $('#table_div').hide();
     $('#params_div').hide();
     $('#results_div').hide();
+    $('#loadingbtn_dataset').hide();
 
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
@@ -232,6 +233,8 @@ $(function(){
 
         $('#delbtn').prop("disabled",false);
         $('#dnload-btn').prop("disabled",false);
+
+        $('#loadingbtn_dataset').show();
         
         $.ajax({
             url: `../server/php/api/get_dataset_content.php?token=${token}&file=${selected}&folder=${folder}`,
@@ -256,6 +259,7 @@ $(function(){
                         });
                     }
                 });
+                $('#loadingbtn_dataset').hide();
                 $('#table_div').show();
                 $('#checkBoxes').html("");
                 for(var i = 0; i < num_fields.length; i++){
@@ -280,6 +284,7 @@ $(function(){
             error: function(xhr,status,error){
                 var response = JSON.parse(xhr.responseText);
                 var errormes = response.errormesg;
+                $('#loadingbtn_dataset').hide();
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
                 $('#modal2_text').html(errormes);

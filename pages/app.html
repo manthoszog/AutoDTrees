@@ -84,6 +84,12 @@
                             <span class="loading-text">Loading...</span>
                         </button>
                     </div>
+                    <div class="d-grid gap-2 col-12 mx-auto edit-button2">
+                        <button class="btn btn-primary" type="button" id="loadingbtn_dataset" disabled="">
+                            <span class="spinner-border spinner-border-sm loading-spinner" role="status" aria-hidden="true"></span>
+                            <span class="loading-text">Loading Dataset...</span>
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -92,7 +98,7 @@
             <div class="container">
                 <div class="container-inner2">
                     <div class="page-title">
-                        Selected Dataset
+                        Selected Dataset Preview
                     </div>
                     <div style="overflow-x:auto;">
                         <table id="data_table" class="table table-bordered table-striped table-style">
@@ -120,13 +126,13 @@
                     </div>
                     <div class="page-subtitle2">
                         <i class="bi bi-info-circle-fill"></i>
-                        <span>Select columns to Classify (<u><b>only numerical columns available</b></u>):</span>
+                        <span>Select columns to Classify (<u><b>only numerical columns available, with no missing values</b></u>):</span>
                     </div>
                     <form id="checkBoxes">
                     </form>
                     <div class="page-subtitle2">
                         <i class="bi bi-info-circle-fill"></i>
-                        <span>Select Class column (<u><b>only integer & text type columns available</b></u>):</span>
+                        <span>Select Class column (<u><b>only integer & text type columns available, with no missing values</b></u>):</span>
                     </div>
                     <select class="form-select edit-select3" id="select_class" aria-label="Default select example">
                     </select>

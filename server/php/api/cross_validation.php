@@ -133,7 +133,7 @@
     $count2 = array();
     $row = 0;
     if(($open_file = fopen($file_path, "r")) !== FALSE){
-        while(($row_data = fgetcsv($open_file, 1024, ",")) !== FALSE){
+        while(($row_data = fgetcsv($open_file, 2048, ",")) !== FALSE){
             $countFields = count($row_data);
             array_push($count2,$countFields);
             for($i = 0; $i < $countFields; $i++){
@@ -214,13 +214,13 @@
             $results = shell_exec("python ../../py/dt_crossvalidation.py $file_path $checkValImplode $selected $max_depthInt $min_samples_leafInt");
         }catch(Exception $e){
             header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for Cross-Validation."]);
+            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for Cross-Validation. Please check the possibility of missing values existence in given columns and try again."]);
             exit;
         }
 
         if(!$results || $results == null){
             header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for Cross-Validation."]);
+            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for Cross-Validation. Please check the possibility of missing values existence in given columns and try again."]);
             exit;
         }
 
