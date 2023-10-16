@@ -141,6 +141,11 @@ $(function(){
             return;
         }
 
+        if(file.size > 41943040){
+            alert_danger("Max file size is 40 MB.");
+            return;
+        }
+
         var folder = $("#select_folder :selected").val();
 
         if(folder == "Select folder to save"){
@@ -285,6 +290,7 @@ $(function(){
                 var response = JSON.parse(xhr.responseText);
                 var errormes = response.errormesg;
                 $('#loadingbtn_dataset').hide();
+                $('#dnload-btn').prop("disabled",true);
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
                 $('#modal2_text').html(errormes);
@@ -346,6 +352,9 @@ $(function(){
 
     $("#class_btn").click(function(){
         $('#results_div').hide();
+        
+        $("#max_depth:focus").blur();
+        $("#min_samples_leaf:focus").blur();
         
         var check = $("input[name=num_field]:checked");
         if(check.length == 0){

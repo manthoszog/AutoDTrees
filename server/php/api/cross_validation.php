@@ -214,13 +214,13 @@
             $results = shell_exec("python ../../py/dt_crossvalidation.py $file_path $checkValImplode $selected $max_depthInt $min_samples_leafInt");
         }catch(Exception $e){
             header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for Cross-Validation. Please check the possibility of missing values existence in given columns and try again."]);
+            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for Cross-Validation. <br><br> Please check the possibility of missing values existence in given columns and try again."]);
             exit;
         }
 
         if(!$results || $results == null){
             header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for Cross-Validation. Please check the possibility of missing values existence in given columns and try again."]);
+            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for Cross-Validation. <br><br> Please check the possibility of missing values existence in given columns and try again."]);
             exit;
         }
 
