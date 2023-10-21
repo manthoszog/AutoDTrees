@@ -198,7 +198,7 @@ $(function(){
     });
 
     let fields2;
-    $("#checkBoxes").on("change",function(){
+    $("#checkBoxes").click(function(){
         const fields22 = {};
         for(var i = 0; i < fields2.length; i++){
             fields22[i] = fields2[i];
@@ -220,6 +220,27 @@ $(function(){
                 $("#select_class").append($(`<option value='${fields3[index6]}'>${fields3[index6]}</option>`));
             }
         });
+    });
+
+    $("#checkSelectAll").click(function(){
+        var selAll = $("input[name=select_all]:checked");
+        var check = $("input[name=num_field]");
+        if(selAll.length > 0){
+            for(var i = 0; i < check.length; i++){
+                if(check[i].type == 'checkbox'){
+                    check[i].checked = true;
+                }
+            }
+            $("#checkBoxes").click();
+        }
+        else{
+            for(var i = 0; i < check.length; i++){
+                if(check[i].type == 'checkbox'){
+                    check[i].checked = false;
+                }
+            }
+            $("#checkBoxes").click();
+        }
     });
     
     $("#select_dataset").on("change",function(){
@@ -266,6 +287,13 @@ $(function(){
                 });
                 $('#loadingbtn_dataset').hide();
                 $('#table_div').show();
+                $('#checkSelectAll').html("");
+                $('#checkSelectAll').append($(`
+                    <input class="form-check-input edit_checkbox" type="checkbox" name="select_all" value="Select all" id="flexCheckDefault">
+                    <label class="form-check-label" for="flexCheckDefault">
+                        Select all
+                    </label>
+                `));
                 $('#checkBoxes').html("");
                 for(var i = 0; i < num_fields.length; i++){
                     $('#checkBoxes').append($(`
@@ -282,8 +310,9 @@ $(function(){
                 for(var i = 0; i < fields1.length; i++){
                     $("#select_class").append($(`<option value='${fields1[i]}'>${fields1[i]}</option>`));
                 }
-                $("#max_depth").val("");
-                $("#min_samples_leaf").val("");
+                $("#max_depth").val("1");
+                $("#min_samples_leaf").val("1");
+                $("#kFolds").val("5");
                 $('#params_div').show();
             },
             error: function(xhr,status,error){
@@ -355,6 +384,7 @@ $(function(){
         
         $("#max_depth:focus").blur();
         $("#min_samples_leaf:focus").blur();
+        $("#kFolds:focus").blur();
         
         var check = $("input[name=num_field]:checked");
         if(check.length == 0){
@@ -381,7 +411,7 @@ $(function(){
         if(max_depth.length == 0){
             $('#modal2_text').html("");
             $('#modal2').modal('show');
-            $('#modal2_text').html("Please give the Max Depth.");
+            $('#modal2_text').html("Please give the max_depth.");
             return;
         }
 
@@ -389,7 +419,15 @@ $(function(){
         if(min_samples_leaf.length == 0){
             $('#modal2_text').html("");
             $('#modal2').modal('show');
-            $('#modal2_text').html("Please give the Min samples/leaf.");
+            $('#modal2_text').html("Please give the min_samples_leaf.");
+            return;
+        }
+
+        var kFolds = $("#kFolds").val().trim();
+        if(kFolds.length == 0){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("Please give the k value.");
             return;
         }
 
@@ -397,7 +435,7 @@ $(function(){
         if(Number.isNaN(max_depthInt)){
 	        $('#modal2_text').html("");
             $('#modal2').modal('show');
-            $('#modal2_text').html("Please give a valid value for the Max Depth.");
+            $('#modal2_text').html("Please give a valid value for the max_depth.");
             return;
         }
 
@@ -405,21 +443,36 @@ $(function(){
         if(Number.isNaN(min_samples_leafInt)){
 	        $('#modal2_text').html("");
             $('#modal2').modal('show');
-            $('#modal2_text').html("Please give a valid value for the Min samples/leaf.");
+            $('#modal2_text').html("Please give a valid value for the min_samples_leaf.");
+            return;
+        }
+
+        var kFoldsInt = Number.parseInt(kFolds);
+        if(Number.isNaN(kFoldsInt)){
+	        $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("Please give a valid value for k.");
             return;
         }
 
         if(max_depthInt < 1){
             $('#modal2_text').html("");
             $('#modal2').modal('show');
-            $('#modal2_text').html("You should give a Max Depth&ge;1.");
+            $('#modal2_text').html("You should give a max_depth &ge; 1.");
             return;
         }
 
         if(min_samples_leafInt < 1){
             $('#modal2_text').html("");
             $('#modal2').modal('show');
-            $('#modal2_text').html("You should give a Min samples/leaf&ge;1.");
+            $('#modal2_text').html("You should give a min_samples_leaf &ge; 1.");
+            return;
+        }
+
+        if((kFoldsInt < 5) || (kFoldsInt > 50)){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("Incorrect input for k. Range of accepted values: 5 - 50.");
             return;
         }
 
@@ -432,17 +485,21 @@ $(function(){
         $.ajax({
             url: '../server/php/api/cross_validation.php',
             method: 'POST',
-            data: JSON.stringify({token: token, checkVal: checkVal, selected: selected, max_depthInt: max_depthInt, min_samples_leafInt: min_samples_leafInt, folder: folder, file: file}),
+            data: JSON.stringify({token: token, checkVal: checkVal, selected: selected, max_depthInt: max_depthInt, min_samples_leafInt: min_samples_leafInt, folder: folder, file: file, kFoldsInt: kFoldsInt}),
             dataType: "json",
             contentType: 'application/json',
             success: function(data){
-                var kfold_acc = data.kfold_acc_score;
                 var avg_acc = data.avg_acc_score;
+                var avg_prec = data.avg_prec_score;
+                var avg_rec = data.avg_rec_score;
+                var avg_f = data.avg_f_score;
+                $("#titleName").html("");
+                $("#titleName").append("Average Metrics for Class " + "'" + selected + "'");
                 $("#results_tr").html("");
-                for(var i = 0; i < kfold_acc.length; i++){
-                    $("#results_tr").append($(`<td>${kfold_acc[i]}</td>`));
-                }
                 $("#results_tr").append($(`<td>${avg_acc}</td>`));
+                $("#results_tr").append($(`<td>${avg_prec}</td>`));
+                $("#results_tr").append($(`<td>${avg_rec}</td>`));
+                $("#results_tr").append($(`<td>${avg_f}</td>`));
                 $("#loadingbtn3").hide();
                 $("#class_btn").show();
                 $('#results_div').show();

@@ -178,7 +178,7 @@ nav a.active{
 
 .field-text{
     font-size: 15px;
-    color: #898989;
+    color: #4D5154;
 }
 
 .alert-icon{
@@ -262,13 +262,21 @@ nav a.active{
     padding-bottom: 30px;
 }
 
+#checkSelectAll{
+    margin-bottom: 15px;
+}
+
 .inline_form{
     float: left;
-    width: 49%;
+    width: 32%;
 }
 
 .inline_form:first-child{
     margin-right: 2%;
+}
+
+.inline_form:last-child{
+    margin-left: 2%;
 }
 
 #margin_div{
@@ -277,4 +285,16 @@ nav a.active{
 
 .edit_checkbox{
     border: 1px solid black;
+}
+
+.quesMark{
+    color: red;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+@media(max-width: 576px){
+    .label_edit{
+        width: 110px;
+    }
 }

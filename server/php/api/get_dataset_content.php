@@ -97,7 +97,9 @@
                 array_push($columns,$csv_array[$i2][$j]);
             }
             if((count(array_filter($columns,"is_numeric"))) == (count($csv_array) - 1)){
-                array_push($num_fields,$csv_array[0][$j]);
+                if($csv_array[0][$j] != ""){
+                    array_push($num_fields,$csv_array[0][$j]);
+                }
             }
         }
         for($i3 = 0; $i3 <= 10; $i3++){
@@ -116,9 +118,14 @@
                 if(is_numeric($val) && (strpos($val,'.') !== false)){
                     $found++;
                 }
+                elseif(preg_match("@^(null|Null|NULL|na|NA|Na|NAN|nan|NaN| ||)$@", $val)){
+                    $found++;
+                }
             }
             if($found == 0){
-                array_push($fields,$csv_array[0][$j4]);
+                if($csv_array[0][$j4] != ""){
+                    array_push($fields,$csv_array[0][$j4]);
+                }
             }
         }
 

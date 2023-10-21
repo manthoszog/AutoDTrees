@@ -101,6 +101,20 @@
         exit;
     }
 
+    if(!isset($input['kFoldsInt'])){
+        header("HTTP/1.1 400 Bad Request");
+        print json_encode(['errormesg'=>"Please give the k value."]);
+        exit;
+    }
+
+    $kFolds = $input['kFoldsInt'];
+    $kFoldsInt = intval($kFolds);
+    if(($kFoldsInt < 5) || ($kFoldsInt > 50)){
+        header("HTTP/1.1 400 Bad Request");
+        print json_encode(['errormesg'=>"Incorrect input for k. Range of accepted values: 5 - 50."]);
+        exit;
+    }
+
     $file_path = "";
 
     if($folder == "public"){
@@ -125,7 +139,6 @@
         }
     }
 
-    //edit
     $countFields;
     $num_fields = array(); //only numerical fields
     $fields = array();
@@ -154,7 +167,9 @@
                 array_push($columns,$csv_array[$i2][$j]);
             }
             if((count(array_filter($columns,"is_numeric"))) == (count($csv_array) - 1)){
-                array_push($num_fields,$csv_array[0][$j]);
+                if($csv_array[0][$j] != ""){
+                    array_push($num_fields,$csv_array[0][$j]);
+                }
             }
         }
 
@@ -168,9 +183,14 @@
                 if(is_numeric($val) && (strpos($val,'.') !== false)){
                     $found++;
                 }
+                elseif(preg_match("@^(null|Null|NULL|na|NA|Na|NAN|nan|NaN| ||)$@", $val)){
+                    $found++;
+                }
             }
             if($found == 0){
-                array_push($fields,$csv_array[0][$j4]);
+                if($csv_array[0][$j4] != ""){
+                    array_push($fields,$csv_array[0][$j4]);
+                }
             }
         }
 
@@ -207,11 +227,15 @@
                 exit;
             }
         }
+
+        $checkVal = str_replace(" ","_",$checkVal);
+
+        $selected = str_replace(" ","_",$selected);
         
         $checkValImplode = implode(",",$checkVal);
         $results;
         try{
-            $results = shell_exec("python ../../py/dt_crossvalidation.py $file_path $checkValImplode $selected $max_depthInt $min_samples_leafInt");
+            $results = shell_exec("python ../../py/dt_crossvalidation.py $file_path $checkValImplode $selected $max_depthInt $min_samples_leafInt $kFoldsInt");
         }catch(Exception $e){
             header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for Cross-Validation. <br><br> Please check the possibility of missing values existence in given columns and try again."]);

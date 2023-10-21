@@ -126,13 +126,15 @@
                     </div>
                     <div class="page-subtitle2">
                         <i class="bi bi-info-circle-fill"></i>
-                        <span>Select columns to Classify (<u><b>only numerical columns available, with no missing values</b></u>):</span>
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Only numerical columns available, without missing values.">Select features to Classify: (<span class="quesMark">?</span>)</span>
+                    </div>
+                    <div class="form-check form-check-inline" id="checkSelectAll">
                     </div>
                     <form id="checkBoxes">
                     </form>
                     <div class="page-subtitle2">
                         <i class="bi bi-info-circle-fill"></i>
-                        <span>Select Class column (<u><b>only integer & text type columns available, with no missing values</b></u>):</span>
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Please select a column without missing values.">Select Class: (<span class="quesMark">?</span>)</span>
                     </div>
                     <select class="form-select edit-select3" id="select_class" aria-label="Default select example">
                     </select>
@@ -143,14 +145,19 @@
                     <form action="#">
                         <div>
                             <div class="form-floating inline_form">
-                                <input type="text" id="max_depth" class="form-control" placeholder="Max Depth (&ge;1)" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Insert Max Depth (give a value &ge; 1)">
+                                <input type="text" id="max_depth" class="form-control" placeholder="max_depth" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="The Max Depth of the Tree. Give a value &ge; 1.">
                                 <label for="max_depth">
-                                    <span class="field-text">Max Depth (&ge;1)</span></label>
+                                    <span class="field-text">max_depth</span></label>
                             </div>
                             <div class="form-floating inline_form">
-                                <input type="text" id="min_samples_leaf" class="form-control" placeholder="Min samples/leaf (&ge;1)" data-bs-toggle="tooltip" data-bs-placement="bottom" data-bs-title="Insert Min samples/leaf (give a value &ge; 1)">
-                                <label for="min_samples_leaf">
-                                    <span class="field-text">Min samples/leaf (&ge;1)</span></label>
+                                <input type="text" id="min_samples_leaf" class="form-control" placeholder="min_samples_leaf" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The Min number of Samples per Leaf node. Give a value &ge; 1.">
+                                <label for="min_samples_leaf" class="label_edit">
+                                    <span class="field-text">min_samples/leaf</span></label>
+                            </div>
+                            <div class="form-floating inline_form">
+                                <input type="text" id="kFolds" class="form-control" placeholder="k" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="The number of folds for k-fold Cross-Validation. Range of accepted values: 5 - 50.">
+                                <label for="kFolds">
+                                    <span class="field-text">k</span></label>
                             </div>
                         </div>
                         <div class="d-grid gap-2 col-12 mx-auto edit-button2">
@@ -177,15 +184,13 @@
                         <table id="results_table" class="table table-bordered table-striped table-style">
                             <thead>
                                 <tr>
-                                    <th scope="col" colspan="5">Accuracy of each Fold (k = 5)</th>
-                                    <th scope="col" rowspan="2">Average<br>Accuracy</th>
+                                    <th scope="col" colspan="4" id="titleName"></th>
                                 </tr>
                                 <tr>
-                                <th scope="col">Fold 1</th>
-                                <th scope="col">Fold 2</th>
-                                <th scope="col">Fold 3</th>
-                                <th scope="col">Fold 4</th>
-                                <th scope="col">Fold 5</th>
+                                    <th scope="col">Accuracy</th>
+                                    <th scope="col">Precision</th>
+                                    <th scope="col">Recall</th>
+                                    <th scope="col">F-score</th>
                                 </tr>
                             </thead>
                             <tbody class="table-group-divider">
