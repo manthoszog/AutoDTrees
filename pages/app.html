@@ -15,7 +15,7 @@
         <title>App - WebDTrees</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg bg-light">
+        <nav class="navbar navbar-expand-lg bg-light fixed-top">
             <div class="container-fluid" id="container-inner">
               <a class="navbar-brand brand-font-size font-effect-shadow-multiple" href="../">WebDTrees</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,7 +24,13 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="navbar-nav me-auto">
                         <a class="nav-link font-size" href="../"><i class="bi bi-house-door-fill"></i><span style="margin-left: 10px;">Home</span></a>
-                        <a class="nav-link font-size active" href="#"><i class="bi bi-collection-play-fill"></i><span style="margin-left: 10px;">App</span></a>
+                        <div class="nav-item dropdown">
+                            <a class="nav-link font-size active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-collection-play-fill"></i><span style="margin-left: 10px;">App</span></a>
+                            <ul class="dropdown-menu drop-ul item-font-size">
+                                <li><a class="dropdown-item active" href="#"><i class="bi bi-plus-circle"></i><span>New Model</span></a></li>
+                                <li><a class="dropdown-item" href="app2.html"><i class="bi bi-diagram-3-fill"></i><span>Pretrained Models</span></a></li>
+                            </ul>
+                        </div>
                         <a class="nav-link font-size" href="about.html"><i class="bi bi-info-circle-fill"></i><span style="margin-left: 10px;">About</span></a>
                         <a class="nav-link font-size" href="#"><i class="bi bi-hand-thumbs-up-fill"></i><span style="margin-left: 10px;">Rate app</span></a>
                     </div>
@@ -39,7 +45,7 @@
                                 <li><p class="dropdown-header uname-font-size" id="username">Username</p></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                    <a class="dropdown-item" href="#"><i class="bi bi-pencil-square"></i><span>Edit Account &raquo;</span></a>
+                                    <a class="dropdown-item dropdown-toggle" href="#"><i class="bi bi-pencil-square"></i><span>Edit Account</span></a>
                                     <ul class="dropdown-menu dropdown-submenu-left">
                                         <li>
                                           <a class="dropdown-item" href="edit-account.html"><i class="bi bi-pencil"></i><span>Edit Name or Password</span></a>
@@ -62,7 +68,7 @@
             </div>
         </nav>
 
-        <div class="form-body">
+        <div class="form-body" style="margin-top: 140px;">
             <div class="container">
                 <div class="container-inner2">
                     <div class="d-grid gap-2 col-12 mx-auto edit-button2">
@@ -134,13 +140,13 @@
                     </form>
                     <div class="page-subtitle2">
                         <i class="bi bi-info-circle-fill"></i>
-                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Please select a column without missing values.">Select Class: (<span class="quesMark">?</span>)</span>
+                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Only columns without missing values are available.">Select Class: (<span class="quesMark">?</span>)</span>
                     </div>
                     <select class="form-select edit-select3" id="select_class" aria-label="Default select example">
                     </select>
                     <div class="page-subtitle2">
                         <i class="bi bi-info-circle-fill"></i>
-                        <span>Insert the Classifier's parameters:</span>
+                        <span>Insert the Classifier & k-Fold's parameters:</span>
                     </div>
                     <form action="#">
                         <div>
@@ -150,9 +156,9 @@
                                     <span class="field-text">max_depth</span></label>
                             </div>
                             <div class="form-floating inline_form">
-                                <input type="text" id="min_samples_leaf" class="form-control" placeholder="min_samples_leaf" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The Min number of Samples per Leaf node. Give a value &ge; 1.">
+                                <input type="text" id="min_samples_leaf" class="form-control" placeholder="min_samples_leaf" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The Minimum number of Samples per Leaf node. Give a value &ge; 1.">
                                 <label for="min_samples_leaf" class="label_edit">
-                                    <span class="field-text">min_samples/leaf</span></label>
+                                    <span class="field-text">min_samples_leaf</span></label>
                             </div>
                             <div class="form-floating inline_form">
                                 <input type="text" id="kFolds" class="form-control" placeholder="k" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="The number of folds for k-fold Cross-Validation. Range of accepted values: 5 - 50.">
@@ -178,7 +184,7 @@
             <div class="container">
                 <div class="container-inner2">
                     <div class="page-title">
-                        Cross-Validation Results
+                        Model Evaluation
                     </div>
                     <div style="overflow-x:auto;">
                         <table id="results_table" class="table table-bordered table-striped table-style">
@@ -198,6 +204,29 @@
                                 </tr>
                             </tbody>
                         </table>
+                    </div>
+                    <div class="row" style="margin-top: 20px;">
+                        <div class="col">
+                            <div class="form-floating">
+                                <input type="text" id="model_name" class="form-control" placeholder="Model Name" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Give a name for your Model.">
+                                <label for="model_name">
+                                    <span class="field-text">Model Name</span></label>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="btn_size">
+                                <button class="btn btn-primary" type="button" id="save_btn">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-floppy-fill" viewBox="0 0 20 20">
+                                        <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5v-13Z"/>
+                                        <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5V16Zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V0ZM9 1h2v4H9V1Z"/>
+                                      </svg> <span class="saveDiv_button">Save Model</span>
+                                </button>
+                                <button class="btn btn-primary" type="button" id="loadingbtnSave" disabled="">
+                                    <span class="spinner-border spinner-border-sm loading-spinner2" role="status" aria-hidden="true"></span>
+                                    <span class="saveDiv_button">Loading...</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

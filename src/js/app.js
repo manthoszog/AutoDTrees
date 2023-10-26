@@ -6,6 +6,7 @@ $(function(){
     $('#params_div').hide();
     $('#results_div').hide();
     $('#loadingbtn_dataset').hide();
+    $('#loadingbtnSave').hide();
 
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));

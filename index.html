@@ -15,7 +15,7 @@
         <title>Home - WebDTrees</title>
     </head>
     <body>
-        <nav class="navbar navbar-expand-lg bg-light">
+        <nav class="navbar navbar-expand-lg bg-light fixed-top">
             <div class="container-fluid" id="container-inner">
               <a class="navbar-brand brand-font-size font-effect-shadow-multiple" href="#">WebDTrees</a>
               <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,7 +24,13 @@
               <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <div class="navbar-nav me-auto">
                         <a class="nav-link active font-size" aria-current="page" href="#"><i class="bi bi-house-door-fill"></i><span style="margin-left: 10px;">Home</span></a>
-                        <a class="nav-link font-size" href="./pages/app.html"><i class="bi bi-collection-play-fill"></i><span style="margin-left: 10px;">App</span></a>
+                        <div class="nav-item dropdown">
+                          <a class="nav-link font-size dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-collection-play-fill"></i><span style="margin-left: 10px;">App</span></a>
+                          <ul class="dropdown-menu drop-ul item-font-size">
+                              <li><a class="dropdown-item" href="./pages/app.html"><i class="bi bi-plus-circle"></i><span>New Model</span></a></li>
+                              <li><a class="dropdown-item" href="./pages/app2.html"><i class="bi bi-diagram-3-fill"></i><span>Pretrained Models</span></a></li>
+                          </ul>
+                        </div>
                         <a class="nav-link font-size" href="./pages/about.html"><i class="bi bi-info-circle-fill"></i><span style="margin-left: 10px;">About</span></a>
                         <a class="nav-link font-size" href="#"><i class="bi bi-hand-thumbs-up-fill"></i><span style="margin-left: 10px;">Rate app</span></a>
                     </div>
@@ -41,7 +47,7 @@
                                 <li><p class="dropdown-header uname-font-size" id="username">Username</p></li>
                                 <li><hr class="dropdown-divider"></li>
                                 <li>
-                                  <a class="dropdown-item" href="#"><i class="bi bi-pencil-square"></i><span>Edit Account &raquo;</span></a>
+                                  <a class="dropdown-item dropdown-toggle" href="#"><i class="bi bi-pencil-square"></i><span>Edit Account</span></a>
                                   <ul class="dropdown-menu dropdown-submenu-left">
                                     <li>
                                       <a class="dropdown-item" href="./pages/edit-account.html"><i class="bi bi-pencil"></i><span>Edit Name or Password</span></a>

@@ -71,8 +71,9 @@ nav a.active{
 }
 
 .drop-ul li a{
-    --bs-dropdown-link-active-bg: #fff;
+    --bs-dropdown-link-active-bg: #ece7e7;
     --bs-dropdown-link-active-color: #212529;
+    --bs-dropdown-link-hover-bg: #eae8e8;
 }
 
 .uname-font-size{
@@ -93,12 +94,19 @@ nav a.active{
 .dropdown-menu .dropdown-submenu-left {
     display: none;
     position: absolute;
-    right: 5%;
-    left: 5%;
+    right: 100%;
+    left: auto;
+    top: -7px;
 }
 
-#drop_width{
-    min-width: 250px;
+@media(max-width: 576px){
+    .dropdown-menu .dropdown-submenu-left {
+        display: none;
+        position: absolute;
+        right: 5%;
+        left: 5%;
+        top: 33px;
+    }
 }
 
 .dropdown-menu > li:hover > .dropdown-submenu-left {
