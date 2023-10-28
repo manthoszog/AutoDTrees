@@ -322,3 +322,12 @@ nav a.active{
     width: 1rem;
     height: 1rem;
 }
+
+.data_table_tbody_td{
+    max-height: 90px;
+    overflow:auto;
+}
+
+.selectedRow td{
+    background-color: #e4e1e1;
+}

@@ -63,12 +63,22 @@ $(function(){
         }
     });
 
-    var input_key = $("input");
+    var input_key = $("#params input");
     input_key.on("keypress", function(event){
         if(event.key === "Enter"){
             event.preventDefault();
             if($("#class_btn").css("display") !== "none"){
                 $("#class_btn").click();
+            }
+        }
+    });
+
+    var input_key = $("#model_name");
+    input_key.on("keypress", function(event){
+        if(event.key === "Enter"){
+            event.preventDefault();
+            if($("#save_btn").css("display") !== "none"){
+                $("#save_btn").click();
             }
         }
     });
@@ -282,7 +292,7 @@ $(function(){
                         var tr_id = 'tr' + index2;
                         $("#data_table_tbody").append($(`<tr id="${tr_id}"></tr>`));
                         $.each(csv_array[index2], function(index3,val3){
-                            $(`#${tr_id}`).append($(`<td>${val3}</td>`)); 
+                            $(`#${tr_id}`).append($(`<td><div class="data_table_tbody_td">${val3}</div></td>`)); 
                         });
                     }
                 });
@@ -386,6 +396,8 @@ $(function(){
         $("#max_depth:focus").blur();
         $("#min_samples_leaf:focus").blur();
         $("#kFolds:focus").blur();
+
+        $("#model_name").val("my_model");
         
         var check = $("input[name=num_field]:checked");
         if(check.length == 0){
@@ -516,5 +528,120 @@ $(function(){
                 $('#modal2_text').html(errormes);
             }
         });
+    });
+
+    $("#save_btn").click(function(){        
+        $("#model_name:focus").blur();
+        
+        var check = $("input[name=num_field]:checked");
+        if(check.length == 0){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("You didn't select any numerical columns.");
+            return;
+        }
+
+        var selected = $("#select_class :selected").val();
+        if(selected == 'default'){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("You have to select a Class column.");
+            return;
+        }
+
+        var checkVal = {};
+        $.each(check,function(i){
+            checkVal[i] = $(this).val();
+        });
+
+        var max_depth = $("#max_depth").val().trim();
+        if(max_depth.length == 0){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("Please give the max_depth.");
+            return;
+        }
+
+        var min_samples_leaf = $("#min_samples_leaf").val().trim();
+        if(min_samples_leaf.length == 0){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("Please give the min_samples_leaf.");
+            return;
+        }
+
+        var model_name = $("#model_name").val().trim();
+        if(model_name.length == 0){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("Please give a name for your Model.");
+            return;
+        }
+
+        var max_depthInt = Number.parseInt(max_depth);
+        if(Number.isNaN(max_depthInt)){
+	        $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("Please give a valid value for the max_depth.");
+            return;
+        }
+
+        var min_samples_leafInt = Number.parseInt(min_samples_leaf);
+        if(Number.isNaN(min_samples_leafInt)){
+	        $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("Please give a valid value for the min_samples_leaf.");
+            return;
+        }
+
+        if(max_depthInt < 1){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("You should give a max_depth &ge; 1.");
+            return;
+        }
+
+        if(min_samples_leafInt < 1){
+            $('#modal2_text').html("");
+            $('#modal2').modal('show');
+            $('#modal2_text').html("You should give a min_samples_leaf &ge; 1.");
+            return;
+        }
+
+        var file = $("#select_dataset :selected").val();
+        var folder = $("#select_dataset :selected").attr("class");
+
+        $("#save_btn").hide();
+        $("#loadingbtnSave").show();
+
+        $.ajax({
+            url: '../server/php/api/save_model.php',
+            method: 'POST',
+            data: JSON.stringify({token: token, checkVal: checkVal, selected: selected, max_depthInt: max_depthInt, min_samples_leafInt: min_samples_leafInt, folder: folder, file: file, model_name: model_name}),
+            dataType: "json",
+            contentType: 'application/json',
+            success: function(data){
+                var mes = data.message;
+                $("#loadingbtnSave").hide();
+                $("#save_btn").show();
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html(mes);
+            },
+            error: function(xhr,status,error){
+                var response = JSON.parse(xhr.responseText);
+                var errormes = response.errormesg;
+                $("#loadingbtnSave").hide();
+                $("#save_btn").show();
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html(errormes);
+            }
+        });
+    });
+
+    $("#data_table").click(function(event){
+        $(".selectedRow").removeClass("selectedRow");
+        $(event.target).closest("tr").addClass("selectedRow");
     });
 });

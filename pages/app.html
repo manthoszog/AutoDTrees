@@ -27,7 +27,7 @@
                         <div class="nav-item dropdown">
                             <a class="nav-link font-size active dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="bi bi-collection-play-fill"></i><span style="margin-left: 10px;">App</span></a>
                             <ul class="dropdown-menu drop-ul item-font-size">
-                                <li><a class="dropdown-item active" href="#"><i class="bi bi-plus-circle"></i><span>New Model</span></a></li>
+                                <li><a class="dropdown-item active" href="#"><i class="bi bi-plus-circle-fill"></i><span>New Model</span></a></li>
                                 <li><a class="dropdown-item" href="app2.html"><i class="bi bi-diagram-3-fill"></i><span>Pretrained Models</span></a></li>
                             </ul>
                         </div>
@@ -107,7 +107,7 @@
                         Selected Dataset Preview
                     </div>
                     <div style="overflow-x:auto;">
-                        <table id="data_table" class="table table-bordered table-striped table-style">
+                        <table id="data_table" class="table table-bordered table-striped table-style table-hover">
                             <thead>
                                 <tr id="data_table_head_tr">
                                 </tr>
@@ -149,7 +149,7 @@
                         <span>Insert the Classifier & k-Fold's parameters:</span>
                     </div>
                     <form action="#">
-                        <div>
+                        <div id="params">
                             <div class="form-floating inline_form">
                                 <input type="text" id="max_depth" class="form-control" placeholder="max_depth" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="The Max Depth of the Tree. Give a value &ge; 1.">
                                 <label for="max_depth">
@@ -208,7 +208,7 @@
                     <div class="row" style="margin-top: 20px;">
                         <div class="col">
                             <div class="form-floating">
-                                <input type="text" id="model_name" class="form-control" placeholder="Model Name" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Give a name for your Model.">
+                                <input type="text" id="model_name" class="form-control" placeholder="Model Name" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Give a name for your Model. First character should be a letter and spaces aren't allowed.">
                                 <label for="model_name">
                                     <span class="field-text">Model Name</span></label>
                             </div>
