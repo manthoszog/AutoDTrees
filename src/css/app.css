@@ -236,12 +236,25 @@ nav a.active{
     margin-bottom: 30px;
 }
 
+.edit-select4{
+    font-size: 18px;
+}
+
 .dnload-del-btn{
     display: inline-block;
     margin-bottom: 10px;
 }
 
 #delbtn{
+    margin-bottom: 10px;
+}
+
+#dnload-model{
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+#del-model{
     margin-bottom: 10px;
 }
 
