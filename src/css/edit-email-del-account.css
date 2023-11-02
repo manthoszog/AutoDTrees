@@ -184,3 +184,8 @@ nav a.active{
     width: 1.5rem;
     height: 1.5rem;
 }
+
+.edit-select2{
+    margin-top: 5px;
+    font-size: 18px;
+}

@@ -344,3 +344,15 @@ nav a.active{
 .selectedRow td{
     background-color: #e4e1e1;
 }
+
+.app_href{
+    padding-top: 15px;
+}
+
+.app_href a{
+    text-decoration: none;
+}
+
+.app_href a:hover{
+    text-decoration: underline;
+}
