@@ -325,7 +325,7 @@ $(function(){
                 for(var i = 0; i < fields1.length; i++){
                     $("#select_class").append($(`<option value='${fields1[i]}'>${fields1[i]}</option>`));
                 }
-                $("#max_depth").val("1");
+                $("#max_depth").val("");
                 $("#min_samples_leaf").val("1");
                 $("#kFolds").val("5");
                 $('#params_div').show();
@@ -425,11 +425,20 @@ $(function(){
         });
 
         var max_depth = $("#max_depth").val().trim();
-        if(max_depth.length == 0){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give the max_depth.");
-            return;
+        if(max_depth.length > 0){
+            max_depth = Number.parseInt(max_depth);
+            if(Number.isNaN(max_depth)){
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html("Please give a valid value for the max_depth.");
+                return;
+            }
+            if(max_depth < 1){
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html("You should give a max_depth &ge; 1.");
+                return;
+            }
         }
 
         var min_samples_leaf = $("#min_samples_leaf").val().trim();
@@ -448,14 +457,6 @@ $(function(){
             return;
         }
 
-        var max_depthInt = Number.parseInt(max_depth);
-        if(Number.isNaN(max_depthInt)){
-	        $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give a valid value for the max_depth.");
-            return;
-        }
-
         var min_samples_leafInt = Number.parseInt(min_samples_leaf);
         if(Number.isNaN(min_samples_leafInt)){
 	        $('#modal2_text').html("");
@@ -469,13 +470,6 @@ $(function(){
 	        $('#modal2_text').html("");
             $('#modal2').modal('show');
             $('#modal2_text').html("Please give a valid value for k.");
-            return;
-        }
-
-        if(max_depthInt < 1){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("You should give a max_depth &ge; 1.");
             return;
         }
 
@@ -502,21 +496,34 @@ $(function(){
         $.ajax({
             url: '../server/php/api/cross_validation.php',
             method: 'POST',
-            data: JSON.stringify({token: token, checkVal: checkVal, selected: selected, max_depthInt: max_depthInt, min_samples_leafInt: min_samples_leafInt, folder: folder, file: file, kFoldsInt: kFoldsInt}),
+            data: JSON.stringify({token: token, checkVal: checkVal, selected: selected, max_depth: max_depth, min_samples_leafInt: min_samples_leafInt, folder: folder, file: file, kFoldsInt: kFoldsInt}),
             dataType: "json",
             contentType: 'application/json',
             success: function(data){
-                var avg_acc = data.avg_acc_score;
-                var avg_prec = data.avg_prec_score;
-                var avg_rec = data.avg_rec_score;
-                var avg_f = data.avg_f_score;
-                $("#titleName").html("");
-                $("#titleName").append("Average Metrics for Class " + "'" + selected + "'");
+                var avg_acc = data.avg_acc;
+                var avg_pre = data.avg_pre;
+                var avg_rec = data.avg_rec;
+                var avg_fsc = data.avg_fsc;
+                var pre_per_label = data.pre_per_label;
+                var rec_per_label = data.rec_per_label;
+                var fsc_per_label = data.fsc_per_label;
+                var labels = data.labels;
                 $("#results_tr").html("");
                 $("#results_tr").append($(`<td>${avg_acc}</td>`));
-                $("#results_tr").append($(`<td>${avg_prec}</td>`));
+                $("#results_tr").append($(`<td>${avg_pre}</td>`));
                 $("#results_tr").append($(`<td>${avg_rec}</td>`));
-                $("#results_tr").append($(`<td>${avg_f}</td>`));
+                $("#results_tr").append($(`<td>${avg_fsc}</td>`));
+                $("#results_tbody").html("");
+                for(var i = 0; i < labels.length; i++){
+                    $("#results_tbody").append($(`
+                        <tr>
+                            <td>${labels[i]}</td>
+                            <td>${pre_per_label[i]}</td>
+                            <td>${rec_per_label[i]}</td>
+                            <td>${fsc_per_label[i]}</td>
+                        </tr>    
+                    `));
+                }
                 $("#loadingbtn3").hide();
                 $("#class_btn").show();
                 $('#results_div').show();
@@ -559,11 +566,20 @@ $(function(){
         });
 
         var max_depth = $("#max_depth").val().trim();
-        if(max_depth.length == 0){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give the max_depth.");
-            return;
+        if(max_depth.length > 0){
+            max_depth = Number.parseInt(max_depth);
+            if(Number.isNaN(max_depth)){
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html("Please give a valid value for the max_depth.");
+                return;
+            }
+            if(max_depth < 1){
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html("You should give a max_depth &ge; 1.");
+                return;
+            }
         }
 
         var min_samples_leaf = $("#min_samples_leaf").val().trim();
@@ -582,26 +598,11 @@ $(function(){
             return;
         }
 
-        var max_depthInt = Number.parseInt(max_depth);
-        if(Number.isNaN(max_depthInt)){
-	        $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give a valid value for the max_depth.");
-            return;
-        }
-
         var min_samples_leafInt = Number.parseInt(min_samples_leaf);
         if(Number.isNaN(min_samples_leafInt)){
 	        $('#modal2_text').html("");
             $('#modal2').modal('show');
             $('#modal2_text').html("Please give a valid value for the min_samples_leaf.");
-            return;
-        }
-
-        if(max_depthInt < 1){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("You should give a max_depth &ge; 1.");
             return;
         }
 
@@ -621,7 +622,7 @@ $(function(){
         $.ajax({
             url: '../server/php/api/save_model.php',
             method: 'POST',
-            data: JSON.stringify({token: token, checkVal: checkVal, selected: selected, max_depthInt: max_depthInt, min_samples_leafInt: min_samples_leafInt, folder: folder, file: file, model_name: model_name}),
+            data: JSON.stringify({token: token, checkVal: checkVal, selected: selected, max_depth: max_depth, min_samples_leafInt: min_samples_leafInt, folder: folder, file: file, model_name: model_name}),
             dataType: "json",
             contentType: 'application/json',
             success: function(data){

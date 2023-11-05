@@ -181,7 +181,7 @@
                     <form action="#">
                         <div id="params">
                             <div class="form-floating inline_form">
-                                <input type="text" id="max_depth" class="form-control" placeholder="max_depth" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="The Max Depth of the Tree. Give a value &ge; 1.">
+                                <input type="text" id="max_depth" class="form-control" placeholder="max_depth" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="The Max Depth of the Tree. Give a value &ge; 1 or an empty input to let the Tree fully expand.">
                                 <label for="max_depth">
                                     <span class="field-text">max_depth</span></label>
                             </div>
@@ -216,11 +216,28 @@
                     <div class="page-title">
                         Model Evaluation
                     </div>
-                    <div style="overflow-x:auto;">
+                    <div id="results_tableDiv">
                         <table id="results_table" class="table table-bordered table-striped table-style">
                             <thead>
                                 <tr>
-                                    <th scope="col" colspan="4" id="titleName"></th>
+                                    <th scope="col" colspan="4">Metrics per Label</th>
+                                </tr>
+                                <tr>
+                                    <th scope="col">Label</th>
+                                    <th scope="col">Precision</th>
+                                    <th scope="col">Recall</th>
+                                    <th scope="col">F-score</th>
+                                </tr>
+                            </thead>
+                            <tbody id="results_tbody" class="table-group-divider">
+                            </tbody>
+                        </table>
+                    </div>
+                    <div id="results_tableDiv2">
+                        <table id="results_table2" class="table table-bordered table-striped table-style">
+                            <thead>
+                                <tr>
+                                    <th scope="col" colspan="4">Average Metrics</th>
                                 </tr>
                                 <tr>
                                     <th scope="col">Accuracy</th>

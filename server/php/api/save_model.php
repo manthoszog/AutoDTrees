@@ -73,18 +73,23 @@
         exit;
     }
 
-    if(!isset($input['max_depthInt'])){
+    if(!isset($input['max_depth'])){
         header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"Please give the Max Depth."]);
         exit;
     }
 
-    $max_depth = $input['max_depthInt'];
-    $max_depthInt = intval($max_depth);
-    if($max_depthInt < 1){
-        header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg'=>"You should give a Max Depth >= 1."]);
-        exit;
+    $max_depth = $input['max_depth'];
+    if($max_depth == ""){
+        $max_depth = 'None';
+    }
+    else{
+        $max_depth = intval($max_depth);
+        if($max_depth < 1){
+            header("HTTP/1.1 400 Bad Request");
+            print json_encode(['errormesg'=>"You should give a Max Depth >= 1."]);
+            exit;
+        }
     }
 
     if(!isset($input['min_samples_leafInt'])){
@@ -251,7 +256,7 @@
 
         $results;
         try{
-            $results = shell_exec("python ../../py/save_model.py $file_path $checkValImplode $selected $max_depthInt $min_samples_leafInt $model_path");
+            $results = shell_exec("python ../../py/save_model.py $file_path $checkValImplode $selected $max_depth $min_samples_leafInt $model_path");
         }catch(Exception $e){
             header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"An error has occured while trying to run the Python module. <br><br> Please check the possibility of missing values existence in given columns and try again."]);

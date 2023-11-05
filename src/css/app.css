@@ -356,3 +356,13 @@ nav a.active{
 .app_href a:hover{
     text-decoration: underline;
 }
+
+#results_tableDiv{
+    overflow-x:auto;
+    max-height: 500px;
+}
+
+#results_tableDiv2{
+    overflow-x:auto;
+    margin-top: 10px;
+}

@@ -8,7 +8,11 @@ import joblib
 file_path = sys.argv[1]
 checkVal = sys.argv[2].split(',') # selected columns
 selectedClass = sys.argv[3]
-max_depth = int(sys.argv[4])
+max_depth = sys.argv[4]
+if max_depth == 'None':
+    max_depth = None
+else:
+    max_depth = int(max_depth)
 min_samples_leaf = int(sys.argv[5])
 
 dataset = pd.read_csv(file_path)
