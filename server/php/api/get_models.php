@@ -30,7 +30,7 @@
 
     function getFiles($path){
         $data = [];
-        $data2 = glob($path . '/' . '*');
+        $data2 = glob($path . '/' . '*' . '.pkl');
         foreach($data2 as $d2){
             array_push($data,basename($d2));
         }

@@ -107,6 +107,7 @@ $(function(){
                 }
                 $('#del-model').prop("disabled",true);
                 $('#dnload-model').prop("disabled",true);
+                $('#dnloadTree').prop("disabled",true);
             },
             error: function(xhr,status,error){
                 var response = JSON.parse(xhr.responseText);
@@ -116,6 +117,7 @@ $(function(){
                 $("#select_model").append($("<option value='default' selected>Select a Pretrained Model</option>"));
                 $('#del-model').prop("disabled",true);
                 $('#dnload-model').prop("disabled",true);
+                $('#dnloadTree').prop("disabled",true);
             }
         });
     }
@@ -128,11 +130,13 @@ $(function(){
         if(selected == "default"){
             $('#del-model').prop("disabled",true);
             $('#dnload-model').prop("disabled",true);
+            $('#dnloadTree').prop("disabled",true);
             return;
         }
 
         $('#del-model').prop("disabled",false);
         $('#dnload-model').prop("disabled",false);
+        $('#dnloadTree').prop("disabled",false);
     });
 
     $('#del-model').click(function(){
@@ -155,6 +159,7 @@ $(function(){
                 $("#select_model :selected").remove();
                 $("#select_model").val("default");
                 $('#dnload-model').prop("disabled",true);
+                $('#dnloadTree').prop("disabled",true);
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
                 $('#modal2_text').html("Selected Model deleted successfully.");
@@ -177,6 +182,12 @@ $(function(){
         var file = $("#select_model :selected").val();
         event.preventDefault();
         window.location.href = `../server/php/api/download_model.php?token=${token}&file=${file}`;
+    });
+
+    $('#dnloadTree').click(function(event){
+        var file = $("#select_model :selected").val();
+        event.preventDefault();
+        window.location.href = `../server/php/api/visualize_tree.php?token=${token}&file=${file}`;
     });
     
     /*

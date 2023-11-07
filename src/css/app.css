@@ -256,6 +256,11 @@ nav a.active{
 
 #del-model{
     margin-bottom: 10px;
+    margin-right: 10px;
+}
+
+#dnloadTree{
+    margin-bottom: 10px;
 }
 
 #dnload-btn{
