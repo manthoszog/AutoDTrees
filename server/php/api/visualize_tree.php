@@ -37,19 +37,24 @@
     $name = substr($name,0,-4);
 
     $tree_path = "../../py/users/$hash_user/models/$name" . "_tree.png";
-    
-    if(file_exists($tree_path)){
-        $delete = unlink($tree_path);
-        if(!$delete){
-            header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"An error has occured while trying to visualize tree."]);
-            exit;
+
+    $paths = glob("../../py/users/$hash_user/models/*.png");
+    if(count($paths) > 0){
+        foreach($paths as $p){
+            $delete = unlink($p);
+            if(!$delete){
+                header("HTTP/1.1 400 Bad Request");
+                print json_encode(['errormesg'=>"An error has occured while trying to visualize tree."]);
+                exit;
+            }
         }
     }
 
+    $tree_path2 = "../../py/users/$hash_user/models/$name" . "_tree";
+
     $results;
     try{
-        $results = shell_exec("python ../../py/visualize_tree.py $file_path $tree_path");
+        $results = shell_exec("python ../../py/visualize_tree.py $file_path $tree_path2");
     }catch(Exception $e){
         header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for tree visualization."]);
