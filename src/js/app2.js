@@ -7,7 +7,9 @@ $(function(){
     $('#results_div').hide();
     $('#loadingbtn_dataset').hide();
     $('#loadingbtnSave').hide();*/
+    $('#params_div2').hide();
     $('#loadingbtnModel').hide();
+    $('#loadingbtnModel2').hide();
 
     const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
     const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
@@ -108,6 +110,7 @@ $(function(){
                 $('#del-model').prop("disabled",true);
                 $('#dnload-model').prop("disabled",true);
                 $('#dnloadTree').prop("disabled",true);
+                $('#params_div2').hide();
             },
             error: function(xhr,status,error){
                 var response = JSON.parse(xhr.responseText);
@@ -118,6 +121,7 @@ $(function(){
                 $('#del-model').prop("disabled",true);
                 $('#dnload-model').prop("disabled",true);
                 $('#dnloadTree').prop("disabled",true);
+                $('#params_div2').hide();
             }
         });
     }
@@ -125,6 +129,7 @@ $(function(){
     getModels();
 
     $("#select_model").on("change",function(){
+        $('#params_div2').hide();
         var selected = $("#select_model :selected").val();
 
         if(selected == "default"){
@@ -137,6 +142,39 @@ $(function(){
         $('#del-model').prop("disabled",false);
         $('#dnload-model').prop("disabled",false);
         $('#dnloadTree').prop("disabled",false);
+        $('#loadingbtnModel2').show();
+
+        $.ajax({
+            url: `../server/php/api/get_model_content.php?token=${token}&file=${selected}`,
+            method: 'GET',
+            success: function(data){
+                let d = JSON.parse(data);
+                let cols = d.columns;
+                $('#checkBoxes2').html("");
+                for(var i = 0; i < cols.length; i++){
+                    $('#checkBoxes2').append($(`
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input edit_checkbox" type="checkbox" id="flexCheckDefault2" checked disabled>
+                            <label class="form-check-label" for="flexCheckDefault2">
+                                ${cols[i]}
+                            </label>
+                        </div>
+                    `));
+                }
+                $('#loadingbtnModel2').hide();
+                $('#params_div2').show();
+            },
+            error: function(xhr,status,error){
+                var response = JSON.parse(xhr.responseText);
+                var errormes = response.errormesg;
+                $('#dnload-model').prop("disabled",true);
+                $('#dnloadTree').prop("disabled",true);
+                $('#loadingbtnModel2').hide();
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html(errormes);
+            }
+        });
     });
 
     $('#del-model').click(function(){
@@ -160,6 +198,7 @@ $(function(){
                 $("#select_model").val("default");
                 $('#dnload-model').prop("disabled",true);
                 $('#dnloadTree').prop("disabled",true);
+                $('#params_div2').hide();
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
                 $('#modal2_text').html("Selected Model deleted successfully.");
@@ -171,6 +210,9 @@ $(function(){
                 $("#del-model").show();
                 $('#del-model').prop("disabled",true);
                 $("#select_model").val("default");
+                $('#dnload-model').prop("disabled",true);
+                $('#dnloadTree').prop("disabled",true);
+                $('#params_div2').hide();
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
                 $('#modal2_text').html(errormes);
