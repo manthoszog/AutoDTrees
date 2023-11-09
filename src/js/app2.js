@@ -1,18 +1,15 @@
 $(function(){
-    /*$('#loadingbtn').hide();
-    $('#loadingbtn2').hide();
     $('#loadingbtn3').hide();
-    $('#table_div').hide();
-    $('#params_div').hide();
-    $('#results_div').hide();
-    $('#loadingbtn_dataset').hide();
-    $('#loadingbtnSave').hide();*/
+    $('#loadingbtn2').hide();
     $('#params_div2').hide();
     $('#loadingbtnModel').hide();
     $('#loadingbtnModel2').hide();
-
-    const tooltipTriggerList = document.querySelectorAll('[data-bs-toggle="tooltip"]');
-    const tooltipList = [...tooltipTriggerList].map(tooltipTriggerEl => new bootstrap.Tooltip(tooltipTriggerEl));
+    $('#loadingbtn').hide();
+    $('#loadingbtn_dataset').hide();
+    $('#uplDiv').hide();
+    $('#table_div').hide();
+    $('#params_div').hide();
+    $('#results_div').hide();
     
     const alertPlaceholder = $('#alertPlaceholder');
 
@@ -69,26 +66,6 @@ $(function(){
             }
         }
     });
-
-    /*var input_key = $("#params input");
-    input_key.on("keypress", function(event){
-        if(event.key === "Enter"){
-            event.preventDefault();
-            if($("#class_btn").css("display") !== "none"){
-                $("#class_btn").click();
-            }
-        }
-    });
-
-    var input_key = $("#model_name");
-    input_key.on("keypress", function(event){
-        if(event.key === "Enter"){
-            event.preventDefault();
-            if($("#save_btn").css("display") !== "none"){
-                $("#save_btn").click();
-            }
-        }
-    });*/
     
     function getModels(){
     
@@ -111,6 +88,10 @@ $(function(){
                 $('#dnload-model').prop("disabled",true);
                 $('#dnloadTree').prop("disabled",true);
                 $('#params_div2').hide();
+                $('#uplDiv').hide();
+                $('#table_div').hide();
+                $('#params_div').hide();
+                $('#results_div').hide();
             },
             error: function(xhr,status,error){
                 var response = JSON.parse(xhr.responseText);
@@ -122,6 +103,10 @@ $(function(){
                 $('#dnload-model').prop("disabled",true);
                 $('#dnloadTree').prop("disabled",true);
                 $('#params_div2').hide();
+                $('#uplDiv').hide();
+                $('#table_div').hide();
+                $('#params_div').hide();
+                $('#results_div').hide();
             }
         });
     }
@@ -130,6 +115,10 @@ $(function(){
 
     $("#select_model").on("change",function(){
         $('#params_div2').hide();
+        $('#uplDiv').hide();
+        $('#table_div').hide();
+        $('#params_div').hide();
+        $('#results_div').hide();
         var selected = $("#select_model :selected").val();
 
         if(selected == "default"){
@@ -163,6 +152,8 @@ $(function(){
                 }
                 $('#loadingbtnModel2').hide();
                 $('#params_div2').show();
+                getDatasets();
+                $('#uplDiv').show();
             },
             error: function(xhr,status,error){
                 var response = JSON.parse(xhr.responseText);
@@ -199,6 +190,10 @@ $(function(){
                 $('#dnload-model').prop("disabled",true);
                 $('#dnloadTree').prop("disabled",true);
                 $('#params_div2').hide();
+                $('#uplDiv').hide();
+                $('#table_div').hide();
+                $('#params_div').hide();
+                $('#results_div').hide();
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
                 $('#modal2_text').html("Selected Model deleted successfully.");
@@ -213,6 +208,10 @@ $(function(){
                 $('#dnload-model').prop("disabled",true);
                 $('#dnloadTree').prop("disabled",true);
                 $('#params_div2').hide();
+                $('#uplDiv').hide();
+                $('#table_div').hide();
+                $('#params_div').hide();
+                $('#results_div').hide();
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
                 $('#modal2_text').html(errormes);
@@ -232,25 +231,18 @@ $(function(){
         window.location.href = `../server/php/api/visualize_tree.php?token=${token}&file=${file}`;
     });
     
-    /*
     function getDatasets(){
     
-        var link = '../server/php/api/get_datasets.php?token=' + token;
-
         $.ajax({
-            url: link,
+            url: `../server/php/api/get_unclassified_datasets.php?token=${token}`,
             method: 'GET',
             success: function(data){
                 var data2 = JSON.parse(data);
-                var publicDatasets = data2.public_data;
-                var privateDatasets = data2.private_data;
+                var datasets = data2.unclassified_data;
                 $("#select_dataset").html("");
-                $("#select_dataset").append($("<option value='default' selected>Select from existing Datasets</option>"));
-                for(var i = 0; i < publicDatasets.length; i++){
-                    $("#select_dataset").append($(`<option class='public' value='${publicDatasets[i]}'>[PUBLIC]  ${publicDatasets[i]}</option>`));
-                }
-                for(var i = 0; i < privateDatasets.length; i++){
-                    $("#select_dataset").append($(`<option class='private' value='${privateDatasets[i]}'>[PRIVATE]  ${privateDatasets[i]}</option>`));
+                $("#select_dataset").append($("<option value='default' selected>Select an Unclassified Dataset</option>"));
+                for(var i = 0; i < datasets.length; i++){
+                    $("#select_dataset").append($(`<option value='${datasets[i]}'>[UNCLASSIFIED]  ${datasets[i]}</option>`));
                 }
                 $('#delbtn').prop("disabled",true);
                 $('#dnload-btn').prop("disabled",true);
@@ -261,9 +253,11 @@ $(function(){
             error: function(xhr,status,error){
                 var response = JSON.parse(xhr.responseText);
                 var errormes = response.errormesg;
-                console.log(errormes);
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html(errormes);
                 $("#select_dataset").html("");
-                $("#select_dataset").append($("<option value='default' selected>Select from existing Datasets</option>"));
+                $("#select_dataset").append($("<option value='default' selected>Select an Unclassified Dataset</option>"));
                 $('#delbtn').prop("disabled",true);
                 $('#dnload-btn').prop("disabled",true);
                 $('#table_div').hide();
@@ -272,20 +266,17 @@ $(function(){
             }
         });
     }
-
-    getDatasets();
-
+    
     $("#upload_btn").click(function(){
         $('#upl_modal').modal('show');
         $('#alertPlaceholder').html("");
-        $("#select_folder").val('0');
         $("#formFile").val("");
     });
-
+    
     $('#cancelbtn').click(function(){
         $('#alertPlaceholder').html("");
     });
-
+    
     $('#conf_upl').click(function(){
         $('#alertPlaceholder').html("");
 
@@ -307,25 +298,8 @@ $(function(){
             return;
         }
 
-        var folder = $("#select_folder :selected").val();
-
-        if(folder == "Select folder to save"){
-            alert_danger("Please select folder to save.");
-            return;
-        }
-
-        switch(folder){
-            case "Private folder":
-                folder = "private";
-                break;
-            case "Public folder":
-                folder = "public";
-                break;
-        }
-
         var formData = new FormData();
         formData.set("token", token);
-        formData.set("folder", folder);
         formData.set("file", file);
         
         $('#alertPlaceholder').html("");
@@ -333,7 +307,7 @@ $(function(){
         $('#loadingbtn').show();
 
         $.ajax({
-            url: '../server/php/api/upload_dataset.php',
+            url: '../server/php/api/upload_unclassified_dataset.php',
             method: 'POST',
             data: formData,
             processData: false,
@@ -341,7 +315,6 @@ $(function(){
             success: function(){
                 alert_success("File uploaded successfully.");
                 $("#formFile").val("");
-                $("#select_folder").val('0');
                 $("#loadingbtn").hide();
                 $("#conf_upl").show();
                 getDatasets();
@@ -351,57 +324,10 @@ $(function(){
                 var errormes = response.errormesg;
                 alert_danger(errormes);
                 $("#formFile").val("");
-                $("#select_folder").val('0');
                 $("#loadingbtn").hide();
                 $("#conf_upl").show();
             }
         });
-    });
-
-    let fields2;
-    $("#checkBoxes").click(function(){
-        const fields22 = {};
-        for(var i = 0; i < fields2.length; i++){
-            fields22[i] = fields2[i];
-        }
-        let fields3 = fields22;
-        var check = $("input[name=num_field]:checked");
-        $.each(check,function(index4){
-            var checkVal = $(this).val();
-            $.each(fields3,function(index5,val5){
-                if(checkVal == fields3[index5]){
-                    fields3[index5] = '';
-                }
-            });
-        });
-        $("#select_class").html("");
-        $("#select_class").append($("<option value='default' selected>Select Class column</option>"));
-        $.each(fields3,function(index6,val6){
-            if(fields3[index6] !== ''){
-                $("#select_class").append($(`<option value='${fields3[index6]}'>${fields3[index6]}</option>`));
-            }
-        });
-    });
-
-    $("#checkSelectAll").click(function(){
-        var selAll = $("input[name=select_all]:checked");
-        var check = $("input[name=num_field]");
-        if(selAll.length > 0){
-            for(var i = 0; i < check.length; i++){
-                if(check[i].type == 'checkbox'){
-                    check[i].checked = true;
-                }
-            }
-            $("#checkBoxes").click();
-        }
-        else{
-            for(var i = 0; i < check.length; i++){
-                if(check[i].type == 'checkbox'){
-                    check[i].checked = false;
-                }
-            }
-            $("#checkBoxes").click();
-        }
     });
     
     $("#select_dataset").on("change",function(){
@@ -410,7 +336,6 @@ $(function(){
         $('#results_div').hide();
 
         var selected = $("#select_dataset :selected").val();
-        var folder = $("#select_dataset :selected").attr("class");
 
         if(selected == "default"){
             $('#delbtn').prop("disabled",true);
@@ -424,14 +349,12 @@ $(function(){
         $('#loadingbtn_dataset').show();
         
         $.ajax({
-            url: `../server/php/api/get_dataset_content.php?token=${token}&file=${selected}&folder=${folder}`,
+            url: `../server/php/api/get_unclassified_dataset_content.php?token=${token}&file=${selected}`,
             method: 'GET',
             success: function(data){
                 var data2 = JSON.parse(data);
                 var csv_array = data2.csv_array;
                 var num_fields = data2.numerical_fields;
-                var fields1 = data2.fields;
-                fields2 = data2.fields;
                 $("#data_table_head_tr").html("");
                 $("#data_table_tbody").html("");
                 $.each(csv_array[0], function(index,val){
@@ -448,6 +371,7 @@ $(function(){
                 });
                 $('#loadingbtn_dataset').hide();
                 $('#table_div').show();
+                window.location.href = "#checkBoxes2";
                 $('#checkSelectAll').html("");
                 $('#checkSelectAll').append($(`
                     <input class="form-check-input edit_checkbox" type="checkbox" name="select_all" value="Select all" id="flexCheckDefault">
@@ -466,14 +390,6 @@ $(function(){
                         </div>
                     `));
                 }
-                $("#select_class").html("");
-                $("#select_class").append($("<option value='default' selected>Select Class column</option>"));
-                for(var i = 0; i < fields1.length; i++){
-                    $("#select_class").append($(`<option value='${fields1[i]}'>${fields1[i]}</option>`));
-                }
-                $("#max_depth").val("1");
-                $("#min_samples_leaf").val("1");
-                $("#kFolds").val("5");
                 $('#params_div').show();
             },
             error: function(xhr,status,error){
@@ -487,19 +403,18 @@ $(function(){
             }
         });
     });
-
+    
     $('#delbtn').click(function(){
         var file = $("#select_dataset :selected").val();
-        var folder = $("#select_dataset :selected").attr("class");
 
         $('#dnload-btn').prop("disabled",true);
         $('#delbtn').hide();
         $('#loadingbtn2').show();
 
         $.ajax({
-            url: '../server/php/api/delete_dataset.php',
+            url: '../server/php/api/delete_unclassified_dataset.php',
             method: 'DELETE',
-            data: JSON.stringify({file: file, folder: folder, token: token}),
+            data: JSON.stringify({file: file, token: token}),
             dataType: "json",
             contentType: 'application/json',
             success: function(){
@@ -534,12 +449,36 @@ $(function(){
 
     $('#dnload-btn').click(function(event){
         var file = $("#select_dataset :selected").val();
-        var folder = $("#select_dataset :selected").attr("class");
-        var link = '../server/php/api/download_dataset.php?token=' + token + '&folder=' + folder + '&file=' + file;
         event.preventDefault();
-        window.location.href = link;
+        window.location.href = `../server/php/api/download_unclassified_dataset.php?token=${token}&file=${file}`;
     });
 
+    $("#checkSelectAll").click(function(){
+        var selAll = $("input[name=select_all]:checked");
+        var check = $("input[name=num_field]");
+        if(selAll.length > 0){
+            for(var i = 0; i < check.length; i++){
+                if(check[i].type == 'checkbox'){
+                    check[i].checked = true;
+                }
+            }
+        }
+        else{
+            for(var i = 0; i < check.length; i++){
+                if(check[i].type == 'checkbox'){
+                    check[i].checked = false;
+                }
+            }
+        }
+    });
+
+    $("#data_table").click(function(event){
+        $(".selectedRow").removeClass("selectedRow");
+        $(event.target).closest("tr").addClass("selectedRow");
+    });
+
+    /*
+    
     $("#class_btn").click(function(){
         $('#results_div').hide();
         
@@ -789,9 +728,5 @@ $(function(){
             }
         });
     });
-
-    $("#data_table").click(function(event){
-        $(".selectedRow").removeClass("selectedRow");
-        $(event.target).closest("tr").addClass("selectedRow");
-    });*/
+    */
 });

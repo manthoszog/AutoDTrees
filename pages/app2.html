@@ -143,8 +143,7 @@
             </div>
         </div>
 
-        <!--
-        <div class="form-body">
+        <div class="form-body" id="uplDiv">
             <div class="container">
                 <div class="container-inner2">
                     <div class="d-grid gap-2 col-12 mx-auto edit-button2">
@@ -199,62 +198,34 @@
                 </div>
             </div>
         </div>
-
+        
         <div class="form-body" id="params_div">
             <div class="container">
                 <div class="container-inner2">
                     <div class="page-title">
-                        Insert Parameters
+                        Select Features to Classify
                     </div>
-                    <div class="page-subtitle2">
+                    <div class="page-subtitle2" style="padding-bottom: 25px;">
                         <i class="bi bi-info-circle-fill"></i>
-                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Only numerical columns available, without missing values.">Select features to Classify: (<span class="quesMark">?</span>)</span>
+                        <span>Note that the selected features should match Model's features which displayed above.</span>
                     </div>
                     <div class="form-check form-check-inline" id="checkSelectAll">
                     </div>
-                    <form id="checkBoxes">
+                    <form id="checkBoxes" style="padding-bottom: 20px;">
                     </form>
-                    <div class="page-subtitle2">
-                        <i class="bi bi-info-circle-fill"></i>
-                        <span data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="Only columns without missing values are available.">Select Class: (<span class="quesMark">?</span>)</span>
+                    <div class="d-grid gap-2 col-12 mx-auto edit-button2">
+                        <button class="btn btn-primary" type="button" id="class_btn">
+                            <i class="bi bi-gear-fill"></i><span class="btn-text">Classify Data</span>
+                        </button>
+                        <button class="btn btn-primary" type="button" id="loadingbtn3" disabled="">
+                            <span class="spinner-border spinner-border-sm loading-spinner" role="status" aria-hidden="true"></span>
+                            <span class="loading-text">Loading...</span>
+                        </button>
                     </div>
-                    <select class="form-select edit-select3" id="select_class" aria-label="Default select example">
-                    </select>
-                    <div class="page-subtitle2">
-                        <i class="bi bi-info-circle-fill"></i>
-                        <span>Insert the Classifier & k-Fold's parameters:</span>
-                    </div>
-                    <form action="#">
-                        <div id="params">
-                            <div class="form-floating inline_form">
-                                <input type="text" id="max_depth" class="form-control" placeholder="max_depth" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="The Max Depth of the Tree. Give a value &ge; 1.">
-                                <label for="max_depth">
-                                    <span class="field-text">max_depth</span></label>
-                            </div>
-                            <div class="form-floating inline_form">
-                                <input type="text" id="min_samples_leaf" class="form-control" placeholder="min_samples_leaf" data-bs-toggle="tooltip" data-bs-placement="top" data-bs-title="The Minimum number of Samples per Leaf node. Give a value &ge; 1.">
-                                <label for="min_samples_leaf" class="label_edit">
-                                    <span class="field-text">min_samples_leaf</span></label>
-                            </div>
-                            <div class="form-floating inline_form">
-                                <input type="text" id="kFolds" class="form-control" placeholder="k" data-bs-toggle="tooltip" data-bs-placement="right" data-bs-title="The number of folds for k-fold Cross-Validation. Range of accepted values: 5 - 50.">
-                                <label for="kFolds">
-                                    <span class="field-text">k</span></label>
-                            </div>
-                        </div>
-                        <div class="d-grid gap-2 col-12 mx-auto edit-button2">
-                            <button class="btn btn-primary" type="button" id="class_btn">
-                                <i class="bi bi-gear-fill"></i><span class="btn-text">Build Model</span>
-                            </button>
-                            <button class="btn btn-primary" type="button" id="loadingbtn3" disabled="">
-                                <span class="spinner-border spinner-border-sm loading-spinner" role="status" aria-hidden="true"></span>
-                                <span class="loading-text">Loading...</span>
-                            </button>
-                        </div>
-                    </form>
                 </div>
             </div>
         </div>
+        <!--
 
         <div class="form-body" id="results_div">
             <div class="container">
@@ -314,7 +285,7 @@
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title fs-5" id="staticBackdropLabel">Upload New Dataset</h5>
+                        <h5 class="modal-title fs-5" id="staticBackdropLabel">Upload Unclassified Dataset</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
@@ -323,11 +294,6 @@
                             <label for="formFile" class="form-label edit-select2">Please select only .csv files.<br>Max file size: 40MB.</label>
                             <input class="form-control" type="file" id="formFile">
                         </div>
-                        <select class="form-select edit-select" id="select_folder" aria-label="Default select example">
-                            <option selected value="0">Select folder to save</option>
-                            <option>Private folder</option>
-                            <option>Public folder</option>
-                        </select>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" id="conf_upl">Upload</button>

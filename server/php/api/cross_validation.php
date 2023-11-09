@@ -188,7 +188,7 @@
                 if(is_numeric($val) && (strpos($val,'.') !== false)){
                     $found++;
                 }
-                elseif(preg_match("@^(null|Null|NULL|na|NA|Na|NAN|nan|NaN| ||)$@", $val)){
+                elseif(preg_match("@^(null|na|nan| |)$@i", $val)){
                     $found++;
                 }
             }

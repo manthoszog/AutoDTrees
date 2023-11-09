@@ -22,20 +22,6 @@
         exit;
     }
 
-    if(!isset($_GET['folder'])){
-        header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg'=>"Please select folder."]);
-        exit;
-    }
-
-    $folder = $_GET['folder'];
-
-    if($folder != "private" && $folder != "public"){
-        header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg'=>"Please select folder."]);
-        exit;
-    }
-
     if(!isset($_GET['file'])){
         header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"Please select a file."]);
@@ -44,33 +30,19 @@
 
     $file = $_GET['file'];
 
-    $file_path = "";
+    $email = user_mail($_GET['token']);
 
-    if($folder == "public"){
-        $file_path = "../../py/public/datasets/$file";
+    $hash_user = md5($email);
+    $file_path = "../../py/users/$hash_user/unclassified_datasets/$file";
 
-        if(!file_exists($file_path)){
-            header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"File doesn't exist."]);
-            exit;
-        }
-    }
-    else{
-        $email = user_mail($_GET['token']);
-
-        $hash_user = md5($email);
-        $file_path = "../../py/users/$hash_user/datasets/$file";
-
-        if(!file_exists($file_path)){
-            header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"File doesn't exist."]);
-            exit;
-        }
+    if(!file_exists($file_path)){
+        header("HTTP/1.1 400 Bad Request");
+        print json_encode(['errormesg'=>"File doesn't exist."]);
+        exit;
     }
 
     $countFields;
     $num_fields = array(); //only numerical fields
-    $fields = array();
     $csv_array = array();
     $count2 = array();
     $csv_array2 = array();
@@ -108,28 +80,7 @@
             }
         }
 
-        for($j4 = 0; $j4 < $countFields; $j4++){
-            $columns = array();
-            $found = 0;
-            for($i = 1; $i < count($csv_array); $i++){
-                array_push($columns,$csv_array[$i][$j4]);
-            }
-            foreach($columns as $val){
-                if(is_numeric($val) && (strpos($val,'.') !== false)){
-                    $found++;
-                }
-                elseif(preg_match("@^(null|na|nan| |)$@i", $val)){
-                    $found++;
-                }
-            }
-            if($found == 0){
-                if($csv_array[0][$j4] != ""){
-                    array_push($fields,$csv_array[0][$j4]);
-                }
-            }
-        }
-
-        print json_encode(['csv_array'=>$csv_array2,'numerical_fields'=>$num_fields,'fields'=>$fields]);
+        print json_encode(['csv_array'=>$csv_array2,'numerical_fields'=>$num_fields]);
     }
     else{
         header("HTTP/1.1 400 Bad Request");

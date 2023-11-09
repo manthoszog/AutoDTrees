@@ -115,7 +115,9 @@ $(function(){
             error: function(xhr,status,error){
                 var response = JSON.parse(xhr.responseText);
                 var errormes = response.errormesg;
-                console.log(errormes);
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html(errormes);
                 $("#select_dataset").html("");
                 $("#select_dataset").append($("<option value='default' selected>Select from existing Datasets</option>"));
                 $('#delbtn').prop("disabled",true);

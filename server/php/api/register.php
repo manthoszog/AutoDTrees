@@ -116,12 +116,13 @@
         $dir1 = mkdir("../../py/users/$hash_user");
         $dir2 = mkdir("../../py/users/$hash_user/datasets");
         $dir3 = mkdir("../../py/users/$hash_user/models");
+        $dir4 = mkdir("../../py/users/$hash_user/unclassified_datasets");
     }catch(Exception $e){
         header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"An error has occured while trying to create user's directory."]);
         exit;
     }
-    if(!$dir1 || !$dir2 || !$dir3){
+    if(!$dir1 || !$dir2 || !$dir3 || !$dir4){
         header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"An error has occured while trying to create user's directory."]);
         exit;
