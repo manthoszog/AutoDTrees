@@ -2,7 +2,7 @@
     require_once "db_upass.php";
 
     $host = 'localhost';
-    $db = 'webdtrees_db';
+    $db = 'autodtrees_db';
 
     $user_local = $DB_USER_LOCAL;       //username for localhost
     $user_server = $DB_USER_SERVER;     //username for server

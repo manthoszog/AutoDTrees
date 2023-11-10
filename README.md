@@ -1,2 +1,2 @@
-# webdtrees
-Web Decision Trees
+# AutoDTrees
+AutoDTrees App

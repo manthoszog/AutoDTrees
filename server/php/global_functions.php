@@ -2,10 +2,10 @@
 
     function getdomain(){
         if(gethostname() == 'users.iee.ihu.gr'){
-            $d = 'https://users.iee.ihu.gr/~it185179/webdtrees';
+            $d = 'https://users.iee.ihu.gr/~it185179/autodtrees';
         }
         else{
-            $d = 'localhost/webdtrees';
+            $d = 'localhost/autodtrees';
         }
         return $d;
     }

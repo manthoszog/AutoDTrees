@@ -76,7 +76,7 @@
     $st->bind_param('is',$id,$verif_key);
     $st->execute();
 
-    $subject = 'Reset Password - Web Decision Trees App';
+    $subject = 'Reset Password - AutoDTrees App';
     $domain2 = getdomain();
     $email_body = "Request for password reset, please click <a href='$domain2/pages/pass-reset.html?verif_key=$verif_key'>here</a> or paste the following to your browser: $domain2/pages/pass-reset.html?verif_key=$verif_key";
     $alt_body = "Request for password reset, please paste the following to your browser: $domain2/pages/pass-reset.html?verif_key=$verif_key";

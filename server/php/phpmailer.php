@@ -28,7 +28,7 @@
             $mail->SMTPSecure = 'tls';         
             $mail->Port       = 587;    
 
-            $mail->setFrom($username, 'Web Decision Trees App');
+            $mail->setFrom($username, 'AutoDTrees App');
             $mail->addAddress($recipient, $r_name);  
         
             $mail->isHTML(true);                     

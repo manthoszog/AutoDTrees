@@ -101,7 +101,7 @@
             exit;
         }
         
-        $subject = 'New email address verification - Web Decision Trees App';
+        $subject = 'New email address verification - AutoDTrees App';
         $domain2 = getdomain();
         $email_body = "New email address verification, please click <a href='$domain2/pages/verification.html?verif_key=$verif_key'>here</a> or paste the following to your browser: $domain2/pages/verification.html?verif_key=$verif_key";
         $alt_body = "New email address verification, please paste the following to your browser: $domain2/pages/verification.html?verif_key=$verif_key";

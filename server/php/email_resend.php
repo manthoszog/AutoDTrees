@@ -78,7 +78,7 @@
     $st->bind_param('is',$id,$verif_key);
     $st->execute();
 
-    $subject = 'Email verification - Web Decision Trees App';
+    $subject = 'Email verification - AutoDTrees App';
     $domain = getdomain();
     $email_body = "Account verification, please click <a href='$domain/pages/verification.html?verif_key=$verif_key'>here</a> or paste the following to your browser: $domain/pages/verification.html?verif_key=$verif_key";
     $alt_body = "Account verification, please paste the following to your browser: $domain/pages/verification.html?verif_key=$verif_key";
