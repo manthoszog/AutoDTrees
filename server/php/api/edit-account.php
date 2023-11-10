@@ -210,7 +210,7 @@
 
             if(!$uppercase || !$lowercase || !$number || strlen($input['new_pass']) < 8) {
                 header("HTTP/1.1 400 Bad Request");
-                print json_encode(['errormesg'=>"Required 8 characters, 1 upper &amp; 1 digit."]);
+                print json_encode(['errormesg'=>"Give 8 characters, 1 uppercase & 1 number."]);
                 exit;
             }
 
