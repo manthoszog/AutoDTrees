@@ -477,16 +477,8 @@ $(function(){
         $(event.target).closest("tr").addClass("selectedRow");
     });
 
-    /*
-    
     $("#class_btn").click(function(){
         $('#results_div').hide();
-        
-        $("#max_depth:focus").blur();
-        $("#min_samples_leaf:focus").blur();
-        $("#kFolds:focus").blur();
-
-        $("#model_name").val("my_model");
         
         var check = $("input[name=num_field]:checked");
         if(check.length == 0){
@@ -496,112 +488,39 @@ $(function(){
             return;
         }
 
-        var selected = $("#select_class :selected").val();
-        if(selected == 'default'){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("You have to select a Class column.");
-            return;
-        }
-
         var checkVal = {};
         $.each(check,function(i){
             checkVal[i] = $(this).val();
         });
 
-        var max_depth = $("#max_depth").val().trim();
-        if(max_depth.length == 0){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give the max_depth.");
-            return;
-        }
-
-        var min_samples_leaf = $("#min_samples_leaf").val().trim();
-        if(min_samples_leaf.length == 0){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give the min_samples_leaf.");
-            return;
-        }
-
-        var kFolds = $("#kFolds").val().trim();
-        if(kFolds.length == 0){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give the k value.");
-            return;
-        }
-
-        var max_depthInt = Number.parseInt(max_depth);
-        if(Number.isNaN(max_depthInt)){
-	        $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give a valid value for the max_depth.");
-            return;
-        }
-
-        var min_samples_leafInt = Number.parseInt(min_samples_leaf);
-        if(Number.isNaN(min_samples_leafInt)){
-	        $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give a valid value for the min_samples_leaf.");
-            return;
-        }
-
-        var kFoldsInt = Number.parseInt(kFolds);
-        if(Number.isNaN(kFoldsInt)){
-	        $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give a valid value for k.");
-            return;
-        }
-
-        if(max_depthInt < 1){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("You should give a max_depth &ge; 1.");
-            return;
-        }
-
-        if(min_samples_leafInt < 1){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("You should give a min_samples_leaf &ge; 1.");
-            return;
-        }
-
-        if((kFoldsInt < 5) || (kFoldsInt > 50)){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Incorrect input for k. Range of accepted values: 5 - 50.");
-            return;
-        }
-
         var file = $("#select_dataset :selected").val();
-        var folder = $("#select_dataset :selected").attr("class");
+        var model = $("#select_model :selected").val();
 
         $("#class_btn").hide();
         $("#loadingbtn3").show();
 
         $.ajax({
-            url: '../server/php/api/cross_validation.php',
+            url: '../server/php/api/classifyData.php',
             method: 'POST',
-            data: JSON.stringify({token: token, checkVal: checkVal, selected: selected, max_depthInt: max_depthInt, min_samples_leafInt: min_samples_leafInt, folder: folder, file: file, kFoldsInt: kFoldsInt}),
+            data: JSON.stringify({token: token, checkVal: checkVal, file: file, model: model}),
             dataType: "json",
             contentType: 'application/json',
             success: function(data){
-                var avg_acc = data.avg_acc_score;
-                var avg_prec = data.avg_prec_score;
-                var avg_rec = data.avg_rec_score;
-                var avg_f = data.avg_f_score;
-                $("#titleName").html("");
-                $("#titleName").append("Average Metrics for Class " + "'" + selected + "'");
-                $("#results_tr").html("");
-                $("#results_tr").append($(`<td>${avg_acc}</td>`));
-                $("#results_tr").append($(`<td>${avg_prec}</td>`));
-                $("#results_tr").append($(`<td>${avg_rec}</td>`));
-                $("#results_tr").append($(`<td>${avg_f}</td>`));
+                var csv_array = data.dataset;
+                $("#data_table2_head_tr").html("");
+                $("#data_table2_tbody").html("");
+                $.each(csv_array[0], function(index,val){
+                    $("#data_table2_head_tr").append($(`<th scope="col">${val}</th>`));
+                });
+                $.each(csv_array, function(index2,val2){
+                    if(index2 > 0){
+                        var tr2_id = 'tr2' + index2;
+                        $("#data_table2_tbody").append($(`<tr id="${tr2_id}"></tr>`));
+                        $.each(csv_array[index2], function(index3,val3){
+                            $(`#${tr2_id}`).append($(`<td><div class="data_table_tbody_td">${val3}</div></td>`)); 
+                        });
+                    }
+                });
                 $("#loadingbtn3").hide();
                 $("#class_btn").show();
                 $('#results_div').show();
@@ -619,114 +538,14 @@ $(function(){
         });
     });
 
-    $("#save_btn").click(function(){        
-        $("#model_name:focus").blur();
-        
-        var check = $("input[name=num_field]:checked");
-        if(check.length == 0){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("You didn't select any numerical columns.");
-            return;
-        }
-
-        var selected = $("#select_class :selected").val();
-        if(selected == 'default'){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("You have to select a Class column.");
-            return;
-        }
-
-        var checkVal = {};
-        $.each(check,function(i){
-            checkVal[i] = $(this).val();
-        });
-
-        var max_depth = $("#max_depth").val().trim();
-        if(max_depth.length == 0){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give the max_depth.");
-            return;
-        }
-
-        var min_samples_leaf = $("#min_samples_leaf").val().trim();
-        if(min_samples_leaf.length == 0){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give the min_samples_leaf.");
-            return;
-        }
-
-        var model_name = $("#model_name").val().trim();
-        if(model_name.length == 0){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give a name for your Model.");
-            return;
-        }
-
-        var max_depthInt = Number.parseInt(max_depth);
-        if(Number.isNaN(max_depthInt)){
-	        $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give a valid value for the max_depth.");
-            return;
-        }
-
-        var min_samples_leafInt = Number.parseInt(min_samples_leaf);
-        if(Number.isNaN(min_samples_leafInt)){
-	        $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("Please give a valid value for the min_samples_leaf.");
-            return;
-        }
-
-        if(max_depthInt < 1){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("You should give a max_depth &ge; 1.");
-            return;
-        }
-
-        if(min_samples_leafInt < 1){
-            $('#modal2_text').html("");
-            $('#modal2').modal('show');
-            $('#modal2_text').html("You should give a min_samples_leaf &ge; 1.");
-            return;
-        }
-
-        var file = $("#select_dataset :selected").val();
-        var folder = $("#select_dataset :selected").attr("class");
-
-        $("#save_btn").hide();
-        $("#loadingbtnSave").show();
-
-        $.ajax({
-            url: '../server/php/api/save_model.php',
-            method: 'POST',
-            data: JSON.stringify({token: token, checkVal: checkVal, selected: selected, max_depthInt: max_depthInt, min_samples_leafInt: min_samples_leafInt, folder: folder, file: file, model_name: model_name}),
-            dataType: "json",
-            contentType: 'application/json',
-            success: function(data){
-                var mes = data.message;
-                $("#loadingbtnSave").hide();
-                $("#save_btn").show();
-                $('#modal2_text').html("");
-                $('#modal2').modal('show');
-                $('#modal2_text').html(mes);
-            },
-            error: function(xhr,status,error){
-                var response = JSON.parse(xhr.responseText);
-                var errormes = response.errormesg;
-                $("#loadingbtnSave").hide();
-                $("#save_btn").show();
-                $('#modal2_text').html("");
-                $('#modal2').modal('show');
-                $('#modal2_text').html(errormes);
-            }
-        });
+    $("#data_table2").click(function(event){
+        $(".selectedRow2").removeClass("selectedRow2");
+        $(event.target).closest("tr").addClass("selectedRow2");
     });
-    */
+
+    $('#save_btn').click(function(event){
+        var file = $("#select_dataset :selected").val();
+        event.preventDefault();
+        window.location.href = `../server/php/api/download_classified_dataset.php?token=${token}&file=${file}`;
+    });
 });

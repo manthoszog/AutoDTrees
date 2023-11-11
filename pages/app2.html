@@ -225,60 +225,36 @@
                 </div>
             </div>
         </div>
-        <!--
-
+        
         <div class="form-body" id="results_div">
             <div class="container">
                 <div class="container-inner2">
                     <div class="page-title">
-                        Model Evaluation
+                        Classified Dataset
                     </div>
                     <div style="overflow-x:auto;">
-                        <table id="results_table" class="table table-bordered table-striped table-style">
+                        <table id="data_table2" class="table table-bordered table-striped table-style table-hover">
                             <thead>
-                                <tr>
-                                    <th scope="col" colspan="4" id="titleName"></th>
-                                </tr>
-                                <tr>
-                                    <th scope="col">Accuracy</th>
-                                    <th scope="col">Precision</th>
-                                    <th scope="col">Recall</th>
-                                    <th scope="col">F-score</th>
+                                <tr id="data_table2_head_tr">
                                 </tr>
                             </thead>
-                            <tbody class="table-group-divider">
-                                <tr id="results_tr">
-                                </tr>
+                            <tbody class="table-group-divider" id="data_table2_tbody">
                             </tbody>
                         </table>
                     </div>
-                    <div class="row" style="margin-top: 20px;">
-                        <div class="col">
-                            <div class="form-floating">
-                                <input type="text" id="model_name" class="form-control" placeholder="Model Name" data-bs-toggle="tooltip" data-bs-placement="left" data-bs-title="Give a name for your Model. First character should be a letter and spaces aren't allowed.">
-                                <label for="model_name">
-                                    <span class="field-text">Model Name</span></label>
-                            </div>
-                        </div>
-                        <div class="col">
-                            <div class="btn_size">
-                                <button class="btn btn-primary" type="button" id="save_btn">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-floppy-fill" viewBox="0 0 20 20">
-                                        <path d="M0 1.5A1.5 1.5 0 0 1 1.5 0H3v5.5A1.5 1.5 0 0 0 4.5 7h7A1.5 1.5 0 0 0 13 5.5V0h.086a1.5 1.5 0 0 1 1.06.44l1.415 1.414A1.5 1.5 0 0 1 16 2.914V14.5a1.5 1.5 0 0 1-1.5 1.5H14v-5.5A1.5 1.5 0 0 0 12.5 9h-9A1.5 1.5 0 0 0 2 10.5V16h-.5A1.5 1.5 0 0 1 0 14.5v-13Z"/>
-                                        <path d="M3 16h10v-5.5a.5.5 0 0 0-.5-.5h-9a.5.5 0 0 0-.5.5V16Zm9-16H4v5.5a.5.5 0 0 0 .5.5h7a.5.5 0 0 0 .5-.5V0ZM9 1h2v4H9V1Z"/>
-                                      </svg> <span class="saveDiv_button">Save Model</span>
-                                </button>
-                                <button class="btn btn-primary" type="button" id="loadingbtnSave" disabled="">
-                                    <span class="spinner-border spinner-border-sm loading-spinner2" role="status" aria-hidden="true"></span>
-                                    <span class="saveDiv_button">Loading...</span>
-                                </button>
-                            </div>
-                        </div>
+                    <div class="d-grid gap-2 col-12 mx-auto edit-button2">
+                        <button class="btn btn-primary" type="button" id="save_btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" height="1em" viewBox="0 0 512 512" fill="currentColor">
+                                <!--! Font Awesome Free 6.4.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license (Commercial License) Copyright 2023 Fonticons, Inc. -->
+                                <path d="M0 64C0 28.7 28.7 0 64 0H224V128c0 17.7 14.3 32 32 32H384V304H176c-35.3 0-64 28.7-64 64V512H64c-35.3 0-64-28.7-64-64V64zm384 64H256V0L384 128zM200 352h16c22.1 0 40 17.9 40 40v8c0 8.8-7.2 16-16 16s-16-7.2-16-16v-8c0-4.4-3.6-8-8-8H200c-4.4 0-8 3.6-8 8v80c0 4.4 3.6 8 8 8h16c4.4 0 8-3.6 8-8v-8c0-8.8 7.2-16 16-16s16 7.2 16 16v8c0 22.1-17.9 40-40 40H200c-22.1 0-40-17.9-40-40V392c0-22.1 17.9-40 40-40zm133.1 0H368c8.8 0 16 7.2 16 16s-7.2 16-16 16H333.1c-7.2 0-13.1 5.9-13.1 13.1c0 5.2 3 9.9 7.8 12l37.4 16.6c16.3 7.2 26.8 23.4 26.8 41.2c0 24.9-20.2 45.1-45.1 45.1H304c-8.8 0-16-7.2-16-16s7.2-16 16-16h42.9c7.2 0 13.1-5.9 13.1-13.1c0-5.2-3-9.9-7.8-12l-37.4-16.6c-16.3-7.2-26.8-23.4-26.8-41.2c0-24.9 20.2-45.1 45.1-45.1zm98.9 0c8.8 0 16 7.2 16 16v31.6c0 23 5.5 45.6 16 66c10.5-20.3 16-42.9 16-66V368c0-8.8 7.2-16 16-16s16 7.2 16 16v31.6c0 34.7-10.3 68.7-29.6 97.6l-5.1 7.7c-3 4.5-8 7.1-13.3 7.1s-10.3-2.7-13.3-7.1l-5.1-7.7c-19.3-28.9-29.6-62.9-29.6-97.6V368c0-8.8 7.2-16 16-16z"/>
+                            </svg>
+                            <span class="btn-text">Export to .csv file</span>
+                        </button>
                     </div>
                 </div>
             </div>
         </div>
-    -->
+
         <div id="margin_div"></div>
 
         <div class="modal fade" id="upl_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
