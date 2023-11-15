@@ -51,7 +51,7 @@ nav a.active{
     box-shadow: 0 0 5px #ccc;
 }
 
-#loginb{
+.loginRegBtn{
     text-decoration: none;
     background-color: #4070f4;
     border-radius: 5px;
@@ -62,27 +62,7 @@ nav a.active{
     text-align: center;
 }
 
-#loginb:hover{
-    background-color: #5095fd;
-    color: #ffffff;
-    border-radius: 5px;
-    font-weight: 500;
-    text-shadow: black 1px 1px 1px;
-    text-align: center;
-}
-
-#regbtn{
-    text-decoration: none;
-    background-color: #4070f4;
-    border-radius: 5px;
-    box-shadow: 0 0 5px #ccc;
-    color: #ffffff;
-    font-weight: 500;
-    text-shadow: black 1px 1px 1px;
-    text-align: center;
-}
-
-#regbtn:hover{
+.loginRegBtn:hover{
     background-color: #5095fd;
     color: #ffffff;
     border-radius: 5px;
@@ -151,4 +131,55 @@ nav a.active{
 
 .dropdown-menu > li:hover > .dropdown-submenu-left {
     display: block;
+}
+
+.sectionStyle{
+    height: 350px;
+    margin-top: 95px;
+    background-color: #cbc8c8;
+}
+
+.sectionTitle{
+    margin-bottom: 25px;
+}
+
+.sectionSubtitle{
+    margin-bottom: 50px;
+}
+
+.title-subtitle{
+    max-width: 600px;
+    padding-top: 70px;
+    text-align: center;
+}
+
+.title-subtitle a{
+    color: #fff; 
+    background-color: #4070f4; 
+    font-size: 20px; 
+    padding: 12px 24px;
+    font-weight: 500;
+    text-shadow: black 1px 1px 1px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    box-shadow: 0 0 5px #ccc;
+}
+
+.title-subtitle a:hover{
+    background-color: #5095fd;
+}
+
+.sectionStyle2{
+    min-height: 350px; 
+    max-height: 550px;
+}
+
+.stripedBackground{
+    background-color: #cbc8c8;
+}
+
+.paddingSection{
+    padding-top: 100px; 
+    padding-bottom: 100px;
 }
