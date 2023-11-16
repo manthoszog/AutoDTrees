@@ -183,3 +183,43 @@ nav a.active{
     padding-top: 100px; 
     padding-bottom: 100px;
 }
+
+.form-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 160px;
+}
+
+.container2{
+    position: relative;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 830px;
+    background-color: #ffffff;
+    box-shadow: 0 0 25px #ccc;
+}
+
+.container-inner2{
+    padding: 45px;
+}
+
+.page-title{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    padding-bottom: 30px;
+}
+
+.page-subtitle{
+    text-align: justify;
+    font-size: 20px;
+}
+
+.page-subtitle h5 a{
+    text-decoration: none;
+}
+
+.page-subtitle h5 a:hover{
+    text-decoration: underline;
+}
