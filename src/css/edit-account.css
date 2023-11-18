@@ -99,7 +99,7 @@ nav a.active{
     top: -7px;
 }
 
-@media(max-width: 576px){
+@media(max-width: 992px){
     .dropdown-menu .dropdown-submenu-left {
         display: none;
         position: absolute;

@@ -121,6 +121,8 @@
             }
         }
 
+        $num_fields = str_replace(" ","_",$num_fields);
+        
         for($i = 0; $i < count($checkVal); $i++){
             $found = 0;
             for($j = 0; $j < count($num_fields); $j++){
@@ -130,7 +132,8 @@
             }
             if($found == 0){
                 header("HTTP/1.1 400 Bad Request");
-                print json_encode(['errormesg'=>"Numerical column $checkVal[$i] doesn't exist."]);
+                //print json_encode(['errormesg'=>"Numerical column $checkVal[$i] doesn't exist."]);
+                print json_encode(['errormesg'=>"Model features should match unclassified dataset's features."]);
                 exit;
             }
         }
@@ -142,13 +145,15 @@
             $results = shell_exec("python ../../py/classifyData.py $file_path $checkValImplode $model_path $save_path");
         }catch(Exception $e){
             header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification. <br><br> Please make sure that the selected features are the same as Model's features and try again."]);
+            //print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification. <br><br> Please make sure that the selected features are the same as Model's features and try again."]);
+            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification."]);
             exit;
         }
 
         if(!$results || $results == null){
             header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification. <br><br> Please make sure that the selected features are the same as Model's features and try again."]);
+            //print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification. <br><br> Please make sure that the selected features are the same as Model's features and try again."]);
+            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification."]);
             exit;
         }
 

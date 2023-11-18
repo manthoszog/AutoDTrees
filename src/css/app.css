@@ -99,7 +99,7 @@ nav a.active{
     top: -7px;
 }
 
-@media(max-width: 576px){
+@media(max-width: 992px){
     .dropdown-menu .dropdown-submenu-left {
         display: none;
         position: absolute;
@@ -377,7 +377,7 @@ nav a.active{
 }
 
 #checkBoxes2 input{
-    opacity: 0.7;
+    opacity: 0.5;
 }
 
 .selectedRow2 td{
