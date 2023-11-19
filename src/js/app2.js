@@ -6,6 +6,7 @@ $(function(){
     $('#loadingbtnModel2').hide();
     $('#loadingbtn').hide();
     $('#loadingbtn_dataset').hide();
+    $('#loadingbtnTree').hide();
     $('#uplDiv').hide();
     $('#table_div').hide();
     //$('#params_div').hide();
@@ -86,7 +87,7 @@ $(function(){
                 }
                 $('#del-model').prop("disabled",true);
                 $('#dnload-model').prop("disabled",true);
-                $('#dnloadTree').prop("disabled",true);
+                $('#visualizeTree').prop("disabled",true);
                 $('#params_div2').hide();
                 $('#uplDiv').hide();
                 $('#table_div').hide();
@@ -101,7 +102,7 @@ $(function(){
                 $("#select_model").append($("<option value='default' selected>Select a Pretrained Model</option>"));
                 $('#del-model').prop("disabled",true);
                 $('#dnload-model').prop("disabled",true);
-                $('#dnloadTree').prop("disabled",true);
+                $('#visualizeTree').prop("disabled",true);
                 $('#params_div2').hide();
                 $('#uplDiv').hide();
                 $('#table_div').hide();
@@ -124,13 +125,13 @@ $(function(){
         if(selected == "default"){
             $('#del-model').prop("disabled",true);
             $('#dnload-model').prop("disabled",true);
-            $('#dnloadTree').prop("disabled",true);
+            $('#visualizeTree').prop("disabled",true);
             return;
         }
 
         $('#del-model').prop("disabled",false);
         $('#dnload-model').prop("disabled",false);
-        $('#dnloadTree').prop("disabled",false);
+        $('#visualizeTree').prop("disabled",false);
         $('#loadingbtnModel2').show();
 
         $.ajax({
@@ -159,7 +160,7 @@ $(function(){
                 var response = JSON.parse(xhr.responseText);
                 var errormes = response.errormesg;
                 $('#dnload-model').prop("disabled",true);
-                $('#dnloadTree').prop("disabled",true);
+                $('#visualizeTree').prop("disabled",true);
                 $('#loadingbtnModel2').hide();
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
@@ -188,7 +189,7 @@ $(function(){
                 $("#select_model :selected").remove();
                 $("#select_model").val("default");
                 $('#dnload-model').prop("disabled",true);
-                $('#dnloadTree').prop("disabled",true);
+                $('#visualizeTree').prop("disabled",true);
                 $('#params_div2').hide();
                 $('#uplDiv').hide();
                 $('#table_div').hide();
@@ -206,7 +207,7 @@ $(function(){
                 $('#del-model').prop("disabled",true);
                 $("#select_model").val("default");
                 $('#dnload-model').prop("disabled",true);
-                $('#dnloadTree').prop("disabled",true);
+                $('#visualizeTree').prop("disabled",true);
                 $('#params_div2').hide();
                 $('#uplDiv').hide();
                 $('#table_div').hide();
@@ -225,10 +226,41 @@ $(function(){
         window.location.href = `../server/php/api/download_model.php?token=${token}&file=${file}`;
     });
 
+    $('#visualizeTree').click(function(){
+        var file = $("#select_model :selected").val();
+        $('#tree_modalBody').html("");
+        $('#visualizeTree').hide();
+        $('#loadingbtnTree').show();
+        
+        $.ajax({
+            url: `../server/php/api/visualize_tree.php?token=${token}&file=${file}`,
+            method: 'GET',
+            success: function(data){
+                var data2 = JSON.parse(data);
+                var image = data2.image;
+                $('#tree_modalBody').append($(`
+                    <img class="img-fluid mx-auto d-block" style="max-height: 75vh;" src="${image}" alt="Tree Visualization">
+                `));
+                $('#tree_modal').modal('show');
+                $('#loadingbtnTree').hide();
+                $('#visualizeTree').show();
+            },
+            error: function(xhr,status,error){
+                var response = JSON.parse(xhr.responseText);
+                var errormes = response.errormesg;
+                $('#loadingbtnTree').hide();
+                $('#visualizeTree').show();
+                $('#modal2_text').html("");
+                $('#modal2').modal('show');
+                $('#modal2_text').html(errormes);
+            }
+        });
+    });
+    
     $('#dnloadTree').click(function(event){
         var file = $("#select_model :selected").val();
         event.preventDefault();
-        window.location.href = `../server/php/api/visualize_tree.php?token=${token}&file=${file}`;
+        window.location.href = `../server/php/api/download_tree.php?token=${token}&file=${file}`;
     });
     
     function getDatasets(){

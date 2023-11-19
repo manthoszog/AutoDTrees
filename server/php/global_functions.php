@@ -5,7 +5,7 @@
             $d = 'https://users.iee.ihu.gr/~it185179/autodtrees';
         }
         else{
-            $d = 'localhost/autodtrees';
+            $d = 'http://localhost/autodtrees';
         }
         return $d;
     }

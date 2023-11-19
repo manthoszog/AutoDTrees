@@ -117,8 +117,12 @@
                             <span class="spinner-border spinner-border-sm loading-spinner" role="status" aria-hidden="true"></span>
                             <span class="loading-text">Loading...</span>
                         </button>
-                        <button class="btn btn-success" type="button" id="dnloadTree" disabled="">
+                        <button class="btn btn-success" type="button" id="visualizeTree" disabled="">
                             <i class="bi bi-diagram-3"></i><span class="btn-text2">Visualize Tree</span>
+                        </button>
+                        <button class="btn btn-success" type="button" id="loadingbtnTree" disabled="">
+                            <span class="spinner-border spinner-border-sm loading-spinner" role="status" aria-hidden="true"></span>
+                            <span class="loading-text">Loading...</span>
                         </button>
                     </div>
                     <div class="d-grid gap-2 col-12 mx-auto edit-button2">
@@ -308,6 +312,23 @@
                     </div>
                     <div class="modal-footer">
                         <button id="modal_btn" type="button" class="btn btn-primary" data-bs-dismiss="modal">OK</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="tree_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel3" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fs-5" id="staticBackdropLabel3">Decision Tree Visualization</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="tree_modalBody">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" id="dnloadTree">Download</button>
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closebtn">Close</button>
                     </div>
                 </div>
             </div>

@@ -2,6 +2,14 @@
     require_once "../dbconnect.php";
     require_once "../global_functions.php";
 
+    $method = $_SERVER['REQUEST_METHOD'];
+
+    if($method != "GET") {
+        header("HTTP/1.1 405 Method Not Allowed");
+        print json_encode(['errormesg'=>"Method not allowed."]);
+        exit;
+    }
+    
     if(!isset($_GET['token'])){
         header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"Token is not set."]);
@@ -29,7 +37,7 @@
 
     if(!file_exists($file_path)){
         header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg'=>"File doesn't exist."]);
+        print json_encode(['errormesg'=>"Model doesn't exist."]);
         exit;
     }
 
@@ -73,11 +81,8 @@
         exit;
     }
 
-    $file2 = "$name" . "_tree.png";
+    $domain = getdomain();
 
-    header("Content-Description: File Transfer");
-    header('Content-Disposition: attachment; filename="' . $file2 . '"');
-    header("Content-Transfer-Encoding: Binary");
-
-    readfile($tree_path);
+    $file2 = "$domain/server/py/users/$hash_user/models/$name" . "_tree.png";
+    print json_encode(['image'=>$file2], JSON_UNESCAPED_SLASHES);
 ?>

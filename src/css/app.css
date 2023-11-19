@@ -245,7 +245,7 @@ nav a.active{
     margin-bottom: 10px;
 }
 
-#delbtn{
+#delbtn, #loadingbtn2{
     margin-bottom: 10px;
 }
 
@@ -254,12 +254,12 @@ nav a.active{
     margin-bottom: 10px;
 }
 
-#del-model{
+#del-model, #loadingbtnModel{
     margin-bottom: 10px;
     margin-right: 10px;
 }
 
-#dnloadTree{
+#visualizeTree, #loadingbtnTree{
     margin-bottom: 10px;
 }
 
