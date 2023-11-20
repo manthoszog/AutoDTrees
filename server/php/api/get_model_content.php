@@ -56,5 +56,21 @@
         exit;
     }
 
-    print($results);
+    $query = 'select id from users where token=?';
+    $st = $mysqli->prepare($query);
+    $st->bind_param('s',$_GET['token']);
+    $st->execute();
+    $res = $st->get_result();
+    $id = $res->fetch_assoc()['id'];
+    
+    $query = 'select class_name from model_class where id=? and model_name=?';
+    $st = $mysqli->prepare($query);
+    $st->bind_param('is',$id,$file);
+    $st->execute();
+    $res = $st->get_result();
+    $class_name = $res->fetch_assoc()['class_name'];
+    
+    $results = json_decode($results,true);
+    $columns = $results['columns'];
+    print json_encode(['columns'=>$columns,'class_name'=>$class_name]);
 ?>

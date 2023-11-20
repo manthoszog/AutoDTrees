@@ -240,6 +240,10 @@ nav a.active{
     font-size: 18px;
 }
 
+.edit-select5{
+    font-size: 15px;
+}
+
 .dnload-del-btn{
     display: inline-block;
     margin-bottom: 10px;
@@ -284,7 +288,7 @@ nav a.active{
     font-weight: 600;
 }
 
-#checkBoxes{
+#checkBoxes, #checkBoxes2{
     padding-bottom: 30px;
 }
 
@@ -373,7 +377,7 @@ nav a.active{
 }
 
 #checkBoxes2 label{
-    opacity: 0.9;
+    opacity: 1;
 }
 
 #checkBoxes2 input{

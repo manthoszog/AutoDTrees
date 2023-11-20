@@ -50,5 +50,17 @@
         exit;
     }
 
+    $query = 'select id from users where token=?';
+    $st = $mysqli->prepare($query);
+    $st->bind_param('s',$input['token']);
+    $st->execute();
+    $res = $st->get_result();
+    $id = $res->fetch_assoc()['id'];
+    
+    $query = 'delete from model_class where id=? and model_name=?';
+    $st = $mysqli->prepare($query);
+    $st->bind_param('is',$id,$file);
+    $st->execute();
+    
     print json_encode(['message'=>"File successfully deleted."]);
 ?>

@@ -80,6 +80,11 @@
     $st->bind_param('i',$id);
     $st->execute();
 
+    $query = 'delete from model_class where id=?';
+    $st = $mysqli->prepare($query);
+    $st->bind_param('i',$id);
+    $st->execute();
+
     $query = 'delete from users where token=?';
     $st = $mysqli->prepare($query);
     $st->bind_param('s',$input['token']);

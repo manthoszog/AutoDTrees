@@ -18,6 +18,22 @@ USE `autodtrees_db`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `model_class`
+--
+
+DROP TABLE IF EXISTS `model_class`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `model_class` (
+  `id` int(11) NOT NULL,
+  `model_name` varchar(50) NOT NULL,
+  `class_name` varchar(50) NOT NULL,
+  PRIMARY KEY (`id`,`model_name`),
+  CONSTRAINT `model_class_ibfk_1` FOREIGN KEY (`id`) REFERENCES `users` (`id`) ON DELETE CASCADE ON UPDATE NO ACTION
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `users`
 --
 
@@ -62,4 +78,4 @@ CREATE TABLE `verify_account` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-10 19:34:04
+-- Dump completed on 2023-11-20 20:44:44

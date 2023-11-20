@@ -140,6 +140,7 @@ $(function(){
             success: function(data){
                 let d = JSON.parse(data);
                 let cols = d.columns;
+                let class_name = d.class_name;
                 $('#checkBoxes2').html("");
                 for(var i = 0; i < cols.length; i++){
                     $('#checkBoxes2').append($(`
@@ -151,6 +152,8 @@ $(function(){
                         </div>
                     `));
                 }
+                $("#select_class").html("");
+                $("#select_class").append($(`<option value='${class_name}' selected>${class_name}</option>`));
                 $('#loadingbtnModel2').hide();
                 $('#params_div2').show();
                 getDatasets();

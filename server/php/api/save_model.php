@@ -269,6 +269,18 @@
             exit;
         }
 
+        $query = 'select id from users where token=?';
+        $st = $mysqli->prepare($query);
+        $st->bind_param('s',$input['token']);
+        $st->execute();
+        $res = $st->get_result();
+        $id = $res->fetch_assoc()['id'];
+
+        $query = 'insert into model_class(id, model_name, class_name) values(?,?,?)';
+        $st = $mysqli->prepare($query);
+        $st->bind_param('iss',$id,$model_file,$selected);
+        $st->execute();
+
         print($results);
     }
     else{
