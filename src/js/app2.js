@@ -9,7 +9,6 @@ $(function(){
     $('#loadingbtnTree').hide();
     $('#uplDiv').hide();
     $('#table_div').hide();
-    //$('#params_div').hide();
     $('#results_div').hide();
     
     const alertPlaceholder = $('#alertPlaceholder');
@@ -67,6 +66,16 @@ $(function(){
             }
         }
     });
+
+    var modal_key2 = $("#metrics_modal");
+    modal_key2.on("keypress", function(event){
+        if(event.key === "Enter"){
+            event.preventDefault();
+            if($("#metrics_modal").css("display") !== "none"){
+                $("#metricsBtn").click();
+            }
+        }
+    });
     
     function getModels(){
     
@@ -91,7 +100,6 @@ $(function(){
                 $('#params_div2').hide();
                 $('#uplDiv').hide();
                 $('#table_div').hide();
-                //$('#params_div').hide();
                 $('#results_div').hide();
             },
             error: function(xhr,status,error){
@@ -106,7 +114,6 @@ $(function(){
                 $('#params_div2').hide();
                 $('#uplDiv').hide();
                 $('#table_div').hide();
-                //$('#params_div').hide();
                 $('#results_div').hide();
             }
         });
@@ -118,7 +125,6 @@ $(function(){
         $('#params_div2').hide();
         $('#uplDiv').hide();
         $('#table_div').hide();
-        //$('#params_div').hide();
         $('#results_div').hide();
         var selected = $("#select_model :selected").val();
 
@@ -196,7 +202,6 @@ $(function(){
                 $('#params_div2').hide();
                 $('#uplDiv').hide();
                 $('#table_div').hide();
-                //$('#params_div').hide();
                 $('#results_div').hide();
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
@@ -214,7 +219,6 @@ $(function(){
                 $('#params_div2').hide();
                 $('#uplDiv').hide();
                 $('#table_div').hide();
-                //$('#params_div').hide();
                 $('#results_div').hide();
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
@@ -282,7 +286,6 @@ $(function(){
                 $('#delbtn').prop("disabled",true);
                 $('#dnload-btn').prop("disabled",true);
                 $('#table_div').hide();
-                //$('#params_div').hide();
                 $('#results_div').hide();
             },
             error: function(xhr,status,error){
@@ -296,7 +299,6 @@ $(function(){
                 $('#delbtn').prop("disabled",true);
                 $('#dnload-btn').prop("disabled",true);
                 $('#table_div').hide();
-                //$('#params_div').hide();
                 $('#results_div').hide();
             }
         });
@@ -367,7 +369,6 @@ $(function(){
     
     $("#select_dataset").on("change",function(){
         $('#table_div').hide();
-        //$('#params_div').hide();
         $('#results_div').hide();
 
         var selected = $("#select_dataset :selected").val();
@@ -389,7 +390,6 @@ $(function(){
             success: function(data){
                 var data2 = JSON.parse(data);
                 var csv_array = data2.csv_array;
-                //var num_fields = data2.numerical_fields;
                 $("#data_table_head_tr").html("");
                 $("#data_table_tbody").html("");
                 $.each(csv_array[0], function(index,val){
@@ -406,26 +406,7 @@ $(function(){
                 });
                 $('#loadingbtn_dataset').hide();
                 $('#table_div').show();
-                window.location.href = "#checkBoxes2";
-                // $('#checkSelectAll').html("");
-                // $('#checkSelectAll').append($(`
-                //     <input class="form-check-input edit_checkbox" type="checkbox" name="select_all" value="Select all" id="flexCheckDefault">
-                //     <label class="form-check-label" for="flexCheckDefault">
-                //         Select all
-                //     </label>
-                // `));
-                // $('#checkBoxes').html("");
-                // for(var i = 0; i < num_fields.length; i++){
-                //     $('#checkBoxes').append($(`
-                //         <div class="form-check form-check-inline">
-                //             <input class="form-check-input edit_checkbox" type="checkbox" name="num_field" value="${num_fields[i]}" id="flexCheckDefault">
-                //             <label class="form-check-label" for="flexCheckDefault">
-                //                 ${num_fields[i]}
-                //             </label>
-                //         </div>
-                //     `));
-                // }
-                //$('#params_div').show();
+                window.location.href = "#select_class";
             },
             error: function(xhr,status,error){
                 var response = JSON.parse(xhr.responseText);
@@ -459,7 +440,6 @@ $(function(){
                 $("#select_dataset :selected").remove();
                 $("#select_dataset").val("default");
                 $('#table_div').hide();
-                //$('#params_div').hide();
                 $('#results_div').hide();
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
@@ -473,7 +453,6 @@ $(function(){
                 $('#delbtn').prop("disabled",true);
                 $("#select_dataset").val("default");
                 $('#table_div').hide();
-                //$('#params_div').hide();
                 $('#results_div').hide();
                 $('#modal2_text').html("");
                 $('#modal2').modal('show');
@@ -488,25 +467,6 @@ $(function(){
         window.location.href = `../server/php/api/download_unclassified_dataset.php?token=${token}&file=${file}`;
     });
 
-    // $("#checkSelectAll").click(function(){
-    //     var selAll = $("input[name=select_all]:checked");
-    //     var check = $("input[name=num_field]");
-    //     if(selAll.length > 0){
-    //         for(var i = 0; i < check.length; i++){
-    //             if(check[i].type == 'checkbox'){
-    //                 check[i].checked = true;
-    //             }
-    //         }
-    //     }
-    //     else{
-    //         for(var i = 0; i < check.length; i++){
-    //             if(check[i].type == 'checkbox'){
-    //                 check[i].checked = false;
-    //             }
-    //         }
-    //     }
-    // });
-
     $("#data_table").click(function(event){
         $(".selectedRow").removeClass("selectedRow");
         $(event.target).closest("tr").addClass("selectedRow");
@@ -514,19 +474,16 @@ $(function(){
 
     $("#class_btn").click(function(){
         $('#results_div').hide();
+        $('#showMetrics').prop("disabled",true);
         
         var check = $("input[name=num_field]:checked");
-        // if(check.length == 0){
-        //     $('#modal2_text').html("");
-        //     $('#modal2').modal('show');
-        //     $('#modal2_text').html("You didn't select any numerical columns.");
-        //     return;
-        // }
 
         var checkVal = {};
         $.each(check,function(i){
             checkVal[i] = $(this).val();
         });
+
+        var className = $('#select_class :selected').val();
 
         var file = $("#select_dataset :selected").val();
         var model = $("#select_model :selected").val();
@@ -537,11 +494,19 @@ $(function(){
         $.ajax({
             url: '../server/php/api/classifyData.php',
             method: 'POST',
-            data: JSON.stringify({token: token, checkVal: checkVal, file: file, model: model}),
+            data: JSON.stringify({token: token, checkVal: checkVal, className: className, file: file, model: model}),
             dataType: "json",
             contentType: 'application/json',
             success: function(data){
                 var csv_array = data.dataset;
+                var acc = data.acc;
+                var avg_pre = data.avg_pre;
+                var avg_rec = data.avg_rec;
+                var avg_fsc = data.avg_fsc;
+                var pre_per_label = data.pre_per_label;
+                var rec_per_label = data.rec_per_label;
+                var fsc_per_label = data.fsc_per_label;
+                var labels = data.labels;
                 $("#data_table2_head_tr").html("");
                 $("#data_table2_tbody").html("");
                 $.each(csv_array[0], function(index,val){
@@ -556,6 +521,25 @@ $(function(){
                         });
                     }
                 });
+                if(acc !== null){
+                    $("#results_tr").html("");
+                    $("#results_tr").append($(`<td>${acc}</td>`));
+                    $("#results_tr").append($(`<td>${avg_pre}</td>`));
+                    $("#results_tr").append($(`<td>${avg_rec}</td>`));
+                    $("#results_tr").append($(`<td>${avg_fsc}</td>`));
+                    $("#results_tbody").html("");
+                    for(var i = 0; i < labels.length; i++){
+                        $("#results_tbody").append($(`
+                            <tr>
+                                <td>${labels[i]}</td>
+                                <td>${pre_per_label[i]}</td>
+                                <td>${rec_per_label[i]}</td>
+                                <td>${fsc_per_label[i]}</td>
+                            </tr>    
+                        `));
+                    }
+                    $('#showMetrics').prop("disabled",false);
+                }
                 $("#loadingbtn3").hide();
                 $("#class_btn").show();
                 $('#results_div').show();
@@ -582,5 +566,9 @@ $(function(){
         var file = $("#select_dataset :selected").val();
         event.preventDefault();
         window.location.href = `../server/php/api/download_classified_dataset.php?token=${token}&file=${file}`;
+    });
+
+    $('#showMetrics').click(function(){
+        $('#metrics_modal').modal('show');
     });
 });

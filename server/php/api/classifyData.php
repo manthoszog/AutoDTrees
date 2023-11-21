@@ -52,6 +52,17 @@
         print json_encode(['errormesg'=>"You didn't select any numerical columns."]);
         exit;
     }
+
+    $checkVal = str_replace(" ","_",$checkVal);
+
+    if(!isset($input['className'])){
+        header("HTTP/1.1 400 Bad Request");
+        print json_encode(['errormesg'=>"You have to select a Class column."]);
+        exit;
+    }
+
+    $className = $input['className'];
+    $className = str_replace(" ","_",$className);
     
     $email = user_mail($input['token']);
 
@@ -90,6 +101,7 @@
 
     $countFields;
     $num_fields = array(); //only numerical fields
+    $fields = array();
     $csv_array = array();
     $count2 = array();
     $row = 0;
@@ -121,6 +133,27 @@
             }
         }
 
+        for($j4 = 0; $j4 < $countFields; $j4++){
+            $columns = array();
+            $found = 0;
+            for($i = 1; $i < count($csv_array); $i++){
+                array_push($columns,$csv_array[$i][$j4]);
+            }
+            foreach($columns as $val){
+                if(is_numeric($val) && (strpos($val,'.') !== false)){
+                    $found++;
+                }
+                elseif(preg_match("@^(null|na|nan| |)$@i", $val)){
+                    $found++;
+                }
+            }
+            if($found == 0){
+                if($csv_array[0][$j4] != ""){
+                    array_push($fields,$csv_array[0][$j4]);
+                }
+            }
+        }
+
         $num_fields = str_replace(" ","_",$num_fields);
         
         for($i = 0; $i < count($checkVal); $i++){
@@ -132,27 +165,35 @@
             }
             if($found == 0){
                 header("HTTP/1.1 400 Bad Request");
-                //print json_encode(['errormesg'=>"Numerical column $checkVal[$i] doesn't exist."]);
                 print json_encode(['errormesg'=>"Model features should match unclassified dataset's features."]);
                 exit;
             }
         }
 
-        $checkVal = str_replace(" ","_",$checkVal);
+        $fields = str_replace(" ","_",$fields);
+        
+        $found2 = 0;
+        for($i = 0; $i < count($fields); $i++){
+            if($className == $fields[$i]){
+                $found2++;
+            }
+        }
+        if($found2 == 0){
+            $className = 'None';
+        }
+
         $checkValImplode = implode(",",$checkVal);
         $results;
         try{
-            $results = shell_exec("python ../../py/classifyData.py $file_path $checkValImplode $model_path $save_path");
+            $results = shell_exec("python ../../py/classifyData.py $file_path $checkValImplode $model_path $save_path $className");
         }catch(Exception $e){
             header("HTTP/1.1 400 Bad Request");
-            //print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification. <br><br> Please make sure that the selected features are the same as Model's features and try again."]);
             print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification."]);
             exit;
         }
 
         if(!$results || $results == null){
             header("HTTP/1.1 400 Bad Request");
-            //print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification. <br><br> Please make sure that the selected features are the same as Model's features and try again."]);
             print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification."]);
             exit;
         }

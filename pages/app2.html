@@ -222,40 +222,16 @@
             </div>
         </div>
         
-        <!-- <div class="form-body" id="params_div">
-            <div class="container">
-                <div class="container-inner2">
-                    <div class="page-title">
-                        Select Features to Classify
-                    </div>
-                    <div class="page-subtitle2" style="padding-bottom: 25px;">
-                        <i class="bi bi-info-circle-fill"></i>
-                        <span>Note that the selected features should match Model's features which displayed above.</span>
-                    </div>
-                    <div class="form-check form-check-inline" id="checkSelectAll">
-                    </div>
-                    <form id="checkBoxes" style="padding-bottom: 20px;">
-                    </form>
-                    <div class="d-grid gap-2 col-12 mx-auto edit-button2">
-                        <button class="btn btn-primary" type="button" id="class_btn">
-                            <i class="bi bi-gear-fill"></i><span class="btn-text">Classify Data</span>
-                        </button>
-                        <button class="btn btn-primary" type="button" id="loadingbtn3" disabled="">
-                            <span class="spinner-border spinner-border-sm loading-spinner" role="status" aria-hidden="true"></span>
-                            <span class="loading-text">Loading...</span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-        
         <div class="form-body" id="results_div">
             <div class="container">
                 <div class="container-inner2">
                     <div class="page-title">
                         Classified Dataset
                     </div>
-                    <div style="overflow-x:auto;">
+                    <button class="btn btn-primary" type="button" id="showMetrics" disabled="">
+                        <i class="bi bi-clipboard-data-fill"></i><span class="btn-text2">Show Metrics</span>
+                    </button>
+                    <div class="dataDiv">
                         <table id="data_table2" class="table table-bordered table-striped table-style table-hover">
                             <thead>
                                 <tr id="data_table2_head_tr">
@@ -339,6 +315,58 @@
                     <div class="modal-footer">
                         <button type="button" class="btn btn-success" id="dnloadTree">Download</button>
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="closebtn">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal fade" id="metrics_modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel4" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title fs-5" id="staticBackdropLabel4">Evaluation Metrics</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="metrics_modalBody">
+                        <div id="results_tableDiv">
+                            <table id="results_table" class="table table-bordered table-striped table-style">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" colspan="4">Metrics per Label</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Label</th>
+                                        <th scope="col">Precision</th>
+                                        <th scope="col">Recall</th>
+                                        <th scope="col">F-score</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="results_tbody" class="table-group-divider">
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="results_tableDiv2">
+                            <table id="results_table2" class="table table-bordered table-striped table-style">
+                                <thead>
+                                    <tr>
+                                        <th scope="col" colspan="4">Average Metrics</th>
+                                    </tr>
+                                    <tr>
+                                        <th scope="col">Accuracy</th>
+                                        <th scope="col">Precision</th>
+                                        <th scope="col">Recall</th>
+                                        <th scope="col">F-score</th>
+                                    </tr>
+                                </thead>
+                                <tbody class="table-group-divider">
+                                    <tr id="results_tr">
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="metricsBtn">Close</button>
                     </div>
                 </div>
             </div>

@@ -335,6 +335,10 @@ nav a.active{
     margin-left: 5px;
 }
 
+#showMetrics{
+    font-size: 18px;
+}
+
 .btn_size button{
     height: 56px;
     width: 160px;
@@ -386,4 +390,14 @@ nav a.active{
 
 .selectedRow2 td{
     background-color: #e4e1e1;
+}
+
+#metrics_modalBody{
+    justify-content: center;
+    align-items: center;
+}
+
+.dataDiv{
+    overflow-x: auto;
+    margin-top: 15px;
 }

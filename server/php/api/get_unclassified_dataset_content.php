@@ -42,7 +42,6 @@
     }
 
     $countFields;
-    //$num_fields = array(); //only numerical fields
     $csv_array = array();
     $count2 = array();
     $csv_array2 = array();
@@ -63,24 +62,13 @@
             exit;
         }
         $countFields = max($count2);
-        // for($j = 0; $j < $countFields; $j++){
-        //     $columns = array();
-        //     for($i2 = 1; $i2 < count($csv_array); $i2++){
-        //         array_push($columns,$csv_array[$i2][$j]);
-        //     }
-        //     if((count(array_filter($columns,"is_numeric"))) == (count($csv_array) - 1)){
-        //         if($csv_array[0][$j] != ""){
-        //             array_push($num_fields,$csv_array[0][$j]);
-        //         }
-        //     }
-        // }
         for($i3 = 0; $i3 <= 10; $i3++){
             for($j3 = 0; $j3 < $countFields; $j3++){
                 $csv_array2[$i3][$j3] = $csv_array[$i3][$j3];
             }
         }
 
-        print json_encode(['csv_array'=>$csv_array2]); //,'numerical_fields'=>$num_fields
+        print json_encode(['csv_array'=>$csv_array2]);
     }
     else{
         header("HTTP/1.1 400 Bad Request");
