@@ -188,13 +188,13 @@
             $results = shell_exec("python ../../py/classifyData.py $file_path $checkValImplode $model_path $save_path $className");
         }catch(Exception $e){
             header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification."]);
+            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification. <br><br> Please check the given columns and try again."]);
             exit;
         }
 
         if(!$results || $results == null){
             header("HTTP/1.1 400 Bad Request");
-            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification."]);
+            print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for data classification. <br><br> Please check the given columns and try again."]);
             exit;
         }
 

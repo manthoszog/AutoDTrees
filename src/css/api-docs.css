@@ -152,3 +152,67 @@ nav a.active{
 .dropdown-menu > li:hover > .dropdown-submenu-left {
     display: block;
 }
+
+.form-body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3%;
+}
+
+.container{
+    position: relative;
+    border-radius: 10px;
+    width: 100%;
+    max-width: 830px;
+    background-color: #ffffff;
+    box-shadow: 0 0 25px #ccc;
+}
+
+.container-inner2{
+    padding: 30px;
+}
+
+.page-title{
+    text-align: center;
+    font-size: 30px;
+    font-weight: 600;
+    padding-bottom: 30px;
+}
+
+.page-subtitle2{
+    text-align: left;
+    font-size: 17px;
+    padding-bottom: 13px;
+}
+
+.page-subtitle2 span{
+    padding-left: 3px;
+
+}
+
+#gitRepo{
+    font-size: 18px;
+    margin-left: 5px;
+    padding: 3px 8px;
+}
+
+.btn-text2{
+    margin-left: 5px;
+}
+
+.copyTokenStyle{
+    font-size: 15px;
+    background-color: #4070f4;
+    text-shadow: black 1px 1px 1px;
+}
+
+.copyTokenStyle:hover{
+    background-color: #5095fd;
+}
+
+.btn-text{
+    font-size: 17px;
+    font-weight: 600;
+    margin-left: 6px;
+}

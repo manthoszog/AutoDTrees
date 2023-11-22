@@ -17,4 +17,20 @@ $(function(){
         sessionStorage.clear();
         window.location.href = '../';
     });
+
+    $('#userToken').val(token);
+
+    $('#copyToken').click(function(){
+        navigator.clipboard.writeText(token);
+        $('#copyToken').html("");
+        $('#copyToken').html($(`
+            <i class="bi bi-check-circle-fill"></i><span class="btn-text">Copied</span>
+        `));
+        setTimeout(function(){
+            $('#copyToken').html("");
+            $('#copyToken').html($(`
+                <i class="bi bi-clipboard-plus-fill"></i><span class="btn-text">Copy</span>
+            `));
+        }, 3000);
+    });
 });
