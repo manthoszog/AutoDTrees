@@ -153,6 +153,10 @@ nav a.active{
     display: block;
 }
 
+#margin_div{
+    padding-top: 3%;
+}
+
 .form-body{
     display: flex;
     justify-content: center;
@@ -183,7 +187,6 @@ nav a.active{
 .page-subtitle2{
     text-align: left;
     font-size: 17px;
-    padding-bottom: 13px;
 }
 
 .page-subtitle2 span{
@@ -215,4 +218,89 @@ nav a.active{
     font-size: 17px;
     font-weight: 600;
     margin-left: 6px;
+}
+
+.accordionBgColor{
+    background-color: #e9ecef;
+    font-size: 18px;
+}
+
+.accordionBgColor:focus, .accordionBgColor:not(.collapsed){
+    background-color: #e9ecef;
+}
+
+.acc_item_style{
+    margin-bottom: 10px;
+}
+
+.acc_item_style:last-child{
+    margin-bottom: unset;
+}
+
+.api_section{
+    margin-left: 10px;
+}
+
+.accordionBgColor_post{
+    background-color: #cfe2ff;
+    font-size: 18px;
+}
+
+.accordionBgColor_post:focus, .accordionBgColor_post:not(.collapsed){
+    background-color: #cfe2ff;
+}
+
+.accordionBgColor_delete{
+    background-color: #e8a8ae;
+    font-size: 18px;
+}
+
+.accordionBgColor_delete:focus, .accordionBgColor_delete:not(.collapsed){
+    background-color: #e8a8ae;
+}
+
+.accordionBgColor_get{
+    background-color: #93e5bf;
+    font-size: 18px;
+}
+
+.accordionBgColor_get:focus, .accordionBgColor_get:not(.collapsed){
+    background-color: #93e5bf;
+}
+
+.http_request{
+    background-color: #f3f3f3;
+    padding: 6px;
+    border-radius: 7px;
+    text-align: center;
+    margin-right: 8px;
+    font-weight: 550;
+    font-size: 16px;
+}
+
+.http_request2{
+    overflow-wrap: anywhere;
+}
+
+.preStyle{
+    background-color: #e9ecef;
+    padding: 20px;
+}
+
+.preStyle:last-child{
+    margin-bottom: unset;
+}
+
+.fieldName{
+    color: #286ac8;
+    font-size: 16px;
+}
+
+.fieldValue{
+    color: #c08768;
+    font-size: 16px;
+}
+
+.requestTitle{
+    margin-bottom: 14px;
 }

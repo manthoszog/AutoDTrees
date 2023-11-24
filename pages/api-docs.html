@@ -102,9 +102,9 @@
           <div class="container">
             <div class="container-inner2">
               <div class="page-title">
-                API Documentation
+                AutoDTrees API Documentation
               </div>
-              <div class="page-subtitle2">
+              <div class="page-subtitle2 mb-3">
                 <i class="bi bi-info-circle-fill"></i>
                 <span>
                   For the full code, visit the GitHub repository:
@@ -113,18 +113,143 @@
                   </a>
                 </span>
               </div>
-              <div class="page-subtitle2">
+              <div class="page-subtitle2 mb-2">
                 <i class="bi bi-info-circle-fill"></i>
                 <span>Your personal API Token:</span>
               </div>
-              <div class="input-group mb-3">
+              <div class="input-group mb-4">
                 <input id="userToken" type="text" class="form-control" aria-label="Token" disabled>
                 <button class="btn btn-primary copyTokenStyle" type="button" id="copyToken">
                   <i class="bi bi-clipboard-plus-fill"></i><span class="btn-text">Copy</span>
                 </button>
               </div>
+              <div class="page-subtitle2 mb-3">
+                <i class="bi bi-info-circle-fill"></i>
+                <span>AutoDTrees Public API Endpoints:</span>
+              </div>
+              <div class="accordion" id="accordionExample">
+                <div class="accordion-item acc_item_style">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed accordionBgColor" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      <i class="bi bi-person"></i><span class="api_section">User Profile</span>
+                    </button>
+                  </h2>
+                  <div id="collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_post" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+                            <span class="http_request">POST</span><span class="http_request2">/server/php/api/register.php</span>
+                          </button>
+                        </h2>
+                        <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#collapseOne">
+                          <div class="accordion-body accBody2">
+                            <h5 class="requestTitle">User Registration</h5>
+                            Request Body Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"fname"</span>: <span class="fieldValue">"FirstName"</span>,
+  <span class="fieldName">"lname"</span>: <span class="fieldValue">"LastName"</span>,
+  <span class="fieldName">"email"</span>: <span class="fieldValue">"yourmail@email.com"</span>,
+  <span class="fieldName">"pass"</span>: <span class="fieldValue">"yourpass"</span>,
+  <span class="fieldName">"pass_confirm"</span>: <span class="fieldValue">"yourpass"</span>
+}</pre>
+                            Response Example:
+                            <pre class="preStyle">
+{<span class="fieldName">"message"</span>: <span class="fieldValue">"User registered, verification mail sent"</span>}</pre>  
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_post" type="button" data-bs-toggle="collapse" data-bs-target="#collapse6" aria-expanded="false" aria-controls="collapse6">
+                            <span class="http_request">POST</span><span class="http_request2">/server/php/api/login.php</span>
+                          </button>
+                        </h2>
+                        <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#collapseOne">
+                          <div class="accordion-body">
+                            <!-- body content -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_post" type="button" data-bs-toggle="collapse" data-bs-target="#collapse7" aria-expanded="false" aria-controls="collapse7">
+                            <span class="http_request">POST</span><span class="http_request2">/server/php/api/edit-account.php</span>
+                          </button>
+                        </h2>
+                        <div id="collapse7" class="accordion-collapse collapse" data-bs-parent="#collapseOne">
+                          <div class="accordion-body">
+                            <!-- body content -->
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_delete" type="button" data-bs-toggle="collapse" data-bs-target="#collapse8" aria-expanded="false" aria-controls="collapse8">
+                            <span class="http_request">DELETE</span><span class="http_request2">/server/php/api/delete-account.php</span>
+                          </button>
+                        </h2>
+                        <div id="collapse8" class="accordion-collapse collapse" data-bs-parent="#collapseOne">
+                          <div class="accordion-body">
+                            <!-- body content -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item acc_item_style">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed accordionBgColor" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      <i class="bi bi-file-earmark-text"></i><span class="api_section">Datasets</span>
+                    </button>
+                  </h2>
+                  <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_get" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDatasets1" aria-expanded="false" aria-controls="collapseDatasets1">
+                            <span class="http_request">GET</span><span class="http_request2">/server/php/api/get_datasets.php?token=user_token</span>
+                          </button>
+                        </h2>
+                        <div id="collapseDatasets1" class="accordion-collapse collapse" data-bs-parent="#collapseTwo">
+                          <div class="accordion-body">
+                            <!-- body content -->
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item acc_item_style">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed accordionBgColor" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      <i class="bi bi-diagram-3"></i><span class="api_section">Models</span>
+                    </button>
+                  </h2>
+                  <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <!-- body content -->
+                    </div>
+                  </div>
+                </div>
+                <div class="accordion-item acc_item_style">
+                  <h2 class="accordion-header">
+                    <button class="accordion-button collapsed accordionBgColor" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
+                      <i class="bi bi-gear"></i><span class="api_section">Data Classification</span>
+                    </button>
+                  </h2>
+                  <div id="collapse4" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                    <div class="accordion-body">
+                      <!-- body content -->
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
+        <div id="margin_div"></div>
     </body>
 </html>
