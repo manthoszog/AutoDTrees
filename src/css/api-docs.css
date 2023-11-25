@@ -293,12 +293,14 @@ nav a.active{
 
 .fieldName{
     color: #286ac8;
-    font-size: 16px;
+    font-size: 17px;
+    font-family: --bs-font-monospace;
 }
 
 .fieldValue{
-    color: #c08768;
-    font-size: 16px;
+    color: #b65723;
+    font-size: 17px;
+    font-family: --bs-font-monospace;
 }
 
 .requestTitle{

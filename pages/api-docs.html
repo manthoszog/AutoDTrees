@@ -143,8 +143,8 @@
                           </button>
                         </h2>
                         <div id="collapse5" class="accordion-collapse collapse" data-bs-parent="#collapseOne">
-                          <div class="accordion-body accBody2">
-                            <h5 class="requestTitle">User Registration</h5>
+                          <div class="accordion-body">
+                            <h5 class="requestTitle">Registers a User and sends an Account Verification Email.</h5>
                             Request Body Example:
                             <pre class="preStyle">
 {
@@ -168,7 +168,21 @@
                         </h2>
                         <div id="collapse6" class="accordion-collapse collapse" data-bs-parent="#collapseOne">
                           <div class="accordion-body">
-                            <!-- body content -->
+                            <h5 class="requestTitle">Logs in a User.</h5>
+                            Request Body Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"email"</span>: <span class="fieldValue">"yourmail@email.com"</span>,
+  <span class="fieldName">"pass"</span>: <span class="fieldValue">"yourpass"</span>
+}</pre>
+                            Response Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"email"</span>: <span class="fieldValue">"yourmail@email.com"</span>,
+  <span class="fieldName">"token"</span>: <span class="fieldValue">"yourtoken"</span>,
+  <span class="fieldName">"fname"</span>: <span class="fieldValue">"FirstName"</span>,
+  <span class="fieldName">"lname"</span>: <span class="fieldValue">"LastName"</span>
+}</pre>
                           </div>
                         </div>
                       </div>
@@ -180,7 +194,32 @@
                         </h2>
                         <div id="collapse7" class="accordion-collapse collapse" data-bs-parent="#collapseOne">
                           <div class="accordion-body">
-                            <!-- body content -->
+                            <h5 class="requestTitle">Updates User information.</h5>
+                            Request Body Example 1 (user email update):
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"token"</span>: <span class="fieldValue">"yourtoken"</span>,
+  <span class="fieldName">"email"</span>: <span class="fieldValue">"yourmail@email.com"</span>
+}</pre>
+                            Response Example 1:
+                            <pre class="preStyle">
+{<span class="fieldName">"message"</span>: <span class="fieldValue">"Verification mail sent"</span>}</pre>
+                            Request Body Example 2 (name / password update):
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"token"</span>: <span class="fieldValue">"yourtoken"</span>,
+  <span class="fieldName">"fname"</span>: <span class="fieldValue">"FirstName" | null</span>,
+  <span class="fieldName">"lname"</span>: <span class="fieldValue">"LastName" | null</span>,
+  <span class="fieldName">"pass"</span>: <span class="fieldValue">"yourpass" | null</span>,
+  <span class="fieldName">"new_pass"</span>: <span class="fieldValue">"yourNewPass" | null</span>,
+  <span class="fieldName">"new_pass_confirm"</span>: <span class="fieldValue">"yourNewPass" | null</span>
+}</pre>
+                            Response Example 2:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"fname"</span>: <span class="fieldValue">"FirstName"</span>,
+  <span class="fieldName">"lname"</span>: <span class="fieldValue">"LastName"</span>
+}</pre>
                           </div>
                         </div>
                       </div>
@@ -192,7 +231,17 @@
                         </h2>
                         <div id="collapse8" class="accordion-collapse collapse" data-bs-parent="#collapseOne">
                           <div class="accordion-body">
-                            <!-- body content -->
+                            <h5 class="requestTitle">Deletes User Account.</h5>
+                            Request Body Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"token"</span>: <span class="fieldValue">"yourtoken"</span>,
+  <span class="fieldName">"pass_del"</span>: <span class="fieldValue">"yourpass"</span>,
+  <span class="fieldName">"pass_del_confirm"</span>: <span class="fieldValue">"yourpass"</span>
+}</pre>
+                            Response Example:
+                            <pre class="preStyle">
+{<span class="fieldName">"message"</span>: <span class="fieldValue">"Account successfully deleted."</span>}</pre>
                           </div>
                         </div>
                       </div>
@@ -210,12 +259,155 @@
                       <div class="accordion-item acc_item_style">
                         <h2 class="accordion-header">
                           <button class="accordion-button collapsed accordionBgColor_get" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDatasets1" aria-expanded="false" aria-controls="collapseDatasets1">
-                            <span class="http_request">GET</span><span class="http_request2">/server/php/api/get_datasets.php?token=user_token</span>
+                            <span class="http_request">GET</span><span class="http_request2">/server/php/api/get_datasets.php?token={token}</span>
                           </button>
                         </h2>
                         <div id="collapseDatasets1" class="accordion-collapse collapse" data-bs-parent="#collapseTwo">
                           <div class="accordion-body">
-                            <!-- body content -->
+                            <h5 class="requestTitle">Returns the uploaded Public and Private Datasets.</h5>
+                            Response Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"public_data"</span>: <span class="fieldValue">["iris.csv","telco_2023.csv"]</span>,
+  <span class="fieldName">"private_data"</span>: <span class="fieldValue">["greece_property_listings.csv","TIMESWorldUniversityRankings.csv"]</span>
+}</pre>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_post" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUpload" aria-expanded="false" aria-controls="collapseUpload">
+                            <span class="http_request">POST</span><span class="http_request2">/server/php/api/upload_dataset.php</span>
+                          </button>
+                        </h2>
+                        <div id="collapseUpload" class="accordion-collapse collapse" data-bs-parent="#collapseTwo">
+                          <div class="accordion-body">
+                            <h5 class="requestTitle">Uploads a .csv Dataset.</h5>
+                            Request Body Example:
+                            <pre class="preStyle">
+form-data:
+  <span class="fieldName">token</span>=<span class="fieldValue">"yourtoken"</span>
+  <span class="fieldName">folder</span>=<span class="fieldValue">"public | private"</span>
+  <span class="fieldName">file</span>=<span class="fieldValue">{Select File}</span></pre>
+                            Response Example:
+                            <pre class="preStyle">
+{<span class="fieldName">"message"</span>: <span class="fieldValue">"File successfully uploaded."</span>}</pre>  
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_get" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDatasets2" aria-expanded="false" aria-controls="collapseDatasets2">
+                            <span class="http_request">GET</span><span class="http_request2">/server/php/api/get_dataset_content.php?token={token}&folder={public|private}&file={file}</span>
+                          </button>
+                        </h2>
+                        <div id="collapseDatasets2" class="accordion-collapse collapse" data-bs-parent="#collapseTwo">
+                          <div class="accordion-body">
+                            <h5 class="requestTitle">Returns Dataset content, fields that can be used as Model Features and fields that can be used as Model Class.</h5>
+                            Response Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"csv_array"</span>: <span class="fieldValue">[["sepal.length","sepal.width","petal.length","petal.width","variety"],["5.1","3.5","1.4",".2","Setosa"],["4.9","3","1.4",".2","Setosa"]]</span>,
+  <span class="fieldName">"numerical_fields"</span>: <span class="fieldValue">["sepal.length","sepal.width","petal.length","petal.width"]</span>,
+  <span class="fieldName">"fields"</span>: <span class="fieldValue">["variety"]</span>
+}</pre>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_delete" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDatasets3" aria-expanded="false" aria-controls="collapseDatasets3">
+                            <span class="http_request">DELETE</span><span class="http_request2">/server/php/api/delete_dataset.php</span>
+                          </button>
+                        </h2>
+                        <div id="collapseDatasets3" class="accordion-collapse collapse" data-bs-parent="#collapseTwo">
+                          <div class="accordion-body">
+                            <h5 class="requestTitle">Deletes a Dataset.</h5>
+                            Request Body Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"token"</span>: <span class="fieldValue">"yourtoken"</span>,
+  <span class="fieldName">"folder"</span>: <span class="fieldValue">"public | private"</span>,
+  <span class="fieldName">"file"</span>: <span class="fieldValue">"file.csv"</span>
+}</pre>
+                            Response Example:
+                            <pre class="preStyle">
+{<span class="fieldName">"message"</span>: <span class="fieldValue">"File successfully deleted."</span>}</pre>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_get" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDatasets21" aria-expanded="false" aria-controls="collapseDatasets21">
+                            <span class="http_request">GET</span><span class="http_request2">/server/php/api/get_unclassified_datasets.php?token={token}</span>
+                          </button>
+                        </h2>
+                        <div id="collapseDatasets21" class="accordion-collapse collapse" data-bs-parent="#collapseTwo">
+                          <div class="accordion-body">
+                            <h5 class="requestTitle">Returns the uploaded Unclassified Datasets.</h5>
+                            Response Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"unclassified_data"</span>: <span class="fieldValue">["iris-test.csv","telco_2023-test.csv"]</span>
+}</pre>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_post" type="button" data-bs-toggle="collapse" data-bs-target="#collapseUpload2" aria-expanded="false" aria-controls="collapseUpload2">
+                            <span class="http_request">POST</span><span class="http_request2">/server/php/api/upload_unclassified_dataset.php</span>
+                          </button>
+                        </h2>
+                        <div id="collapseUpload2" class="accordion-collapse collapse" data-bs-parent="#collapseTwo">
+                          <div class="accordion-body">
+                            <h5 class="requestTitle">Uploads an Unclassified .csv Dataset.</h5>
+                            Request Body Example:
+                            <pre class="preStyle">
+form-data:
+  <span class="fieldName">token</span>=<span class="fieldValue">"yourtoken"</span>
+  <span class="fieldName">file</span>=<span class="fieldValue">{Select File}</span></pre>
+                            Response Example:
+                            <pre class="preStyle">
+{<span class="fieldName">"message"</span>: <span class="fieldValue">"File successfully uploaded."</span>}</pre>  
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_get" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDatasets22" aria-expanded="false" aria-controls="collapseDatasets22">
+                            <span class="http_request">GET</span><span class="http_request2">/server/php/api/get_unclassified_dataset_content.php?token={token}&file={file}</span>
+                          </button>
+                        </h2>
+                        <div id="collapseDatasets22" class="accordion-collapse collapse" data-bs-parent="#collapseTwo">
+                          <div class="accordion-body">
+                            <h5 class="requestTitle">Returns Unclassified Dataset content.</h5>
+                            Response Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"csv_array"</span>: <span class="fieldValue">[["sepal.length","sepal.width","petal.length","petal.width","variety"],["5.1","3.5","1.4",".2","Setosa"],["4.9","3","1.4",".2","Setosa"]]</span>
+}</pre>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_delete" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDatasets23" aria-expanded="false" aria-controls="collapseDatasets23">
+                            <span class="http_request">DELETE</span><span class="http_request2">/server/php/api/delete_unclassified_dataset.php</span>
+                          </button>
+                        </h2>
+                        <div id="collapseDatasets23" class="accordion-collapse collapse" data-bs-parent="#collapseTwo">
+                          <div class="accordion-body">
+                            <h5 class="requestTitle">Deletes an Unclassified Dataset.</h5>
+                            Request Body Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"token"</span>: <span class="fieldValue">"yourtoken"</span>,
+  <span class="fieldName">"file"</span>: <span class="fieldValue">"file.csv"</span>
+}</pre>
+                            Response Example:
+                            <pre class="preStyle">
+{<span class="fieldName">"message"</span>: <span class="fieldValue">"File successfully deleted."</span>}</pre>
                           </div>
                         </div>
                       </div>
@@ -230,7 +422,79 @@
                   </h2>
                   <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div class="accordion-body">
-                      <!-- body content -->
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_get" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModels" aria-expanded="false" aria-controls="collapseModels">
+                            <span class="http_request">GET</span><span class="http_request2">/server/php/api/get_models.php?token={token}</span>
+                          </button>
+                        </h2>
+                        <div id="collapseModels" class="accordion-collapse collapse" data-bs-parent="#collapseThree">
+                          <div class="accordion-body">
+                            <h5 class="requestTitle">Returns the Pretrained Models.</h5>
+                            Response Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"models_data"</span>: <span class="fieldValue">["iris_model.pkl","telco_model.pkl"]</span>
+}</pre>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_get" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModels2" aria-expanded="false" aria-controls="collapseModels2">
+                            <span class="http_request">GET</span><span class="http_request2">/server/php/api/get_model_content.php?token={token}&file={file}</span>
+                          </button>
+                        </h2>
+                        <div id="collapseModels2" class="accordion-collapse collapse" data-bs-parent="#collapseThree">
+                          <div class="accordion-body">
+                            <h5 class="requestTitle">Returns Model content.</h5>
+                            Response Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"columns"</span>: <span class="fieldValue">["sepal.length","sepal.width","petal.length","petal.width"]</span>,
+  <span class="fieldName">"class_name"</span>: <span class="fieldValue">"variety"</span>
+}</pre>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_delete" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModels3" aria-expanded="false" aria-controls="collapseModels3">
+                            <span class="http_request">DELETE</span><span class="http_request2">/server/php/api/delete_model.php</span>
+                          </button>
+                        </h2>
+                        <div id="collapseModels3" class="accordion-collapse collapse" data-bs-parent="#collapseThree">
+                          <div class="accordion-body">
+                            <h5 class="requestTitle">Deletes a Model.</h5>
+                            Request Body Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"token"</span>: <span class="fieldValue">"yourtoken"</span>,
+  <span class="fieldName">"file"</span>: <span class="fieldValue">"file.pkl"</span>
+}</pre>
+                            Response Example:
+                            <pre class="preStyle">
+{<span class="fieldName">"message"</span>: <span class="fieldValue">"File successfully deleted."</span>}</pre>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="accordion-item acc_item_style">
+                        <h2 class="accordion-header">
+                          <button class="accordion-button collapsed accordionBgColor_get" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModels4" aria-expanded="false" aria-controls="collapseModels4">
+                            <span class="http_request">GET</span><span class="http_request2">/server/php/api/visualize_tree.php?token={token}&file={file}</span>
+                          </button>
+                        </h2>
+                        <div id="collapseModels4" class="accordion-collapse collapse" data-bs-parent="#collapseThree">
+                          <div class="accordion-body">
+                            <h5 class="requestTitle">Returns the Decision Tree Visualization for the selected Model.</h5>
+                            Response Example:
+                            <pre class="preStyle">
+{
+  <span class="fieldName">"image"</span>: <span class="fieldValue">"http://localhost/autodtrees/server/example/iris_model_tree.png"</span>
+}</pre>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
