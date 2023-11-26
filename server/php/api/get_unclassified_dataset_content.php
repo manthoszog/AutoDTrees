@@ -43,13 +43,10 @@
 
     $countFields;
     $csv_array = array();
-    $count2 = array();
-    $csv_array2 = array();
     $row = 0;
     if(($open_file = fopen($file_path, "r")) !== FALSE){
         while(($row_data = fgetcsv($open_file, 2048, ",")) !== FALSE){
             $countFields = count($row_data);
-            array_push($count2,$countFields);
             for($i = 0; $i < $countFields; $i++){
                 $csv_array[$row][$i] = $row_data[$i];
             }
@@ -61,14 +58,8 @@
             print json_encode(['errormesg'=>"Please select a larger dataset."]);
             exit;
         }
-        $countFields = max($count2);
-        for($i3 = 0; $i3 <= 10; $i3++){
-            for($j3 = 0; $j3 < $countFields; $j3++){
-                $csv_array2[$i3][$j3] = $csv_array[$i3][$j3];
-            }
-        }
 
-        print json_encode(['csv_array'=>$csv_array2]);
+        print json_encode(['csv_array'=>$csv_array]);
     }
     else{
         header("HTTP/1.1 400 Bad Request");

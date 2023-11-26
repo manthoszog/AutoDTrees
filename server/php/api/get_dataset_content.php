@@ -73,7 +73,6 @@
     $fields = array();
     $csv_array = array();
     $count2 = array();
-    $csv_array2 = array();
     $row = 0;
     if(($open_file = fopen($file_path, "r")) !== FALSE){
         while(($row_data = fgetcsv($open_file, 2048, ",")) !== FALSE){
@@ -102,11 +101,6 @@
                 }
             }
         }
-        for($i3 = 0; $i3 <= 10; $i3++){
-            for($j3 = 0; $j3 < $countFields; $j3++){
-                $csv_array2[$i3][$j3] = $csv_array[$i3][$j3];
-            }
-        }
 
         for($j4 = 0; $j4 < $countFields; $j4++){
             $columns = array();
@@ -129,7 +123,7 @@
             }
         }
 
-        print json_encode(['csv_array'=>$csv_array2,'numerical_fields'=>$num_fields,'fields'=>$fields]);
+        print json_encode(['csv_array'=>$csv_array,'numerical_fields'=>$num_fields,'fields'=>$fields]);
     }
     else{
         header("HTTP/1.1 400 Bad Request");

@@ -69,7 +69,4 @@ data.append(columns)
 for i in range(len(rows)):
     data.append(rows[i])
 
-data2 = []
-for i in range(11):
-    data2.append(data[i])
-print(json.dumps({"dataset": data2, "acc": acc, "avg_pre": avg_pre, "avg_rec": avg_rec, "avg_fsc": avg_fsc, "pre_per_label": pre_per_label, "rec_per_label": rec_per_label, "fsc_per_label": fsc_per_label, "labels": labels}))
+print(json.dumps({"dataset": data, "acc": acc, "avg_pre": avg_pre, "avg_rec": avg_rec, "avg_fsc": avg_fsc, "pre_per_label": pre_per_label, "rec_per_label": rec_per_label, "fsc_per_label": fsc_per_label, "labels": labels}))

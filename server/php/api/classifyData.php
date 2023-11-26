@@ -165,7 +165,7 @@
             }
             if($found == 0){
                 header("HTTP/1.1 400 Bad Request");
-                print json_encode(['errormesg'=>"Model features should match unclassified dataset's features."]);
+                print json_encode(['errormesg'=>"Model features should match unclassified dataset features."]);
                 exit;
             }
         }

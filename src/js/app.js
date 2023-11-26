@@ -293,15 +293,13 @@ $(function(){
                 $.each(csv_array[0], function(index,val){
                     $("#data_table_head_tr").append($(`<th scope="col">${val}</th>`));
                 });
-                $.each(csv_array, function(index2,val2){
-                    if(index2 > 0){
-                        var tr_id = 'tr' + index2;
-                        $("#data_table_tbody").append($(`<tr id="${tr_id}"></tr>`));
-                        $.each(csv_array[index2], function(index3,val3){
-                            $(`#${tr_id}`).append($(`<td><div class="data_table_tbody_td">${val3}</div></td>`)); 
-                        });
-                    }
-                });
+                for(var i = 1; i <= 10; i++){
+                    var tr_id = 'tr' + i;
+                    $("#data_table_tbody").append($(`<tr id="${tr_id}"></tr>`));
+                    $.each(csv_array[i], function(index3,val3){
+                        $(`#${tr_id}`).append($(`<td><div class="data_table_tbody_td">${val3}</div></td>`)); 
+                    });
+                }
                 $('#loadingbtn_dataset').hide();
                 $('#table_div').show();
                 $('#checkSelectAll').html("");
