@@ -1,8 +1,8 @@
 <?php
 
     function getdomain(){
-        if(gethostname() == 'users.iee.ihu.gr'){
-            $d = 'https://users.iee.ihu.gr/~it185179/autodtrees';
+        if(gethostname() == 'nireas'){
+            $d = 'https://kclusterhub.iee.ihu.gr/autodtrees';
         }
         else{
             $d = 'http://localhost/autodtrees';

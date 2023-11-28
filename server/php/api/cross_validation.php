@@ -240,7 +240,7 @@
         $checkValImplode = implode(",",$checkVal);
         $results;
         try{
-            $results = shell_exec("python ../../py/dt_crossvalidation.py $file_path $checkValImplode $selected $max_depth $min_samples_leafInt $kFoldsInt");
+            $results = shell_exec("python3 ../../py/dt_crossvalidation.py $file_path $checkValImplode $selected $max_depth $min_samples_leafInt $kFoldsInt");
         }catch(Exception $e){
             header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for Cross-Validation. <br><br> Please check the possibility of missing values existence in given columns and try again."]);

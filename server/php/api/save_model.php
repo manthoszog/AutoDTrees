@@ -256,7 +256,7 @@
 
         $results;
         try{
-            $results = shell_exec("python ../../py/save_model.py $file_path $checkValImplode $selected $max_depth $min_samples_leafInt $model_path");
+            $results = shell_exec("python3 ../../py/save_model.py $file_path $checkValImplode $selected $max_depth $min_samples_leafInt $model_path");
         }catch(Exception $e){
             header("HTTP/1.1 400 Bad Request");
             print json_encode(['errormesg'=>"An error has occured while trying to run the Python module. <br><br> Please check the possibility of missing values existence in given columns and try again."]);

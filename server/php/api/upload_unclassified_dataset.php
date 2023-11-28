@@ -38,9 +38,9 @@
         exit;
     }
     
-    if($_FILES["file"]["size"] > 41943040){ 
+    if($_FILES["file"]["size"] > 10485760){ 
         header("HTTP/1.1 400 Bad Request");
-        print json_encode(['errormesg'=>"Max file size is 40 MB."]);
+        print json_encode(['errormesg'=>"Max file size is 10 MB."]);
         exit;
     }
     

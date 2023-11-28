@@ -62,7 +62,7 @@
 
     $results;
     try{
-        $results = shell_exec("python ../../py/visualize_tree.py $file_path $tree_path2");
+        $results = shell_exec("python3 ../../py/visualize_tree.py $file_path $tree_path2");
     }catch(Exception $e){
         header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"An error has occured while trying to run the Python module for tree visualization."]);

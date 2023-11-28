@@ -330,8 +330,8 @@ $(function(){
             return;
         }
 
-        if(file.size > 41943040){
-            alert_danger("Max file size is 40 MB.");
+        if(file.size > 10485760){
+            alert_danger("Max file size is 10 MB.");
             return;
         }
 

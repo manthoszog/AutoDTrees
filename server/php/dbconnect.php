@@ -1,19 +1,21 @@
 <?php
     require_once "db_upass.php";
 
-    $host = 'localhost';
-    $db = 'autodtrees_db';
+    $host = $REMOTE_HOST;
+    $db = $DB_SCHEMA;
 
     $user_local = $DB_USER_LOCAL;       //username for localhost
     $user_server = $DB_USER_SERVER;     //username for server
     $pass = $DB_PASS;                   
 
     mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-    if(gethostname()=='users.iee.ihu.gr') {
-        $mysqli = new mysqli($host, $user_server, $pass, $db,null,'/home/student/it/2018/it185179/mysql/run/mysql.sock');
+    if(gethostname()=='nireas') {
+        $mysqli = new mysqli($host, $user_server, $pass, $db);
     } 
     else {
+        $host = 'localhost';
         $pass=null;
+        $db = 'autodtrees_db';
         $mysqli = new mysqli($host, $user_local, $pass, $db);
     }
 
