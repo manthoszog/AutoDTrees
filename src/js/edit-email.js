@@ -76,6 +76,10 @@ $(function(){
         window.location.href = '../';
     });
 
+    $('#drop_width').click(function(event){
+        event.stopPropagation();
+    });
+
     var email;
     $('#confbtn2').click(function(){ 
         $('#alertPlaceholder').html("");

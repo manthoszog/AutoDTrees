@@ -18,4 +18,8 @@ $(function(){
         sessionStorage.clear();
         window.location.href = '../';
     });
+
+    $('#drop_width').click(function(event){
+        event.stopPropagation();
+    });
 });

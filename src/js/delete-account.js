@@ -48,6 +48,10 @@ $(function(){
         window.location.href = '../';
     });
 
+    $('#drop_width').click(function(event){
+        event.stopPropagation();
+    });
+
     var pass_del;
     var pass_del_confirm;
     $('#delbtn').click(function(){

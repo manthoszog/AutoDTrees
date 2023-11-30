@@ -18,6 +18,10 @@ $(function(){
         window.location.href = '../';
     });
 
+    $('#drop_width').click(function(event){
+        event.stopPropagation();
+    });
+
     $('#userToken').val(token);
 
     $('#copyToken').click(function(){

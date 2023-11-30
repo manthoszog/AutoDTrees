@@ -57,6 +57,10 @@ $(function(){
         window.location.href = '../';
     });
 
+    $('#drop_width').click(function(event){
+        event.stopPropagation();
+    });
+
     $('#confbtn1').click(function(){
         $('#alertPlaceholder').html("");
         var fname = $('#fname').val().trim();

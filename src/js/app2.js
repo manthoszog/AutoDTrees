@@ -57,6 +57,10 @@ $(function(){
         window.location.href = '../';
     });
 
+    $('#drop_width').click(function(event){
+        event.stopPropagation();
+    });
+
     var modal_key = $("#modal2");
     modal_key.on("keypress", function(event){
         if(event.key === "Enter"){
