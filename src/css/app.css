@@ -117,7 +117,13 @@ nav a.active{
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 3%;
+    margin-right: 3%;
     margin-top: 3%;
+}
+
+.form-bodyTop{
+    margin-top: 140px;
 }
 
 .container{
@@ -279,7 +285,6 @@ nav a.active{
 
 .table-style td{
     text-align: center;
-    font-weight: lighter;
 }
 
 .table-style th{
@@ -310,7 +315,14 @@ nav a.active{
 }
 
 #margin_div{
-    padding-top: 3%;
+    padding-top: 7vh;
+}
+
+@media(max-height: 580px) and (max-width: 992px){
+    #navbarSupportedContent{
+        overflow-y: auto;
+        height: 75vh;
+    }
 }
 
 .edit_checkbox{

@@ -154,14 +154,26 @@ nav a.active{
 }
 
 #margin_div{
-    padding-top: 3%;
+    padding-top: 7vh;
+}
+
+@media(max-height: 580px) and (max-width: 992px){
+    #navbarSupportedContent{
+        overflow-y: auto;
+        height: 75vh;
+    }
 }
 
 .form-body{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 3%;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+.form-bodyTop{
+    margin-top: 140px;
 }
 
 .container{

@@ -133,6 +133,13 @@ nav a.active{
     display: block;
 }
 
+@media(max-height: 580px) and (max-width: 992px){
+    #navbarSupportedContent{
+        overflow-y: auto;
+        height: 75vh;
+    }
+}
+
 .sectionStyle{
     height: 350px;
     margin-top: 95px;
@@ -188,7 +195,9 @@ nav a.active{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-top: 160px;
+    margin-top: 140px;
+    margin-left: 3%;
+    margin-right: 3%;
 }
 
 .container2{

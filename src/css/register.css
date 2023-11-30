@@ -22,6 +22,15 @@ body{
     max-width: 450px;
     background-color: #ffffff;
     box-shadow: 0 0 25px #ccc;
+    margin-left: 3%;
+    margin-right: 3%;
+}
+
+@media(max-height: 580px){
+    .container{
+        overflow-y: auto;
+        height: 90vh;
+    }
 }
 
 .container-inner{
