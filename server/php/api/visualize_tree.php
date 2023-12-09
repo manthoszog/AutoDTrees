@@ -45,10 +45,23 @@
     $name = substr($name,0,-4);
 
     $tree_path = "../../py/users/$hash_user/models/$name" . "_tree.png";
+    $tree_pathDot = "../../py/users/$hash_user/models/$name" . "_tree.dot";
 
     $paths = glob("../../py/users/$hash_user/models/*.png");
     if(count($paths) > 0){
         foreach($paths as $p){
+            $delete = unlink($p);
+            if(!$delete){
+                header("HTTP/1.1 400 Bad Request");
+                print json_encode(['errormesg'=>"An error has occured while trying to visualize tree."]);
+                exit;
+            }
+        }
+    }
+
+    $pathsDot = glob("../../py/users/$hash_user/models/*.dot");
+    if(count($pathsDot) > 0){
+        foreach($pathsDot as $p){
             $delete = unlink($p);
             if(!$delete){
                 header("HTTP/1.1 400 Bad Request");
@@ -75,12 +88,23 @@
         exit;
     }
 
-    if(!file_exists($tree_path)){
+    if(!file_exists($tree_pathDot)){
         header("HTTP/1.1 400 Bad Request");
         print json_encode(['errormesg'=>"An error has occured while trying to visualize tree."]);
         exit;
     }
-
+    try{
+        shell_exec("/var/www/html/webkmeans/kclusterhub/autodtrees/miniconda3/bin/dot -Tpng $tree_pathDot -o $tree_path");
+    }catch(Exception $e){
+        header("HTTP/1.1 400 Bad Request");
+        print json_encode(['errormesg'=>"An error has occured while rendering the tree."]);
+        exit;
+    }
+    if(!file_exists($tree_path)){
+        header("HTTP/1.1 400 Bad Request");
+        print json_encode(['errormesg'=>"An error has occured while rendering the tree."]);
+        exit;
+    }
     $domain = getdomain();
 
     $file2 = "$domain/server/py/users/$hash_user/models/$name" . "_tree.png";

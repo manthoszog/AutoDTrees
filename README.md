@@ -2,6 +2,8 @@
 
 AutoDTrees is a Web Application for Data Classification using the Decision Trees algorithm.
 
+Discover the app: [kclusterhub.iee.ihu.gr/autodtrees](https://kclusterhub.iee.ihu.gr/autodtrees/)
+
 ## About the Project
 
 The AutoDTrees app was developed by Matthaios Zografos, student at the [Department of Information and Electronic Engineering](https://www.iee.ihu.gr/en/) of the [International Hellenic University](https://www.ihu.gr/en/enhome) (formerly known as Information Engineering, A.T.E.I.THE.).
