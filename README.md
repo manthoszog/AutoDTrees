@@ -1,6 +1,6 @@
 # AutoDTrees app
 
-AutoDTrees is a Web Application for Data Classification using the Decision Trees algorithm.
+AutoDTrees is a Web Application for performing Decision Tree Classification.
 
 Discover the app: [kclusterhub.iee.ihu.gr/autodtrees](https://kclusterhub.iee.ihu.gr/autodtrees/)
 
